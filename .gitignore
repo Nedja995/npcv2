@@ -1,0 +1,6 @@
+/Debug/*.pdb
+/npcv/Debug/*.obj
+/npcv/Debug
+/npcv
+/*.sdf
+/*.sln
