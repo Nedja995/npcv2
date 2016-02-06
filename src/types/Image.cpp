@@ -34,7 +34,7 @@ namespace npcv {
 
 	unsigned char * Image::pixelAt_ptr(int x, int y)
 	{
-		unsigned char * pixel = nullptr;
+		unsigned char * pixel = 0;
 		int columnPosition = x * type;
 		int rowBeginPosition = width * type * y;
 		unsigned char* rowBegin = pixels + rowBeginPosition;
@@ -69,7 +69,7 @@ namespace npcv {
 
 	Image * Image::getSubImage(int x, int y, int width, int height)
 	{
-		return nullptr;
+		return 0;
 	}
 
 }

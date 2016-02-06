@@ -23,7 +23,7 @@ namespace npcv { namespace processing {
 
 	bool ProcessGray::divideImagePixels(Image * image, int intensity)
 	{
-		if (image == nullptr) {
+		if (image == 0) {
 			std::cerr << "npcv: ProcessGray::divideImagePixels: NULL image" << std::endl;
 			return false;
 		}
@@ -43,7 +43,7 @@ namespace npcv { namespace processing {
 
 	bool ProcessGray::divideImagePixels2(Image * image, int intensity)
 	{
-		if (image == nullptr) {
+		if (image == 0) {
 			std::cerr << "npcv: ProcessGray::divideImagePixels: NULL image" << std::endl;
 			return false;
 		}

@@ -13,7 +13,7 @@ namespace npcv {
 
 	char ** LogListenerDebug::GetMessages()
 	{
-		return nullptr;
+		return 0;
 	}
 
 	/*ostream &DebugStreamBuffer::operator<<(ostream &output,

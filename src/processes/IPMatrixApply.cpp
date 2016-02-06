@@ -6,7 +6,7 @@ namespace npcv {
 
 		IPMatrixApply::IPMatrixApply()
 		{
-			matrix = nullptr;
+			matrix = 0;
 			matrixSize = -1;
 		}
 
@@ -14,7 +14,7 @@ namespace npcv {
 		void IPMatrixApply::initialize()
 		{
 			IProcessImage::initialize();
-			if (matrix == nullptr) {
+			if (matrix == 0) {
 				std::cerr << "npcv: IPMatrixApply::initialize: missing matrix" << std::endl;
 				_initialized = false;
 			}
@@ -49,8 +49,8 @@ namespace npcv {
 			float bias = 0.0;
 
 			//temporals
-		    Pixel *pixel = nullptr; //curent center pixel
-			Pixel *pixelProc = nullptr; //curent pixel that is processing with filter
+		    Pixel *pixel = 0; //curent center pixel
+			Pixel *pixelProc = 0; //curent pixel that is processing with filter
 			for (int x = 0; x < image->width; x++) {
 				int a = 3;
 				for (int y = 0; y < image->height; y++)
