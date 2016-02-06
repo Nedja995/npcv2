@@ -7,6 +7,7 @@ namespace npcv {
 		class ImageStreamSTB : IImageSteam {
 		public:
 			ImageStreamSTB();
+			//virtual ~ImageStreamSTB() override;
 			// Inherited via IImageSteam
 			virtual Image * Load(const char * path) override;
 			virtual bool Save(Image * image, const char * path) override;

@@ -7,7 +7,8 @@ namespace npcv {
 
 	class IImageSteam {
 	public:
-		virtual ~IImageSteam() = 0 {};
+
+		//virtual ~IImageSteam() = 0;
 
 		virtual Image* Load(const char* path) = 0;
 

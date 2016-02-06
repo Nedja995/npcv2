@@ -1,6 +1,7 @@
 #include "npcv/processes/IPMatrixApply.h"
 #include "npcv/types/Image.h"
 #include <iostream>
+#include <algorithm>
 namespace npcv {
 	namespace processing {
 
@@ -71,9 +72,9 @@ namespace npcv {
 						}
 					}
 					pixel = image->pixelAt(x, y);
-					int r = std::fminf(std::fmaxf(int(factor * red + bias), 0), 255);
-					int g = std::fminf(std::fmaxf(int(factor * green + bias), 0), 255);
-					int b = std::fminf(std::fmaxf(int(factor * blue + bias), 0), 255);
+					int r = std::min(std::max(int(factor * red + bias), 0), 255);
+					int g = std::min(std::max(int(factor * green + bias), 0), 255);
+					int b = std::min(std::max(int(factor * blue + bias), 0), 255);
 					ret->pixelSet(x, y, r, g, b);
 					
 					//R(pixel) = std::fminf(std::fmaxf(int(factor * red + bias), 0), 255);

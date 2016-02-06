@@ -7,7 +7,7 @@ namespace npcv {
 
 	public:
 
-		virtual ~IProcess() = 0  {};
+		//virtual ~IProcess() = 0;
 
 		virtual void initialize() = 0;
 

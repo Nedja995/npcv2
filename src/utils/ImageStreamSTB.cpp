@@ -18,7 +18,9 @@ namespace npcv {
 
 		using namespace std;
 
-
+	//	mageStreamSTB::~ImageStreamSTB()
+	//	{
+	//	}
 
 		ImageStreamSTB::ImageStreamSTB()
 		{

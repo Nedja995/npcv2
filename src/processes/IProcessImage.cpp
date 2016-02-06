@@ -8,9 +8,7 @@ namespace npcv {
 		//using namespace types;
 
 
-		IProcessImage::~IProcessImage()
-		{
-		}
+		
 
 		void IProcessImage::initialize()
 		{

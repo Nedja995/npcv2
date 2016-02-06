@@ -14,12 +14,13 @@ namespace npcv {
 		virtual char** GetMessages() = 0;
 	};
 
-	extern class ILogListener;
+	//extern class ILogListener;
 	template <typename T>
 	ILogListener& operator<< (ILogListener &s, const T &x)
 	{
 		//format x as you please
-		std::string st << "ILogListener: " << x;
+		//std::string st("HA");
+		//st << "ILogListener: " << x;
 		return s;
 	}
 }

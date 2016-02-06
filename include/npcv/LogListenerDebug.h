@@ -11,7 +11,7 @@ namespace npcv {
 		// Inherited via ILogListener
 		virtual void Write(const char * message) override;
 		virtual char ** GetMessages() override;
-	};
+	}; 
 	
 	class DebugStream
 	{
@@ -22,7 +22,7 @@ namespace npcv {
 		
 	};
 
-	extern class DebugStream;
+	//extern class DebugStream;
 	template <typename T>
 	DebugStream& operator<< (DebugStream &s, const T &x)
 	 {

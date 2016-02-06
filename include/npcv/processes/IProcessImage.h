@@ -16,7 +16,7 @@ namespace npcv { namespace processing {
 		virtual void processImage() = 0;
 
 		// Inherited via IProcess
-		virtual ~IProcessImage() override;
+		//virtual ~IProcessImage() override;
 		virtual void initialize() override;
 		virtual bool isInitialized() override;
 		virtual void execute() override;
