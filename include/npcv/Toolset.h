@@ -1,8 +1,8 @@
 #ifndef __NPCV_TOOLSET__
 #define __NPCV_TOOLSET__
 
-#include "abs/LogListener.h"
-
+#include "npcv/abs/ILogListener.h"
+#include "npcv/abs/IImageStream.h"
 namespace npcv {
 
 	//void DebugLog(const char* message);
@@ -14,7 +14,8 @@ namespace npcv {
 		Toolset();
 		~Toolset();
 
-		LogListener* Log;
+		ILogListener* log;
+		IImageSteam* imageStream;
 
 	private:
 		static Toolset* _sharedInstance;

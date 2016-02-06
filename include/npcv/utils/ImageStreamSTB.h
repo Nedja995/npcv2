@@ -1,14 +1,16 @@
 #ifndef _UTILS_IMAGESTREAM_STB__
 #define _UTILS_IMAGESTREAM_STB__
-#include "npcv/abs/AbsImageStream.h"
+#include "../abs/IImageStream.h"
 namespace npcv {
 	namespace utils {
 
-		class ImageStreamSTB : AbsImageSteam {
-			// Inherited via AbsImageSteam
-			virtual AbsImage * Load(const char * path) override;
-			virtual bool Save(AbsImage * image, const char * path) override;
-			virtual void Free() override;
+		class ImageStreamSTB : IImageSteam {
+		public:
+			ImageStreamSTB();
+			// Inherited via IImageSteam
+			virtual Image * Load(const char * path) override;
+			virtual bool Save(Image * image, const char * path) override;
+			virtual void free() override;
 		};
 	}
 

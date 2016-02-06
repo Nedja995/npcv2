@@ -1,0 +1,202 @@
+
+#include "npcv/utils/ImageStreamSTB.h"
+#include "npcv/LogListenerDebug.h"
+#include "npcv/Toolset.h"
+#include "npcv/processes/ProcessGray.h"
+#include "npcv/processes/IPMatrixApply.h"
+#include "npcv/types/Image.h"
+#include <iostream>
+
+#include <iostream>
+#include <chrono>
+
+//#define STB_IMAGE_IMPLEMENTATION
+//#include "thirdparty/stb/stb_image.h"
+//#define STB_IMAGE_WRITE_IMPLEMENTATION
+//#include "thirdparty/stb/stb_image_write.h"
+
+using namespace std;
+using namespace npcv;
+using namespace processing;
+
+void printTime(double miliseconds) {
+	if (miliseconds < 1000) {
+		cout << "Time: " << miliseconds << " milisec" << endl;
+	}
+	else {
+		cout << "Time: " << miliseconds / 1000 << " sec" << endl;
+	}
+}
+
+int main(int argc, int *argv[])
+{
+	IImageSteam *is = Toolset::SharedInstance()->imageStream;
+	//Image * bmi = is->Load("D:\\Projects\\NPComputerVision\\npcv2\\samples\\data\\input\\photo3.bmp");
+	//stbi__context* con = new stbi__context();
+	//stbi__bmp_load()
+
+	//is->Save(bmi, "D:\\Projects\\NPComputerVision\\npcv2\\samples\\data\\output\\lena.jpg");
+
+	Image * img = Toolset::SharedInstance()->imageStream->Load("D:\\Projects\\NPComputerVision\\npcv2\\samples\\data\\input\\horsesnoise.png");
+
+	/* 
+	 * graying with divide pixel with 2 
+	 */
+	//make process
+	ProcessGray* grayProc = new ProcessGray(); 
+	//configure process
+	grayProc->setImage(img);				   
+	grayProc->setIntensity(2);
+	grayProc->initialize(); //initialize
+
+	double sum = 0;
+	//0
+	auto start = std::chrono::steady_clock::now();  //measure start
+	//grayProc->execute();							//execute process
+	auto end = std::chrono::steady_clock::now();	//measure end
+	auto diff = end - start;						//duration
+	double milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
+	sum += milisec;
+	cout << "ProcessGray: " << endl;				//function name
+	printTime(milisec);
+	//////1
+	//start = std::chrono::steady_clock::now();  //measure start	
+	//grayProc->execute();							//execute process
+	//end = std::chrono::steady_clock::now();	//measure end
+	//diff = end - start;						//duration
+	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
+	//sum += milisec;
+	//printTime(milisec);
+	////2
+	//start = std::chrono::steady_clock::now();  //measure start	
+	//grayProc->execute();							//execute process
+	//end = std::chrono::steady_clock::now();	//measure end
+	//diff = end - start;						//duration
+	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
+	//sum += milisec;
+	//printTime(milisec);
+	////3
+	//start = std::chrono::steady_clock::now();  //measure start	
+	//grayProc->execute();							//execute process
+	//end = std::chrono::steady_clock::now();	//measure end
+	//diff = end - start;						//duration
+	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
+	//sum += milisec;
+	//printTime(milisec);
+	////4
+	//start = std::chrono::steady_clock::now();  //measure start	
+	//grayProc->execute();							//execute process
+	//end = std::chrono::steady_clock::now();	//measure end
+	//diff = end - start;						//duration
+	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
+	//sum += milisec;
+	//printTime(milisec);
+	////5
+	//start = std::chrono::steady_clock::now();  //measure start	
+	//grayProc->execute();							//execute process
+	//end = std::chrono::steady_clock::now();	//measure end
+	//diff = end - start;						//duration
+	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
+	//sum += milisec;
+	//printTime(milisec);
+	////6
+	//start = std::chrono::steady_clock::now();  //measure start	
+	//grayProc->execute();							//execute process
+	//end = std::chrono::steady_clock::now();	//measure end
+	//diff = end - start;						//duration
+	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
+	//sum += milisec;
+	//printTime(milisec);
+	////7
+	//start = std::chrono::steady_clock::now();  //measure start	
+	//grayProc->execute();							//execute process
+	//end = std::chrono::steady_clock::now();	//measure end
+	//diff = end - start;						//duration
+	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
+	//sum += milisec;
+	//printTime(milisec);
+	////8
+	//start = std::chrono::steady_clock::now();  //measure start	
+	//grayProc->execute();							//execute process
+	//end = std::chrono::steady_clock::now();	//measure end
+	//diff = end - start;						//duration
+	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
+	//sum += milisec;
+	//printTime(milisec);
+	////9
+	//start = std::chrono::steady_clock::now();  //measure start	
+	//grayProc->execute();							//execute process
+	//end = std::chrono::steady_clock::now();	//measure end
+	//diff = end - start;						//duration
+	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
+	//sum += milisec;
+	//printTime(milisec);
+	////10
+	//start = std::chrono::steady_clock::now();  //measure start	
+	//grayProc->execute();							//execute process
+	//end = std::chrono::steady_clock::now();	//measure end
+	//diff = end - start;						//duration
+	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
+	//sum += milisec;
+	//printTime(milisec);
+
+
+	//sum /= 11;
+	//cout << endl << "Avarage: " << sum << " milis" <<  endl;
+
+	//free res and delete process
+	grayProc->free();
+	delete grayProc;
+
+
+	//DebugStream ob;
+	// initialize output stream with that output buffer
+	//std::ostream out(&ob);
+
+	//ob << "dfdsf";
+
+	//ostream oss();
+	//oss << "Fd";
+
+	//DebugStream mc;
+	//mc << "fdsfds" << "Fdsfsd";
+
+
+	/* 
+	 * Image apply matrix 
+	 */
+	//make process
+	IPMatrixApply* matrixProc = new IPMatrixApply();
+	//configure process
+	matrixProc->setImage(img);
+	int matrixSize = 5;
+
+	matrixProc->matrixSize = matrixSize;
+	float filter[25] =
+	{
+		0,  0,  0,  0,  0,
+		0,  0,  0,  0,  0,
+		-1, -1,  2,  0,  0,
+		0,  0,  0,  0,  0,
+		0,  0,  0,  0,  0,
+	};
+	matrixProc->matrix = &filter[25];
+
+	matrixProc->initialize(); //initialize
+
+	start = std::chrono::steady_clock::now();  //measure start
+	matrixProc->execute();							//execute process
+	end = std::chrono::steady_clock::now();	//measure end
+	diff = end - start;						//duration
+	milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
+	cout << "IPMatrixApply: " << endl;				//function name
+	printTime(milisec);
+	//free res and delete process
+	matrixProc->free();
+	delete matrixProc;
+
+	Toolset::SharedInstance()->imageStream->Save(img, "D:\\Projects\\NPComputerVision\\npcv2\\samples\\data\\output\\horsesnoise.png");
+	char in;
+	cin >> in;
+	return 0;
+}
