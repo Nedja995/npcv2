@@ -35,6 +35,10 @@ namespace npcv {
 	unsigned char * Image::pixelAt_ptr(int x, int y)
 	{
 		unsigned char * pixel = 0;
+		int pos = (x + y * width) * type;
+		pixel = pixels + pos;
+		return pixel;
+
 		int columnPosition = x * type;
 		int rowBeginPosition = width * type * y;
 		unsigned char* rowBegin = pixels + rowBeginPosition;
