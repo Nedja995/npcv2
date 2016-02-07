@@ -39,13 +39,13 @@ namespace npcv {
 			const int filterHeight = 3;
 			float filter[filterWidth][filterHeight] =
 			{
-				1, 1, 1,
-				1, 1, 1,
-				1, 1, 1
+				1,  1,  1,
+				1, -7,  1,
+				1,  1,  1
 			};
 
 			/* Multiply result with factor */
-			float factor = 1.0 / 9.0;
+			float factor = 1.0 ;
 			/* Make image brightnes */
 			float bias = 0.0;
 

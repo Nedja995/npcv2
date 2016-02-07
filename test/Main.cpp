@@ -37,7 +37,7 @@ int main(int argc, int *argv[])
 
 	//is->Save(bmi, "D:\\Projects\\NPComputerVision\\npcv2\\samples\\data\\output\\lena.jpg");
 
-	Image * img = Toolset::SharedInstance()->imageStream->Load("/home/ubuntudev/Desktop/Projects/npcv2/samples/data/input/horsesnoise.png");
+	Image * img = Toolset::SharedInstance()->imageStream->Load("D:\\Projects\\NPComputerVision\\npcv2\\samples\\data\\input\\photo3.bmp");
 
 	/* 
 	 * graying with divide pixel with 2 
@@ -180,7 +180,7 @@ int main(int argc, int *argv[])
 		0,  0,  0,  0,  0,
 		0,  0,  0,  0,  0,
 	};
-	matrixProc->matrix = &filter[25];
+	matrixProc->matrix = &filter[0];
 
 	matrixProc->initialize(); //initialize
 
@@ -195,7 +195,7 @@ int main(int argc, int *argv[])
 	matrixProc->free();
 	delete matrixProc;
 
-	Toolset::SharedInstance()->imageStream->Save(img, "/home/ubuntudev/Desktop/Projects/npcv2/samples/data/output/horsesnoise.png");
+	Toolset::SharedInstance()->imageStream->Save(img, "D:\\Projects\\NPComputerVision\\npcv2\\samples\\data\\output\\photo3.bmp");
 	char in;
 	cin >> in;
 	return 0;
