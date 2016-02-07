@@ -169,18 +169,18 @@ int main(int argc, int *argv[])
 	IPMatrixApply* matrixProc = new IPMatrixApply();
 	//configure process
 	matrixProc->setImage(img);
-	int matrixSize = 5;
+	int matrixSize = 3;
 
 	matrixProc->matrixSize = matrixSize;
-	float filter[25] =
+	float filter[9] =
 	{
-		0,  0,  0,  0,  0,
-		0,  0,  0,  0,  0,
-		-1, -1,  2,  0,  0,
-		0,  0,  0,  0,  0,
-		0,  0,  0,  0,  0,
+		1,  1,  1,
+		1, -7,  1,
+		1,  1,  1
 	};
 	matrixProc->matrix = &filter[0];
+	/*matrixProc->bias = ;
+	matrixProc->factor = ;*/
 
 	matrixProc->initialize(); //initialize
 

@@ -9,6 +9,10 @@ namespace npcv {
 
 			int matrixSize;
 			float *matrix;
+			/* Multiply result with factor */
+			float factor = 1.0;
+			/* Make image brightnes */
+			float bias = 0.0;
 
 			virtual void initialize() override;
 
@@ -16,7 +20,7 @@ namespace npcv {
 			virtual void processImage() override;
 
 		protected:
-			static bool matrixApply(Image* image);
+			bool matrixApply(Image* image);
 		};
 	}
 }

@@ -27,7 +27,7 @@ namespace npcv { namespace processing {
 			std::cerr << "npcv: ProcessGray::divideImagePixels: NULL image" << std::endl;
 			return false;
 		}
-		unsigned char* pixels = image->pixels;
+		uchar* pixels = image->pixels;
 		int pixelsMax = image->width * image->height * image->type;
 		for (int pxIndex = 0; pxIndex < pixelsMax; pxIndex += image->type)
 		{
@@ -47,7 +47,7 @@ namespace npcv { namespace processing {
 			std::cerr << "npcv: ProcessGray::divideImagePixels: NULL image" << std::endl;
 			return false;
 		}
-		unsigned char* pixels = image->pixels;
+		uchar* pixels = image->pixels;
 		int pixelsMax = image->width * image->height * image->type;
 		for (int pxIndex = 0; pxIndex < pixelsMax; pxIndex += image->type)
 		{

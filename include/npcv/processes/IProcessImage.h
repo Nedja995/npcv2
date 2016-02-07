@@ -22,6 +22,7 @@ namespace npcv { namespace processing {
 		virtual void execute() override;
 		virtual bool isProcessing() override;
 		virtual void free() override;
+
 	protected:
 		Image* _image;
 

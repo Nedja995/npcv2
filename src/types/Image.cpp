@@ -13,11 +13,11 @@ namespace npcv {
 		: width(width), height(height), type(type)
 	{
 		size_t memSize = sizeof(unsigned char) * width * height * type;
-		pixels = (unsigned char*)malloc(memSize);
+		pixels = (uchar*)malloc(memSize);
 		memset(pixels, 255, memSize);
 	}
 
-	Image::Image(unsigned char * data, int width, int height, PixelType type) 
+	Image::Image(uchar* data, int width, int height, PixelType type) 
 		: pixels(data), width(width), height(height), type(type)
 	{
 	}
@@ -32,16 +32,16 @@ namespace npcv {
 		return new Pixel(pixelAt_ptr(x, y), (PixelType)type);
 	}
 
-	unsigned char * Image::pixelAt_ptr(int x, int y)
+	uchar* Image::pixelAt_ptr(int x, int y)
 	{
-		unsigned char * pixel = 0;
+		uchar* pixel = 0;
 		int pos = (x + y * width) * type;
 		pixel = pixels + pos;
 		return pixel;
 
 		int columnPosition = x * type;
 		int rowBeginPosition = width * type * y;
-		unsigned char* rowBegin = pixels + rowBeginPosition;
+		uchar* rowBegin = pixels + rowBeginPosition;
 		pixel = rowBegin + columnPosition;
 		return pixel;
 	}
@@ -52,7 +52,7 @@ namespace npcv {
 			std::cerr << "npcv: Image::pixelSet: missing RGB components" << std::endl;
 			return;
 		}
-		unsigned char* pixel = pixelAt_ptr(x, y);
+		uchar* pixel = pixelAt_ptr(x, y);
 		*(pixel) = r;
 		*(pixel + 1) = g;
 		*(pixel + 2) = b;
@@ -63,9 +63,9 @@ namespace npcv {
 		pixelSet_ptr(x, y, value->firstComp);
 	}
 
-	void Image::pixelSet_ptr(int x, int y, unsigned char * firstComp)
+	void Image::pixelSet_ptr(int x, int y, uchar* firstComp)
 	{
-		unsigned char* pixel = pixelAt_ptr(x, y);
+		uchar* pixel = pixelAt_ptr(x, y);
 		for (int i = 0; i < type; i++) {
 			*(pixel + i) = *(firstComp + i);
 		}
