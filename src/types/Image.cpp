@@ -35,6 +35,7 @@ namespace npcv {
 	uchar* Image::pixelAt_ptr(int x, int y)
 	{
 		uchar* pixel = 0;
+		
 		int pos = (x + y * width) * type;
 		pixel = pixels + pos;
 		return pixel;

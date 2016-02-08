@@ -77,9 +77,16 @@ endif()
 # Samples project
 option(TESTAPP "Make npcv test" YES)
 
+# npcv GUI
+option(NpcvGUI "Make npcvGUI project" YES)
+#paths
+set(SFML_DIR "${CMAKE_SOURCE_DIR}/thirdparty/SFML-2.3.2/Win64" CACHE PATH "If downloading is disable this will be used. The path to the GooglTest cloned repository.")
+set(SFGUI_DIR "${CMAKE_SOURCE_DIR}/thirdparty/SFGUI-0.3.0/" CACHE PATH "If downloading is disable this will be used. The path to the GooglTest cloned repository.")
+
 # Google Tests
-option(GTEST "Add GTest to project" YES)
-option(GTEST_DOWNLOAD_GTEST_AND_GMOCK "Download GTest." YES)
+option(GTEST "Add GTest to project" NO)
+option(GTEST_DOWNLOAD_GTEST_AND_GMOCK "Download GTest." NO)
+#paths
 set(GTEST_DIR "${CMAKE_SOURCE_DIR}/test/gtest/gtest-1.7.0" CACHE PATH "If downloading is disable this will be used. The path to the GooglTest cloned repository.")
 set(GTEST_GMOCK_DIR "${CMAKE_SOURCE_DIR}/test/gtest/gmock-1.7.0" CACHE PATH "If downloading is disable this will be used. The path to the GooglMock cloned repository.")
 # This is understanding now
@@ -157,6 +164,11 @@ ADD_SUBDIRECTORY(src)
 # Samples project target
 if(TESTAPP)
 	add_subdirectory(test)
+endif()
+
+# NpcvGUI
+if(NpcvGUI)
+	add_subdirectory(src/npcvgui)
 endif()
 
 # GTest project targets
