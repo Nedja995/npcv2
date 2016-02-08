@@ -9,23 +9,51 @@
 #include "npcv/utils/ImageStreamSTB.h"
 #include "npcv/processes/IPMatrixApply.h"
 #include "npcv/Toolset.h"
-
+//#define STB_IMAGE_WRITE_IMPLEMENTATION
 //#define STB_IMAGE_IMPLEMENTATION
 #include "../thirdparty/include/thirdparty/stb/stb_image.h"
+#include "../thirdparty/include/thirdparty/stb/stb_image_write.h"
+
 #include "stdio.h"
 #include <Windows.h>
 #include <iostream>
 #include <fstream>
-void reverse(unsigned char* str)
+
+npcv::Image* img;
+npcv::processing::IPMatrixApply* matrixProc;
+int matrixSize = 3;
+float filter[9] =
 {
-	unsigned char* end = str + strlen(reinterpret_cast<char *>(str));
-	while (end > str) {
-		--end;
-		std::swap(*str, *end);
-		++str;
+	1,  1,  1,
+	1, -7,  1,
+	1,  1,  1
+};
+
+// Our sf::Image source
+sf::Image sfgui_logo;
+// Our sfg::Image
+std::shared_ptr<sfg::Image> image;
+
+extern unsigned char *stbi_write_png_to_mem(unsigned char *pixels, int stride_bytes, int x, int y, int n, int *out_len);
+// Create our adjustment smart pointer.
+sfg::Adjustment::Ptr m_adjustment;
+void AdjustmentChange() {
+	std::stringstream sstr;
+	sstr << m_adjustment->GetValue();
+//	matrixProc->bias = m_adjustment->GetValue() / 5;
+	matrixProc->execute();
+	int len;
+	unsigned char *imgFile = stbi_write_png_to_mem((unsigned char *)img->pixels, 0, img->width, img->height, img->type, &len);
+
+	/* Show image */
+
+	if (sfgui_logo.loadFromMemory(imgFile, len)) {
+		image->SetImage(sfgui_logo);
 	}
 }
-int main() {
+
+
+int main2() {
 	// Create the main SFML window
 	sf::RenderWindow app_window( sf::VideoMode( 800, 600 ), "SFGUI Image Example", sf::Style::Titlebar | sf::Style::Close );
 
@@ -39,120 +67,123 @@ int main() {
 	auto window = sfg::Window::Create();
 	window->SetTitle( "Title" );
 
-	// Our sf::Image source
-	sf::Image sfgui_logo;
+	/*
+	* SCROLLBAR
+	*/
+	// Create our box.
+	auto box = sfg::Box::Create(sfg::Box::Orientation::HORIZONTAL);
 
-	// Our sfg::Image
-	auto image = sfg::Image::Create();
+	// Create the scrollbar.
+	// We want a vertical scrollbar.
+	auto scrollbar = sfg::Scrollbar::Create(sfg::Scrollbar::Orientation::VERTICAL);
+
+	m_adjustment = scrollbar->GetAdjustment();
+
+	// Tune the adjustment parameters.
+	m_adjustment->SetLower(20.f);
+	m_adjustment->SetUpper(100.f);
+
+	// How much it should change when clicked on the stepper.
+	m_adjustment->SetMinorStep(3.f);
+
+	// How much it should change when clicked on the trough.
+	m_adjustment->SetMajorStep(12.f);
+	// Additionally you can connect to the OnChange signal of an adjustment
+	// to get notified when any of it's parameters are changed.
+	m_adjustment->GetSignal(sfg::Adjustment::OnChange).Connect(AdjustmentChange);
+
+	// Just as with the entry widget we set custom requisitions for our
+	// range widgets to make sure they don't look strange.
+
+	scrollbar->SetRequisition(sf::Vector2f(0.f, 80.f));
+
+	// To keep our scale's slider from expanding too much we use another box
+	// set to verticle orientation.
+	auto scalebox = sfg::Box::Create(sfg::Box::Orientation::VERTICAL);
+
+
+	// Pack into box
+	box->Pack(scalebox);
+	box->Pack(scrollbar);
+
+	// Set box spacing
+	box->SetSpacing(5.f);
+	// CAUTION:
+	// Normally you would only set the page size for scrollbar adjustments.
+	// For demonstration purposes we do this for our scale widget too.
+	// If page size isn't 0 a scale widget won't be able to be set to it's
+	// maximum value. This is in fact also true for scrollbars, however
+	// because they are used to scroll the page size must be subtracted from
+	// the maximum.
+	m_adjustment->SetPageSize(20.f);
+
+
+	// Additionally you can connect to the OnChange signal of an adjustment
+	// to get notified when any of it's parameters are changed.
+	m_adjustment->GetSignal(sfg::Adjustment::OnChange).Connect(AdjustmentChange);
+
+	// Just as with the entry widget we set custom requisitions for our
+	// range widgets to make sure they don't look strange.
+	scrollbar->SetRequisition(sf::Vector2f(0.f, 80.f));
+
+
+	// Pack into box
+	box->Pack(scalebox);
+	box->Pack(scrollbar);
+
+	// Set box spacing
+	box->SetSpacing(5.f);
+
+
+
+	sf::Clock clock;
+
+
+	image = sfg::Image::Create();
+
+
+
 
 	/* npcv */
 	npcv::IImageSteam* is = npcv::Toolset::SharedInstance()->imageStream;
-	npcv::Image* img = is->Load("D:\\Projects\\NPComputerVision\\npcv2\\samples\\data\\input\\pic4.png");
-
-
-
-	int width, height, type;
-	stbi_set_flip_vertically_on_load(-1);
-	//load image with stb
-	unsigned char* data = stbi_load("D:\\Projects\\NPComputerVision\\npcv2\\samples\\data\\input\\pic4.png", &width, &height, &type, 3 );
-	unsigned char *memo = (unsigned char *) malloc(sizeof(unsigned char) * width * height * 3);
-	memcpy(memo, data, sizeof(unsigned char) * width * height * 3);
-	int ch = 0;
-
-	//FILE* f = fopen(, "rb");
-
-	unsigned char *res_data, *splash_image;
-	DWORD res_size;
-	int components;
-	BITMAPV5HEADER bmh;
-	HBITMAP hBitmapRet;
-	FILE* f = fopen("D:\\Projects\\NPComputerVision\\npcv2\\samples\\data\\input\\pic4.png", "rb");
-
-	if (!f)
-		return NULL;
-
-	fseek(f, 0, SEEK_END);
-	res_size = ftell(f);
-	rewind(f);
-
-	res_data = new unsigned char[res_size];
-	fread(res_data, sizeof(unsigned char), res_size, f);
-	fclose(f);
-
-	splash_image = stbi_load_from_memory(res_data, res_size, &width, &height, &components, 0);
-
-
-	/* open file */
-	std::fstream fs;
-	fs.open("D:\\Projects\\NPComputerVision\\npcv2\\samples\\data\\input\\pic4.png", std::ios::in | std::ios::binary | std::ios::ate);
-	/* get size */
-	size_t size = 0;
-	fs.seekg(0, std::ios::end);
-	size = fs.tellg();
-	fs.seekg(0, std::ios::beg);
-	/* copy to buffer */
-	char *imgInMemory = new char[size];
-	char *header = new char[8];
-	fs.read(header, sizeof(char) * 8);
-	fs.seekg(0, std::ios::beg);
-	fs.read(imgInMemory, size);
-	memcpy(header, imgInMemory, sizeof(char) * 8);
-	//header[9] = '\n';
-	unsigned char* ptr = stbi_load_from_memory(reinterpret_cast<unsigned char*>(imgInMemory), size, &width, &height, &ch, STBI_rgb);
-
-	npcv::Image *imgg = new npcv::Image(ptr, width, height, npcv::PixelType::RGB);
-
+	img = is->Load("D:\\Projects\\npcv2\\samples\\data\\input\\lena.jpg");
 
 	/*
 	* Image apply matrix
 	*/
 	//make process
-	npcv::processing::IPMatrixApply* matrixProc = new npcv::processing::IPMatrixApply();
+	matrixProc = new npcv::processing::IPMatrixApply();
+	
 	//configure process
-	matrixProc->setImage(imgg);
-	int matrixSize = 3;
-
+	matrixProc->setImage(img);
 	matrixProc->matrixSize = matrixSize;
-	float filter[9] =
-	{
-		1,  1,  1,
-		1, -7,  1,
-		1,  1,  1
-	};
+
 	matrixProc->matrix = &filter[0];
 	/*matrixProc->bias = ;
 	matrixProc->factor = ;*/
 
-	matrixProc->initialize(); //initialize
-
-	matrixProc->execute();							//execute process
-
+	//initialize process
+	matrixProc->initialize(); 
+	//execute process
+	//matrixProc->execute();
 	//free res and delete process
-	matrixProc->free();
-	delete matrixProc;
-	reverse((unsigned char*)img->pixels);
-	memcpy(imgInMemory, img->pixels, sizeof(char) * 9);
-//	memcpy(imgInMemory, header,  8);
-//	memcpy(imgInMemory + 9, img->pixels, img->width * img->height * 3);
+	//matrixProc->free();
+	//delete matrixProc;
 
+	/* Load processed image to memory */
+	int len;
+	unsigned char *imgFile = stbi_write_png_to_mem((unsigned char *)img->pixels, 0, img->width, img->height, img->type, &len);
+	
+	/* Show image */
 
-	is->Save(imgg, "D:\\Projects\\NPComputerVision\\npcv2\\samples\\data\\output\\newImage.png");
-	if (data == 0) {
-		std::cerr << "cannot load image ";
-	}
-
-
-
-
-	// Try to load the image
-	if( sfgui_logo.loadFromFile("D:\\Projects\\NPComputerVision\\npcv2\\samples\\data\\input\\pic4.png")) {
-		//image->SetImage( sfgui_logo );
-	}
-	if (sfgui_logo.loadFromMemory(imgInMemory, size)) {
+	if (sfgui_logo.loadFromMemory(imgFile, len)) {
 		image->SetImage(sfgui_logo);
 	}
+	box->Pack(image);
+	// Add our box to the window
+	window->Add(box);
 	// Add the image to the window.
-	window->Add( image );
+	//window->Add( image );
 
 	// Start the game loop
 	while ( app_window.isOpen() ) {
