@@ -1,12 +1,15 @@
-#include "../include/controlls/ImageInspectorBox.h"
-
-
-
+//#include "../include/controlls/ImageInspectorBox.h"
+#include "../include/NpcvGUI.h"
+#include "npcv/Toolset.h"
+#include "../include/controlls/ImageBox.h"
 namespace npcvGui
 {
-	ImageInspectorBox::Ptr ImageInspectorBox::Create()
+
+
+	ImageInspectorBox::ImageInspectorBox(ImageBox* parentImageBox)
+		: _parentImageBox(parentImageBox)
 	{
-		return Ptr(new ImageInspectorBox());
+
 	}
 
 	ImageInspectorBox::~ImageInspectorBox()
@@ -38,6 +41,21 @@ namespace npcvGui
 		table->Attach(_heightLabel, sf::Rect<sf::Uint32>(1, 1, 1, 1));
 		frame->Add(table);
 		sgMainBox->Pack(frame);
+
+		// Listeners
+		loadButton->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&ImageInspectorBox::_onLoadClick, this));
+	}
+
+	void ImageInspectorBox::setParent(ImageBox* imageBox)
+	{
+		_parentImageBox = imageBox;
+	}
+
+	void ImageInspectorBox::_onLoadClick()
+	{
+		_parentImageBox->load(_inputEntry->GetText().toAnsiString().c_str());
+		
+		//npcvGui::NpcvGUI::Instance()->getResourceManager()
 	}
 
 }

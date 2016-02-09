@@ -3,6 +3,7 @@
 
 #include "npcv/abs/ILogListener.h"
 #include "npcv/abs/IImageStream.h"
+
 namespace npcv {
 
 	//void DebugLog(const char* message);
@@ -16,6 +17,7 @@ namespace npcv {
 
 		ILogListener* log;
 		IImageSteam* imageStream;
+
 
 	private:
 		static Toolset* _sharedInstance;

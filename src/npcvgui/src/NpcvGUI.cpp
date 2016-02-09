@@ -1,9 +1,12 @@
 #include "../include/NpcvGUI.h"
 #include "../include/controlls/ImageBox.h"
+#include "../include/npcv/utils/ImageStreamSTB.h"
+#include "../include/npcv/utils/ResourceManager.h"
 
 namespace npcvGui {
 	const unsigned int NpcvGUI::SCREEN_WIDTH = 800;
 	const unsigned int NpcvGUI::SCREEN_HEIGHT = 600;
+
 
 
 	NpcvGUI::NpcvGUI() :
@@ -11,10 +14,15 @@ namespace npcvGui {
 		m_window(sfg::Window::Create()),
 		m_count(0)
 	{
+		setResourceManager(new npcv::ResourceManager(std::string("D:\\Projects\\npcv2\\samples\\data")));
 	}
 
 	NpcvGUI::~NpcvGUI()
 	{
+	}
+
+	void NpcvGUI::_onResize() {
+		std::cout << "fdsf";
 	}
 
 	void NpcvGUI::Run() {
@@ -59,6 +67,10 @@ namespace npcvGui {
 				}
 			}
 
+			///////
+			auto rect = m_window->GetAllocation();
+			std::cout << rect.width << " " << std::endl;
+
 			m_desktop.Update(0.f);
 			render_window.clear();
 			m_sfgui.Display(render_window);
@@ -89,13 +101,22 @@ namespace npcvGui {
 		box->Pack(front_button, false);
 
 
-		auto npcvImageBox = ImageBox::Create();
+
+		auto npcvImageBox = new ImageBox();
+		npcv::utils::ImageStreamSTB tb;
+		
+		std::string lenaInput = getResourceManager()->getAbs("/input/lena.jpg");
+		auto npImage = tb.Load(lenaInput.c_str());
 		npcvImageBox->init();
+		npcvImageBox->load(npImage);
+	
 		window->Add(npcvImageBox->sgMainBox);
 		//window->Add(box);
 		m_desktop.Add(window);
 
 		// Signals.
+		box->GetSignal(sfg::Window::OnSizeAllocate).Connect(std::bind(&NpcvGUI::_onResize, this));
+		
 		destroy_button->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&NpcvGUI::OnDestroyWindowClick, this));
 		front_button->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&NpcvGUI::OnFrontClick, this));
 	}
@@ -115,5 +136,22 @@ namespace npcvGui {
 	void NpcvGUI::OnFrontClick() {
 		m_desktop.BringToFront(m_window);
 	}
+
+
+	void NpcvGUI::setResourceManager(npcv::ResourceManager * manager)
+	{
+		_resManager = manager;
+	}
+
+	npcv::ResourceManager* NpcvGUI::getResourceManager()
+	{
+		if (_resManager == 0) {
+			std::cerr << "npcvGui:NpcvGUI:getResourceManager: not set" << std::endl;
+			return 0;
+		}
+		return _resManager;
+	}
+
+
 }
 
