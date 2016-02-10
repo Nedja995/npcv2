@@ -29,6 +29,7 @@ namespace npcv {
 	{
 	public:
 		Image();
+		Image(Image* image);
 		Image(int width, int height, PixelType type);
 		Image(uchar* data, int width, int height, PixelType type);
 		~Image();
@@ -48,6 +49,7 @@ namespace npcv {
 
 		void pixelSet_ptr(int x, int y, uchar* firstComp);
 
+		bool loadFromMemory(unsigned char* fileMem, size_t bytes);
 
 		Image* getSubImage(int x, int y, int width, int height);
 	};

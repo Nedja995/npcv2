@@ -4,6 +4,10 @@
 #include "npcv/abs/IImageStream.h"
 #include <stdarg.h>
 
+#if _WIN64
+#include "npcv/ui/DialogFileSelectWindows.h"
+#endif
+
 namespace npcv {
 
 	using namespace utils;
@@ -27,6 +31,17 @@ namespace npcv {
 	Toolset::~Toolset()
 	{
 		delete log;
+	}
+
+	ui::IDialogFileSelect * Toolset::uiDialogFileselect()
+	{
+#if _WIN64
+		return new ui::DialogFileSelectWindows();
+#elif __linux__
+
+#endif
+
+		return 0;
 	}
 
 

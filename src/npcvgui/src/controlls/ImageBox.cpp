@@ -52,9 +52,11 @@ namespace npcvGui
 		sf::Image sfImage;
 		if (sfImage.loadFromMemory(imageInMemory, sizeBytes)) {
 			//sgImage = sfg::Image::Create(sfImage);
+			this->imageSizeBytes = sizeBytes;
+			imageFile = (unsigned char*) malloc(sizeBytes);
+			memcpy(imageFile, imageInMemory, sizeBytes);
 			sgResizableImage = sfg::ResizableImage::Create(sfImage);
-			sgResizableImage->Resize(100, 100);
-			sgImage->SetImage(sgResizableImage->GetResizedImage());
+			refresh();
 
 		}
 		else {
@@ -66,11 +68,14 @@ namespace npcvGui
 
 
 
-	bool ImageBox::reload()
+	bool ImageBox::refresh()
 	{
 		//first check memory for image to show
-		if (imageFile) {
-			// Load from memory
+		if (sgResizableImage->GetResizedImage().getPixelsPtr() != 0) {
+			sgImage->SetImage(sgResizableImage->GetResizedImage());
+		}
+		else if (sgResizableImage->GetImage().getPixelsPtr() != 0) {
+			sgImage->SetImage(sgResizableImage->GetImage());
 		}
 		else {
 			return false;
@@ -79,16 +84,45 @@ namespace npcvGui
 		return true;
 	}
 
-	void ImageBox::resize(float x, float y)
-	{
-	//	sgResizableImage->Resize(x, y);
-		sgImage->SetImage(sgResizableImage->GetResizedImage());
-	}
-
 	void ImageBox::_onResize()
 	{
 
 	}
+
+	npcv::Image * ImageBox::GetProcessedImageNp()
+	{
+		return nullptr;
+	}
+
+	sfg::Image::Ptr ImageBox::GetProcessedImageSfg()
+	{
+		return sfg::Image::Ptr();
+	}
+
+	npcv::Image * ImageBox::GetImageNp()
+	{
+		if (npImage != 0) {
+			return npImage;
+		}
+		
+		npImage = new npcv::Image();
+		npImage->loadFromMemory(imageFile, imageSizeBytes);
+		return npImage;
+	}
+
+	sfg::Image::Ptr ImageBox::GetImageSfg()
+	{
+		return sfg::Image::Ptr();
+	}
+
+	void ImageBox::resize(float x, float y)
+	{
+		int newWidth = sgResizableImage->GetImage().getSize().x * x;
+		int newHeight = sgResizableImage->GetImage().getSize().y * y;
+		sgResizableImage->Resize(newWidth, newHeight);
+		sgImage->SetImage(sgResizableImage->GetResizedImage());
+	}
+
 
 
 	void ImageBox::init()
@@ -100,18 +134,34 @@ namespace npcvGui
 		// Create widgets
 		sgMainBox = sfg::Box::Create(sfg::Box::Orientation::VERTICAL);
 		sgImage = sfg::Image::Create();
+		auto table = sfg::Table::Create();
+		auto m_scrolled_window_box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL);
+		auto scrolledwindow = sfg::ScrolledWindow::Create();
+		auto alignment = sfg::Alignment::Create();
+		auto alignment_box = sfg::Box::Create(sfg::Box::Orientation::HORIZONTAL);
 		
 		// Configure widgets
+		scrolledwindow->SetScrollbarPolicy(sfg::ScrolledWindow::HORIZONTAL_ALWAYS | sfg::ScrolledWindow::VERTICAL_AUTOMATIC);
+		scrolledwindow->AddWithViewport(m_scrolled_window_box);
+		scrolledwindow->SetRequisition(sf::Vector2f(500.f, 100.f));
+		alignment_box->Pack(alignment, true, true);
+		alignment->SetScale(sf::Vector2f(1.0f, .0f));
+		alignment->SetAlignment(sf::Vector2f(.1f, .1f));
+
 
 		// Pack widgets
-		sgMainBox->Pack(sgImage);
-		sgMainBox->Pack(_inspectorBox->sgMainBox);
-	
+		m_scrolled_window_box->Pack(sgImage);
+		alignment->Add(_inspectorBox->sgMainBox);
+		table->Attach(scrolledwindow, sf::Rect<sf::Uint32>(0, 0, 4, 4));
+		table->Attach(alignment, sf::Rect<sf::Uint32>(0, 4, 4, 1));
+		sgMainBox->Pack(table);
+
 		// Configure listeners
 		sgMainBox->GetSignal( sfg::Widget::OnStateChange).Connect(std::bind(&ImageBox::_onResize, this));
 	
 	}
 	ImageBox::ImageBox()
+		: npImage(0)
 	{
 	}
 }

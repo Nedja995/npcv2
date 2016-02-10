@@ -3,6 +3,8 @@
 #include "../include/npcv/utils/ImageStreamSTB.h"
 #include "../include/npcv/utils/ResourceManager.h"
 
+#include "../include/controlls/WinMatrixFilter.h"
+
 namespace npcvGui {
 	const unsigned int NpcvGUI::SCREEN_WIDTH = 800;
 	const unsigned int NpcvGUI::SCREEN_HEIGHT = 600;
@@ -68,8 +70,8 @@ namespace npcvGui {
 			}
 
 			///////
-			auto rect = m_window->GetAllocation();
-			std::cout << rect.width << " " << std::endl;
+			//auto rect = m_window->GetAllocation();
+			//std::cout << rect.width << " " << std::endl;
 
 			m_desktop.Update(0.f);
 			render_window.clear();
@@ -109,7 +111,7 @@ namespace npcvGui {
 		auto npImage = tb.Load(lenaInput.c_str());
 		npcvImageBox->init();
 		npcvImageBox->load(npImage);
-	
+		
 		window->Add(npcvImageBox->sgMainBox);
 		//window->Add(box);
 		m_desktop.Add(window);

@@ -3,6 +3,7 @@
 #include "npcv/utils/ResourceManager.h"
 #include "../include/controlls/ResizableImage.h"
 
+#include "IImageGUI.h"
 #include "ImageInspectorBox.h"
 #include <SFGUI/SFGUI.hpp>
 #include <SFGUI/Widgets.hpp>
@@ -10,7 +11,7 @@
 namespace npcvGui
 {
 	class ImageInspectorBox;
-	class ImageBox
+	class ImageBox : public IImageGUI
 	{
 	public:
 		void init();
@@ -25,13 +26,16 @@ namespace npcvGui
 
 		size_t imageSizeBytes;
 
-		bool load(const char* imagePath);
-		bool load(npcv::Image* npImage);
-		bool load(unsigned char* imageFile, size_t sizeBytes);
-		
-		bool reload();
 
-		void resize(float x, float y);
+
+		//void resize(float x, float y);
+		// Inherited via IImageGUI
+		virtual bool load(const char * imagePath) override;
+		virtual bool load(npcv::Image * npImage) override;
+		virtual bool load(unsigned char * imageFile, size_t sizeBytes) override;
+		virtual void resize(float x, float y) override;
+		virtual bool refresh() override;
+
 
 	protected:
 		npcv::Image* npImage;
@@ -46,32 +50,12 @@ namespace npcvGui
 		// Image Inspector
 		npcvGui::ImageInspectorBox* _inspectorBox;
 
+		// Inherited via IImageGUI
+		virtual npcv::Image * GetProcessedImageNp() override;
+		virtual sfg::Image::Ptr GetProcessedImageSfg() override;
+		virtual npcv::Image * GetImageNp() override;
+		virtual sfg::Image::Ptr GetImageSfg() override;
 	};
 
-	class ImageInspectorBox
-	{
-	public:
-		/*typedef std::shared_ptr<ImageInspectorBox> Ptr;
-		static Ptr Create();*/
-		ImageInspectorBox(npcvGui::ImageBox* parentImageBox);
-		~ImageInspectorBox();
-
-		sfg::Box::Ptr sgMainBox;
-
-		void init();
-
-		void setParent(npcvGui::ImageBox* imageBox);
-
-	protected:
-		void _onLoadClick();
-
-
-
-		npcvGui::ImageBox* _parentImageBox;
-		sfg::Entry::Ptr _inputEntry;
-		sfg::Label::Ptr _widthLabel;
-		sfg::Label::Ptr _heightLabel;
-
-	};
 
 }

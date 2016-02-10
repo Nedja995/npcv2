@@ -3,6 +3,7 @@
 
 #include "npcv/abs/ILogListener.h"
 #include "npcv/abs/IImageStream.h"
+#include "npcv/abs/IDialogFileSelect.h"
 
 namespace npcv {
 
@@ -17,6 +18,8 @@ namespace npcv {
 
 		ILogListener* log;
 		IImageSteam* imageStream;
+
+		ui::IDialogFileSelect* uiDialogFileselect();
 
 
 	private:

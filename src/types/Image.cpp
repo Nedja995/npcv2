@@ -2,10 +2,18 @@
 #include <iostream>
 #include <malloc.h>
 #include <string.h>
+
+#include "thirdparty/stb/stb_image.h"
+
 namespace npcv {
 
 
 	Image::Image()
+	{
+	}
+
+	Image::Image(Image * image)
+		: Image(image->pixels, image->width, image->height, image->type)
 	{
 	}
 
@@ -70,6 +78,21 @@ namespace npcv {
 		for (int i = 0; i < type; i++) {
 			*(pixel + i) = *(firstComp + i);
 		}
+	}
+
+	bool Image::loadFromMemory(unsigned char * fileMem, size_t bytes)
+	{
+		int w, h, t;
+		unsigned char* imageData = stbi_load_from_memory(fileMem, bytes, &w, &h, &t, 0);
+		if (imageData != 0) {
+			this->pixels = imageData;
+			this->width = w;
+			this->height = h;
+			this->type = (PixelType)t;
+
+			return true;
+		}
+		return false;
 	}
 
 	Image * Image::getSubImage(int x, int y, int width, int height)
