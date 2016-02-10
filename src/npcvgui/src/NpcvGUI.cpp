@@ -1,9 +1,9 @@
-#include "../include/NpcvGUI.h"
-#include "../include/controlls/ImageBox.h"
-#include "../include/npcv/utils/ImageStreamSTB.h"
-#include "../include/npcv/utils/ResourceManager.h"
+#include "NpcvGUI.h"
+#include "widgets/ImageBox.h"
+#include "npcv/utils/ImageStreamSTB.h"
+#include "npcv/utils/ResourceManager.h"
 
-#include "../include/controlls/WinMatrixFilter.h"
+#include "widgets/WinMatrixFilter.h"
 
 namespace npcvGui {
 	const unsigned int NpcvGUI::SCREEN_WIDTH = 800;

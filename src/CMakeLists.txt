@@ -7,10 +7,11 @@
 # npcv base
 SET (npcvbase_headers
 	${NPCV_INCLUDE_DIR}/Config.h
-	${NPCV_INCLUDE_DIR}/utils/ImageStreamSTB.h
+
 	${NPCV_INCLUDE_DIR}/LogListenerDebug.h
 	${NPCV_INCLUDE_DIR}/Toolset.h
 	${NPCV_INCLUDE_DIR}/appinfo.h
+	${NPCV_INCLUDE_DIR}/Application.h
 )
 # processes
 SET (processes_headers
@@ -24,7 +25,7 @@ SET (abs_headers
 	${NPCV_INCLUDE_DIR}/abs/IImageStream.h
 	${NPCV_INCLUDE_DIR}/abs/ILogListener.h
 	${NPCV_INCLUDE_DIR}/abs/IProcess.h
-#	${NPCV_INCLUDE_DIR}/abs/
+	${NPCV_INCLUDE_DIR}/abs/IDialogFileSelect.h
 )
 # types
 SET (types_headers
@@ -35,7 +36,12 @@ SET (types_headers
 SET (utils_headers
 	${NPCV_INCLUDE_DIR}/utils/Profiler.h
 	${NPCV_INCLUDE_DIR}/utils/ImageStreamSTB.h
+	${NPCV_INCLUDE_DIR}/utils/ResourceManager.h
 #	${NPCV_INCLUDE_DIR}/utils/
+)
+# ui
+SET (ui_headers
+	${NPCV_INCLUDE_DIR}/ui/DialogFileSelectWindows.h
 )
 
 SET (npcv_headers 
@@ -44,12 +50,14 @@ SET (npcv_headers
 	${processes_headers}
 	${types_headers}
 	${utils_headers}
+	${ui_headers}
 )
 
 SOURCE_GROUP("Header Files\\abs" FILES ${abs_headers})
 SOURCE_GROUP("Header Files\\types" FILES ${types_headers})
 SOURCE_GROUP("Header Files\\processes" FILES ${processes_headers})
 SOURCE_GROUP("Header Files\\utils" FILES ${utils_headers})
+SOURCE_GROUP("Header Files\\ui" FILES ${ui_headers})
 	
 	
 #
@@ -62,6 +70,7 @@ SET (npcvbase_source
 	${NPCV_SRC_DIR}/Log.cpp
 	${NPCV_SRC_DIR}/LogListenerDebug.cpp
 	${NPCV_SRC_DIR}/Toolset.cpp
+	${NPCV_SRC_DIR}/Application.cpp
 )
 # processes
 SET (processes_source
@@ -74,10 +83,15 @@ SET (types_source
 	${NPCV_SRC_DIR}/types/Image.cpp
 #	${NPCV_SRC_DIR}/types/
 )
+# ui
+SET (ui_source
+	${NPCV_SRC_DIR}/ui/DialogFileSelectWindows.cpp
+)
 # utils
 SET (utils_source
 	${NPCV_SRC_DIR}/utils/Profiler.cpp
 	${NPCV_SRC_DIR}/utils/ImageStreamSTB.cpp
+	${NPCV_SRC_DIR}/utils/ResourceManager.cpp
 #	${NPCV_INCLUDE_DIR}/utils/
 )
 
@@ -86,12 +100,13 @@ SET (npcv_source
 	${processes_source}
 	${types_source}
 	${utils_source}
+	${ui_source}
 )
 
 SOURCE_GROUP("Source Files\\types" FILES ${types_source})
 SOURCE_GROUP("Source Files\\processes" FILES ${processes_source})
 SOURCE_GROUP("Source Files\\utils" FILES ${utils_source})	
-	
+SOURCE_GROUP("Source Files\\ui" FILES ${ui_source})	
 	
 #SET (project_LIBS ${Boost_LIBRARIES} ${QT_LIBRARIES} ${Log4Cxx_LIBRARIES})
 

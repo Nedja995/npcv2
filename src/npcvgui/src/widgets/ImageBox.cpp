@@ -1,4 +1,4 @@
-#include "../include/controlls/ImageBox.h"
+#include "widgets/ImageBox.h"
 #include "npcv/utils/ImageStreamSTB.h"
 #include "../thirdparty/include/thirdparty/stb/stb_image.h"
 #include "../thirdparty/include/thirdparty/stb/stb_image_write.h"

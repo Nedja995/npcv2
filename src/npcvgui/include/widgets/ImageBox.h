@@ -1,8 +1,8 @@
 #pragma once
 #include "npcv/types/Image.h"
 #include "npcv/utils/ResourceManager.h"
-#include "../include/controlls/ResizableImage.h"
-
+#include "widgets/ImageBox.h"
+#include "../widgets/ResizableImage.h"
 #include "IImageGUI.h"
 #include "ImageInspectorBox.h"
 #include <SFGUI/SFGUI.hpp>

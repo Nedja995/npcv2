@@ -1,7 +1,7 @@
-//#include "../include/controlls/ImageInspectorBox.h"
-#include "../include/NpcvGUI.h"
+//#include "widgets/ImageInspectorBox.h"
+#include "NpcvGUI.h"
 #include "npcv/Toolset.h"
-#include "../include/controlls/ImageBox.h"
+#include "widgets/ImageBox.h"
 
 #include "npcv/abs/IDialogFileSelect.h"
 
