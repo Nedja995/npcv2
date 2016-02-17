@@ -49,111 +49,112 @@ namespace npcv
 		HANDLE hPipe = INVALID_HANDLE_VALUE;
 		DWORD dwError = ERROR_SUCCESS;
 
-		// Try to open the named pipe identified by the pipe name.
-		while (TRUE)
-		{
-			hPipe = CreateFile(
-				_fullPipeName.c_str(),          // Pipe name 
-				GENERIC_READ | GENERIC_WRITE,   // Read and write access
-				0,                              // No sharing 
-				NULL,                           // Default security attributes
-				OPEN_EXISTING,                  // Opens existing pipe
-				0,                              // Default attributes
-				NULL                            // No template file
-				);
 
-			// If the pipe handle is opened successfully ...
-			if (hPipe != INVALID_HANDLE_VALUE)
+
+
+		while (true) {
+
+
+			// Wait for connection to server
+			while (true)
 			{
-				std::cout << L"The named pipe " << _fullPipeName << " is connected.";
-				break;
-			}
+				hPipe = CreateFile(
+					_fullPipeName.c_str(),          // Pipe name 
+					GENERIC_READ | GENERIC_WRITE,   // Read and write access
+					0,                              // No sharing 
+					NULL,                           // Default security attributes
+					OPEN_EXISTING,                  // Opens existing pipe
+					0,                              // Default attributes
+					NULL                            // No template file
+					);
 
-			dwError = GetLastError();
+				// If pipe opened - break while
+				if (hPipe != INVALID_HANDLE_VALUE)
+				{
+					std::cout << "npcv: The named pipe " << _fullPipeName << " is connected.";
+					break;
+				}
+				//get errror
+				dwError = GetLastError();
 
-			// Exit if an error other than ERROR_PIPE_BUSY occurs.
-			if (ERROR_PIPE_BUSY != dwError)
-			{
-				std::cerr << "Unable to open named pipe w/err " << dwError;
-				__cleanUp(hPipe);
-			}
+				// Errors that is not ERROR_PIPE_BUSY
+				if (ERROR_PIPE_BUSY != dwError)
+				{
+					//	std::cerr << "npcv:ImageStreamNP: Unable to open named pipe w/err " << dwError;
+					__cleanUp(hPipe);
+				}
 
-			// All pipe instances are busy, so wait for 5 seconds.
-			if (!WaitNamedPipe(_fullPipeName.c_str(), 5000))
+				// All pipe instances are busy, so wait for 5 seconds.
+				if (!WaitNamedPipe(_fullPipeName.c_str(), 5000))
+				{
+					dwError = GetLastError();
+					//	std::cerr << "npcv:ImageStreamNP: Could not open pipe. 5 second wait timed out.";
+					__cleanUp(hPipe);
+				}
+			} //End while
+
+
+
+			// 
+			// Send a request from client(this) to server
+			// 
+			//load image with stb
+			int width, height, type;
+			unsigned char* data = stbi_load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\photo3.bmp", &width, &height, &type, 3);
+			int len;
+			unsigned char *png = stbi_write_png_to_mem((unsigned char *)data, 0, width, height, type, &len);
+
+
+
+			DWORD bytesCountWritten;
+
+			if (!WriteFile(
+				hPipe,              // Handle of the pipe
+				png,                // Message to be written
+				len,                // Number of bytes to write
+				&bytesCountWritten,      // Number of bytes written
+				NULL))				// Not overlapped
 			{
 				dwError = GetLastError();
-				std::cerr << "Could not open pipe: 5 second wait timed out.";
+				std::cerr << "npcv:ImageStreamNP: WriteFile to pipe failed w/err" << dwError;
 				__cleanUp(hPipe);
 			}
-		}
 
+			std::cout << "Send " << bytesCountWritten << " bytes " << std::endl;
 
+			//
+			// Receive a response from server.
+			// 
+			BOOL fFinishRead = FALSE;
+			do {
+				wchar_t charsRecived[_bufferSize];
+				DWORD bytesCountRecived, bytesCountReaded;
+				bytesCountRecived = sizeof(charsRecived);
 
-		// 
-		// Send a request from client to server
-		// 
-		std::wstring wsTemp(_requestMessage.begin(), _requestMessage.end());
-		const wchar_t* chRequest = wsTemp.c_str();
+				fFinishRead = ReadFile(
+					hPipe,                  // Handle of the pipe
+					charsRecived,           // Buffer to receive the reply
+					bytesCountRecived,      // Size of buffer in bytes
+					&bytesCountReaded,		// Number of bytes read 
+					NULL                    // Not overlapped 
+					);
 
-		int width, height, type;
+				if (!fFinishRead && ERROR_MORE_DATA != GetLastError())
+				{
+					dwError = GetLastError();
+					std::cout << "ReadFile from pipe failed w/err " << dwError << std::endl;
+					__cleanUp(hPipe);
+				}
 
-		//load image with stb
-		unsigned char* data = stbi_load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\photo3.bmp", &width, &height, &type, 3);
-		int len;
-		unsigned char *png = stbi_write_png_to_mem((unsigned char *)data, 0, width, height, type, &len);
+				std::wstring wstr(charsRecived);
+				std::string recivedStr(wstr.begin(), wstr.end());
 
+				std::cout << "Receive " << bytesCountReaded << " bytes from server: " << recivedStr << std::endl;
 
+			} while (!fFinishRead); // Repeat loop if ERROR_MORE_DATA
 
-		DWORD cbRequest, cbWritten;
-		cbRequest = sizeof(chRequest);
-
-		if (!WriteFile(
-			hPipe,                      // Handle of the pipe
-			png,                  // Message to be written
-			len,                  // Number of bytes to write
-			&cbWritten,                 // Number of bytes written
-			NULL                        // Not overlapped
-			))
-		{
-			dwError = GetLastError();
-			wprintf(L"WriteFile to pipe failed w/err 0x%08lx\n", dwError);
 			__cleanUp(hPipe);
 		}
-
-		wprintf(L"Send %ld bytes to server: \"%s\"\n", cbWritten, chRequest);
-
-		//
-		// Receive a response from server.
-		// 
-
-		BOOL fFinishRead = FALSE;
-		do
-		{
-			wchar_t chResponse[_bufferSize];
-			DWORD cbResponse, cbRead;
-			cbResponse = sizeof(chResponse);
-
-			fFinishRead = ReadFile(
-				hPipe,                  // Handle of the pipe
-				chResponse,             // Buffer to receive the reply
-				cbResponse,             // Size of buffer in bytes
-				&cbRead,                // Number of bytes read 
-				NULL                    // Not overlapped 
-				);
-
-			if (!fFinishRead && ERROR_MORE_DATA != GetLastError())
-			{
-				dwError = GetLastError();
-				wprintf(L"ReadFile from pipe failed w/err 0x%08lx\n", dwError);
-				__cleanUp(hPipe);
-			}
-
-			wprintf(L"Receive %ld bytes from server: \"%s\"\n", cbRead, chResponse);
-
-		} while (!fFinishRead); // Repeat loop if ERROR_MORE_DATA
-
-		__cleanUp(hPipe);
-
 		return dwError;
 	}
 
