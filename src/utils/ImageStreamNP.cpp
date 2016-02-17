@@ -1,6 +1,12 @@
 #include "npcv/utils/ImageStreamNP.h"
 #include <windows.h>
 #include <iostream>
+
+#include "thirdparty/stb/stb_image.h"
+#include "thirdparty/stb/stb_image_write.h"
+
+extern unsigned char *stbi_write_png_to_mem(unsigned char *pixels, int stride_bytes, int x, int y, int n, int *out_len);
+
 namespace npcv
 {
 	ImageStreamNP * ImageStreamNP::Create()
@@ -36,6 +42,7 @@ namespace npcv
 			hPipe = INVALID_HANDLE_VALUE;
 		}
 	}
+
 
 	unsigned long ImageStreamNP::_openWinNamedPipe()
 	{
@@ -87,13 +94,23 @@ namespace npcv
 		// 
 		std::wstring wsTemp(_requestMessage.begin(), _requestMessage.end());
 		const wchar_t* chRequest = wsTemp.c_str();
+
+		int width, height, type;
+
+		//load image with stb
+		unsigned char* data = stbi_load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\photo3.bmp", &width, &height, &type, 3);
+		int len;
+		unsigned char *png = stbi_write_png_to_mem((unsigned char *)data, 0, width, height, type, &len);
+
+
+
 		DWORD cbRequest, cbWritten;
 		cbRequest = sizeof(chRequest);
 
 		if (!WriteFile(
 			hPipe,                      // Handle of the pipe
-			chRequest,                  // Message to be written
-			cbRequest,                  // Number of bytes to write
+			png,                  // Message to be written
+			len,                  // Number of bytes to write
 			&cbWritten,                 // Number of bytes written
 			NULL                        // Not overlapped
 			))
