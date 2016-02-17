@@ -1,7 +1,5 @@
 #pragma once
 
-
-
 #define R(pixel) *(pixel->firstComp )
 #define G(pixel) *(pixel->firstComp + 1)
 #define B(pixel) *(pixel->firstComp + 2)

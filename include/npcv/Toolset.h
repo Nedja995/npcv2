@@ -17,7 +17,7 @@ namespace npcv {
 		~Toolset();
 
 		ILogListener* log;
-		IImageSteam* imageStream;
+		IImageStream* imageStream;
 
 		ui::IDialogFileSelect* uiDialogFileselect();
 

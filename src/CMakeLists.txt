@@ -36,6 +36,7 @@ SET (types_headers
 SET (utils_headers
 	${NPCV_INCLUDE_DIR}/utils/Profiler.h
 	${NPCV_INCLUDE_DIR}/utils/ImageStreamSTB.h
+	${NPCV_INCLUDE_DIR}/utils/ImageStreamNP.h
 	${NPCV_INCLUDE_DIR}/utils/ResourceManager.h
 #	${NPCV_INCLUDE_DIR}/utils/
 )
@@ -91,6 +92,7 @@ SET (ui_source
 SET (utils_source
 	${NPCV_SRC_DIR}/utils/Profiler.cpp
 	${NPCV_SRC_DIR}/utils/ImageStreamSTB.cpp
+	${NPCV_SRC_DIR}/utils/ImageStreamNP.cpp
 	${NPCV_SRC_DIR}/utils/ResourceManager.cpp
 #	${NPCV_INCLUDE_DIR}/utils/
 )

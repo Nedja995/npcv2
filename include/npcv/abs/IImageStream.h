@@ -5,10 +5,10 @@
 
 namespace npcv {
 
-	class IImageSteam {
+	class IImageStream {
 	public:
 
-		//virtual ~IImageSteam() = 0;
+		//virtual ~IImageStream() = 0;
 
 		virtual Image* Load(const char* path) = 0;
 

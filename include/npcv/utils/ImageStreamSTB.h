@@ -4,11 +4,11 @@
 namespace npcv {
 	namespace utils {
 
-		class ImageStreamSTB : IImageSteam {
+		class ImageStreamSTB : IImageStream {
 		public:
 			ImageStreamSTB();
 			//virtual ~ImageStreamSTB() override;
-			// Inherited via IImageSteam
+			// Inherited via IImageStream
 			virtual Image * Load(const char * path) override;
 			virtual bool Save(Image * image, const char * path) override;
 			virtual void free() override;

@@ -25,7 +25,7 @@ namespace npcv {
 	Toolset::Toolset()
 	{
 		log = new LogListenerDebug();
-		imageStream = (npcv::IImageSteam*)new ImageStreamSTB();
+		imageStream = (npcv::IImageStream*)new ImageStreamSTB();
 	}
 
 	Toolset::~Toolset()

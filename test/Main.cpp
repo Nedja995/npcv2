@@ -5,6 +5,7 @@
 #include "npcv/processes/ProcessGray.h"
 #include "npcv/processes/IPMatrixApply.h"
 #include "npcv/types/Image.h"
+#include "npcv/utils/ImageStreamNP.h"
 #include <iostream>
 
 #include <iostream>
@@ -28,31 +29,53 @@ void printTime(double miliseconds) {
 	}
 }
 
+void testImageProcessing();
+void testImageStreamNP();
+
 int main(int argc, int *argv[])
 {
-	IImageSteam *is = Toolset::SharedInstance()->imageStream;
+
+	testImageStreamNP();
+
+	char in;
+	cin >> in;
+	return 0;
+}
+
+void testImageStreamNP() {
+	std::cout << "Test ImageStreamNP" << std::endl;
+
+	npcv::ImageStreamNP* pipeImage = npcv::ImageStreamNP::Create();
+	pipeImage->Load(nullptr);
+
+
+	std::cout << "END Test ImageStreamNP" << std::endl;
+}
+
+void testImageProcessing() {
+	IImageStream *is = Toolset::SharedInstance()->imageStream;
 	//Image * bmi = is->Load("/home/ubuntudev/Desktop/Projects/npcv2/samples/data/input/photo3.bmp");
 	//stbi__context* con = new stbi__context();
 	//stbi__bmp_load()
 
 	//is->Save(bmi, "D:\\Projects\\NPComputerVision\\npcv2\\samples\\data\\output\\lena.jpg");
 
-	Image * img = Toolset::SharedInstance()->imageStream->Load("D:\\Projects\\npcv2\\samples\\data\\input\\photo3.bmp");
+	Image * img = Toolset::SharedInstance()->imageStream->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\photo3.bmp");
 
-	/* 
-	 * graying with divide pixel with 2 
-	 */
+	/*
+	* graying with divide pixel with 2
+	*/
 	//make process
-	ProcessGray* grayProc = new ProcessGray(); 
+	ProcessGray* grayProc = new ProcessGray();
 	//configure process
-	grayProc->setImage(img);				   
+	grayProc->setImage(img);
 	grayProc->setIntensity(2);
 	grayProc->initialize(); //initialize
 
 	double sum = 0;
 	//0
 	auto start = std::chrono::steady_clock::now();  //measure start
-	//grayProc->execute();							//execute process
+													//grayProc->execute();							//execute process
 	auto end = std::chrono::steady_clock::now();	//measure end
 	auto diff = end - start;						//duration
 	double milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
@@ -162,9 +185,9 @@ int main(int argc, int *argv[])
 	//mc << "fdsfds" << "Fdsfsd";
 
 
-	/* 
-	 * Image apply matrix 
-	 */
+	/*
+	* Image apply matrix
+	*/
 	//make process
 	IPMatrixApply* matrixProc = new IPMatrixApply();
 	//configure process
@@ -196,7 +219,4 @@ int main(int argc, int *argv[])
 	delete matrixProc;
 
 	Toolset::SharedInstance()->imageStream->Save(img, "D:\\Projects\\npcv2\\samples\\data\\output\\photo3.bmp");
-	char in;
-	cin >> in;
-	return 0;
 }
