@@ -9,6 +9,9 @@ extern unsigned char *stbi_write_png_to_mem(unsigned char *pixels, int stride_by
 
 namespace npcv
 {
+	void __cleanUp(HANDLE hPipe);
+
+
 	ImageStreamNP * ImageStreamNP::Create()
 	{
 		ImageStreamNP * ret = new ImageStreamNP();
@@ -33,15 +36,6 @@ namespace npcv
 	{
 	}
 
-	void __cleanUp(HANDLE hPipe)
-	{
-		// Centralized cleanup for all allocated resources.
-		if (hPipe != INVALID_HANDLE_VALUE)
-		{
-			CloseHandle(hPipe);
-			hPipe = INVALID_HANDLE_VALUE;
-		}
-	}
 
 
 	unsigned long ImageStreamNP::_openWinNamedPipe()
@@ -49,11 +43,7 @@ namespace npcv
 		HANDLE hPipe = INVALID_HANDLE_VALUE;
 		DWORD dwError = ERROR_SUCCESS;
 
-
-
-
 		while (true) {
-
 
 			// Wait for connection to server
 			while (true)
@@ -93,38 +83,9 @@ namespace npcv
 				}
 			} //End while
 
-
-
-			// 
-			// Send a request from client(this) to server
-			// 
-			//load image with stb
-			int width, height, type;
-			unsigned char* data = stbi_load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\photo3.bmp", &width, &height, &type, 3);
-			int len;
-			unsigned char *png = stbi_write_png_to_mem((unsigned char *)data, 0, width, height, type, &len);
-
-
-
-			DWORD bytesCountWritten;
-
-			if (!WriteFile(
-				hPipe,              // Handle of the pipe
-				png,                // Message to be written
-				len,                // Number of bytes to write
-				&bytesCountWritten,      // Number of bytes written
-				NULL))				// Not overlapped
-			{
-				dwError = GetLastError();
-				std::cerr << "npcv:ImageStreamNP: WriteFile to pipe failed w/err" << dwError;
-				__cleanUp(hPipe);
-			}
-
-			std::cout << "Send " << bytesCountWritten << " bytes " << std::endl;
-
-			//
-			// Receive a response from server.
-			// 
+			  //
+			  // Receive a response from server.
+			  // 
 			BOOL fFinishRead = FALSE;
 			do {
 				wchar_t charsRecived[_bufferSize];
@@ -153,9 +114,48 @@ namespace npcv
 
 			} while (!fFinishRead); // Repeat loop if ERROR_MORE_DATA
 
+			// 
+			// Send a request from client(this) to server
+			// 
+			//load image with stb
+			int width, height, type;
+			unsigned char* data = stbi_load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\photo3.bmp", &width, &height, &type, 3);
+			int len;
+			unsigned char *png = stbi_write_png_to_mem((unsigned char *)data, 0, width, height, type, &len);
+
+
+
+			DWORD bytesCountWritten;
+
+			if (!WriteFile(
+				hPipe,              // Handle of the pipe
+				png,                // Message to be written
+				len,                // Number of bytes to write
+				&bytesCountWritten,      // Number of bytes written
+				NULL))				// Not overlapped
+			{
+				dwError = GetLastError();
+				std::cerr << "npcv:ImageStreamNP: WriteFile to pipe failed w/err" << dwError;
+				__cleanUp(hPipe);
+			}
+
+			std::cout << "Send " << bytesCountWritten << " bytes " << std::endl;
+
+		
+
 			__cleanUp(hPipe);
 		}
 		return dwError;
+	}
+
+	void __cleanUp(HANDLE hPipe)
+	{
+		// Centralized cleanup for all allocated resources.
+		if (hPipe != INVALID_HANDLE_VALUE)
+		{
+			CloseHandle(hPipe);
+			hPipe = INVALID_HANDLE_VALUE;
+		}
 	}
 
 
