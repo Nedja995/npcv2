@@ -30,7 +30,6 @@ namespace npcv {
 	{
 	}
 
-
 	Image::~Image()
 	{
 	}
@@ -97,7 +96,54 @@ namespace npcv {
 
 	Image * Image::getSubImage(int x, int y, int width, int height)
 	{
-		return 0;
+		Image * ret = 0;
+		Pixel * pixelTemp = 0;
+		uchar * newData = 0;
+
+		int srcPos, srcColumnPosition, srcCowBeginPosition, srcOffset;
+		int dstPos, dstColumnPosition, dstCowBeginPosition, dstOffset;
+
+		uchar *ipx;
+
+		if (x + width > this->width || y + height > this->height)
+		{
+			//bad params...
+		}
+		else
+		{
+			ret = new Image(width, height, this->type);
+
+			srcColumnPosition = x * this->type;
+			srcCowBeginPosition = this->width * this->type * y;
+			srcPos = srcCowBeginPosition + srcColumnPosition;
+			srcOffset = srcPos;
+
+			dstColumnPosition = 0;
+			dstCowBeginPosition = width * this->type * y;
+			dstPos = dstCowBeginPosition + dstColumnPosition;
+			dstOffset = dstPos;
+			ipx = 0;
+
+			for (int ix = x; ix < width + x; ix++)
+			{
+				for (int iy = y; iy < height + y; iy++)
+				{
+					srcColumnPosition = ix * this->type;
+					srcCowBeginPosition = this->width * this->type * iy;
+					srcOffset = srcCowBeginPosition + srcColumnPosition;
+
+					ipx = this->pixels + srcOffset;
+
+					dstColumnPosition = (ix - x) * this->type;
+					dstCowBeginPosition = width * this->type * iy;
+					dstPos = dstCowBeginPosition + dstColumnPosition;
+
+					memcpy(ret->pixels + dstPos - dstOffset, ipx, sizeof(uchar) * this->type);
+				}
+			}
+
+		}
+		return ret;
 	}
 
 }

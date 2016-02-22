@@ -38,6 +38,7 @@ SET (utils_headers
 	${NPCV_INCLUDE_DIR}/utils/ImageStreamSTB.h
 	${NPCV_INCLUDE_DIR}/utils/ImageStreamNP.h
 	${NPCV_INCLUDE_DIR}/utils/ResourceManager.h
+	${NPCV_INCLUDE_DIR}/utils/SamplingImage.h
 #	${NPCV_INCLUDE_DIR}/utils/
 )
 # ui
@@ -54,11 +55,11 @@ SET (npcv_headers
 	${ui_headers}
 )
 
-SOURCE_GROUP("Header Files\\abs" FILES ${abs_headers})
-SOURCE_GROUP("Header Files\\types" FILES ${types_headers})
-SOURCE_GROUP("Header Files\\processes" FILES ${processes_headers})
-SOURCE_GROUP("Header Files\\utils" FILES ${utils_headers})
-SOURCE_GROUP("Header Files\\ui" FILES ${ui_headers})
+SOURCE_GROUP("Header Files\\\\abs" FILES ${abs_headers})
+SOURCE_GROUP("Header Files\\\\types" FILES ${types_headers})
+SOURCE_GROUP("Header Files\\\\processes" FILES ${processes_headers})
+SOURCE_GROUP("Header Files\\\\utils" FILES ${utils_headers})
+SOURCE_GROUP("Header Files\\\\ui" FILES ${ui_headers})
 	
 	
 #
@@ -94,6 +95,7 @@ SET (utils_source
 	${NPCV_SRC_DIR}/utils/ImageStreamSTB.cpp
 	${NPCV_SRC_DIR}/utils/ImageStreamNP.cpp
 	${NPCV_SRC_DIR}/utils/ResourceManager.cpp
+	${NPCV_INCLUDE_DIR}/utils/SamplingImage.cpp
 #	${NPCV_INCLUDE_DIR}/utils/
 )
 
@@ -105,10 +107,10 @@ SET (npcv_source
 	${ui_source}
 )
 
-SOURCE_GROUP("Source Files\\types" FILES ${types_source})
-SOURCE_GROUP("Source Files\\processes" FILES ${processes_source})
-SOURCE_GROUP("Source Files\\utils" FILES ${utils_source})	
-SOURCE_GROUP("Source Files\\ui" FILES ${ui_source})	
+SOURCE_GROUP("Source Files\\\\types" FILES ${types_source})
+SOURCE_GROUP("Source Files\\\\processes" FILES ${processes_source})
+SOURCE_GROUP("Source Files\\\\utils" FILES ${utils_source})	
+SOURCE_GROUP("Source Files\\\\ui" FILES ${ui_source})	
 	
 #SET (project_LIBS ${Boost_LIBRARIES} ${QT_LIBRARIES} ${Log4Cxx_LIBRARIES})
 

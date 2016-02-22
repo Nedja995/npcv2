@@ -6,15 +6,19 @@
 #include "npcv/processes/IPMatrixApply.h"
 #include "npcv/types/Image.h"
 #include "npcv/utils/ImageStreamNP.h"
-#include <iostream>
+#include "npcv/utils/SamplingImage.h"
+
+
 
 #include <iostream>
 #include <chrono>
-
+#include <vector>
 //#define STB_IMAGE_IMPLEMENTATION
 //#include "thirdparty/stb/stb_image.h"
 //#define STB_IMAGE_WRITE_IMPLEMENTATION
 //#include "thirdparty/stb/stb_image_write.h"
+
+#define SAMPLE_DATAS std::string("D:\\Projects\\CompVision\\npcv2\\samples\\data\\")
 
 using namespace std;
 using namespace npcv;
@@ -29,17 +33,60 @@ void printTime(double miliseconds) {
 	}
 }
 
-void testImageProcessing();
+void testImageFilter();
 void testImageStreamNP();
+void testOCRClassify();
 
 int main(int argc, int *argv[])
 {
-
-	testImageStreamNP();
+	//testImageFilter();
+	//testImageStreamNP();
+	testOCRClassify();
 
 	char in;
 	cin >> in;
 	return 0;
+}
+
+void testOCRClassify() {
+	IImageStream *is = Toolset::SharedInstance()->imageStream;
+	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\hwLetters.jpg"));
+
+
+	/*
+	* Image apply matrix
+	*/
+	//make process
+	IPMatrixApply* matrixProc = new IPMatrixApply();
+	//configure process
+	matrixProc->setImage(img);
+	int matrixSize = 3;
+
+	matrixProc->matrixSize = matrixSize;
+	float filter[9] =
+	{
+		1,  1,  1,
+		1, -7,  1,
+		1,  1,  1
+	};
+	matrixProc->matrix = &filter[0];
+	/*matrixProc->bias = ;
+	matrixProc->factor = ;*/
+	matrixProc->initialize(); 
+	matrixProc->execute();	
+
+	//free
+	matrixProc->free();
+	delete matrixProc;
+
+	//Image* imageZero = img->getSubImage(20, 20, 20, 20);
+
+
+	//utils::SamplingImage* samplImage = new utils::SamplingImage(img);
+	//std::vector<Image*> digits = samplImage->Subimages(20, 20);
+
+	is->Save(img, SAMPLE_DATAS + std::string("output\\hwLetters.jpg"));
+
 }
 
 void testImageStreamNP() {
@@ -52,7 +99,7 @@ void testImageStreamNP() {
 	std::cout << "END Test ImageStreamNP" << std::endl;
 }
 
-void testImageProcessing() {
+void testImageFilter() {
 	IImageStream *is = Toolset::SharedInstance()->imageStream;
 	//Image * bmi = is->Load("/home/ubuntudev/Desktop/Projects/npcv2/samples/data/input/photo3.bmp");
 	//stbi__context* con = new stbi__context();

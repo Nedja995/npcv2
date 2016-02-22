@@ -40,7 +40,7 @@ namespace npcv {
 		if (platform == Application::Platform::Windows) {
 			for (int i = 0; i < path.length(); ++i) {
 				if (path[i] == '/')
-					path[i] = '\\';
+					path[i] = '\\\\';
 			}
 		}
 	}

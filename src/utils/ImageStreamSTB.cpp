@@ -26,14 +26,14 @@ namespace npcv {
 		{
 		}
 
-		Image * ImageStreamSTB::Load(const char * path)
+		Image * ImageStreamSTB::Load(std::string path)
 		{
 			int width, height, type;
 			Image * ret = 0;
 
 #ifdef NPCV_STB_IMAGE
 			//load image with stb
-			uchar* data = stbi_load(path, &width, &height, &type, 3);
+			uchar* data = stbi_load(path.c_str(), &width, &height, &type, 3);
 			if (data == 0) {
 				cerr << "NPCV: ImageStreamSTB: cannot load image from: " << path;
 			}
@@ -43,9 +43,9 @@ namespace npcv {
 
 		}
 
-		bool ImageStreamSTB::Save(Image * image, const char * path)
+		bool ImageStreamSTB::Save(Image * image, std::string path)
 		{
-			int res = stbi_write_png(path,
+			int res = stbi_write_png(path.c_str(),
 				image->width,
 				image->height,
 				image->type,

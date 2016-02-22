@@ -22,33 +22,33 @@
 */
 #pragma once
 
-#include <string>
-#include "npcv/abs/IImageStream.h"
+#include "npcv/utils/SamplingImage.h"
 
-namespace npcv
-{ 
-	class ImageStreamNP : public IImageStream
+namespace npcv { namespace utils {
+
+	SamplingImage::SamplingImage(Image * image) : _image(image)
 	{
-	public:
-		static ImageStreamNP * Create();
-		// Inherited via IImageStream
-		virtual Image * Load(std::string path) override;
-		virtual bool Save(Image * image, std::string path) override;
-		virtual void free() override;
+	}
 
-	private:
-		std::string _serverName;
-		std::string _pipeName;
-		std::string _fullPipeName;
+	SamplingImage::~SamplingImage()
+	{
+	}
 
-		static const int _bufferSize = 1024;
+	vector<Image*> SamplingImage::Subimages(int width, int height)
+	{
+		vector<Image*> ret = vector<Image*>();
+		Image* subImage = 0;
 
-		std::string _requestMessage;
+		for (int x = 0; x < _image->width - width; x += width)
+		{
+			for (int y = 0; y < _image->height; y += height)
+			{
+				subImage = _image->getSubImage(x, y, width, height);
+				ret.push_back(subImage);
+			}
+		}
 
-		unsigned long _openWinNamedPipe();
-
-	};
+		return ret;
+	}
 }
-
-
-
+}

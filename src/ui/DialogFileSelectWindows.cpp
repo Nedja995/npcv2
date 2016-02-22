@@ -43,7 +43,7 @@ namespace npcv {
 			ofn.hwndOwner = 0;
 			ofn.lpstrDefExt = 0;
 			ofn.lpstrFile = this->_pathSelected;
-			ofn.lpstrFile[0] = '\0';
+			ofn.lpstrFile[0] = '\\0';
 			ofn.nMaxFile = MAX_PATH;
 			ofn.lpstrFilter = 0;
 			ofn.nFilterIndex = 0;
