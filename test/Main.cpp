@@ -40,8 +40,8 @@ void testOCRClassify();
 int main(int argc, int *argv[])
 {
 	//testImageFilter();
-	//testImageStreamNP();
-	testOCRClassify();
+	testImageStreamNP();
+	//testOCRClassify();
 
 	char in;
 	cin >> in;
@@ -93,7 +93,7 @@ void testImageStreamNP() {
 	std::cout << "Test ImageStreamNP" << std::endl;
 
 	npcv::ImageStreamNP* pipeImage = npcv::ImageStreamNP::Create();
-	pipeImage->Load(nullptr);
+	pipeImage->Load("");
 
 
 	std::cout << "END Test ImageStreamNP" << std::endl;

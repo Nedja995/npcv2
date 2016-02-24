@@ -5,10 +5,14 @@
 #include "thirdparty/stb/stb_image.h"
 #include "thirdparty/stb/stb_image_write.h"
 
+#include "npcv/processes/IPMatrixApply.h"
+
 extern unsigned char *stbi_write_png_to_mem(unsigned char *pixels, int stride_bytes, int x, int y, int n, int *out_len);
 
 namespace npcv
 {
+	using namespace npcv;
+	using namespace processing;
 	void __cleanUp(HANDLE hPipe);
 
 
@@ -86,11 +90,11 @@ namespace npcv
 			  //
 			  // Receive a response from server.
 			  // 
+			unsigned char charsRecived[_bufferSize];
+			unsigned long bytesCountRecived, bytesCountReaded;
+			bytesCountRecived = sizeof(charsRecived);
 			BOOL fFinishRead = FALSE;
 			do {
-				wchar_t charsRecived[_bufferSize];
-				DWORD bytesCountRecived, bytesCountReaded;
-				bytesCountRecived = sizeof(charsRecived);
 
 				fFinishRead = ReadFile(
 					hPipe,                  // Handle of the pipe
@@ -107,23 +111,55 @@ namespace npcv
 					__cleanUp(hPipe);
 				}
 
-				std::wstring wstr(charsRecived);
-				std::string recivedStr(wstr.begin(), wstr.end());
+				//std::wstring wstr(charsRecived);
+				//std::string recivedStr(wstr.begin(), wstr.end());
 
-				std::cout << "Receive " << bytesCountReaded << " bytes from server: " << recivedStr << std::endl;
+				std::cout << "Receive " << bytesCountReaded << " bytes from server: " << charsRecived << std::endl;
 
 			} while (!fFinishRead); // Repeat loop if ERROR_MORE_DATA
+
+
+			Image* recivedImage = new Image();
+			recivedImage->loadFromMemory(charsRecived, bytesCountReaded);
+
+			///////////////////////////////////////////////
+			//PROCESS
+			IPMatrixApply* matrixProc = new IPMatrixApply();
+			//configure process
+			matrixProc->setImage(recivedImage);
+			int matrixSize = 3;
+
+			matrixProc->matrixSize = matrixSize;
+			float filter[9] =
+			{
+				1, 0, 1,
+				-2, 0, 2,
+				-1, 0, 1
+			};
+			matrixProc->matrix = &filter[0];
+			/*matrixProc->bias = ;
+			matrixProc->factor = ;*/
+			matrixProc->initialize();
+			matrixProc->execute();
+
+			//free
+			matrixProc->free();
+			delete matrixProc;
+
+
+			///////////////////////////////
+
+
+			stbi_write_png("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\transfer.png", recivedImage->width, recivedImage->height, recivedImage->type, recivedImage->pixels, 0);
 
 			// 
 			// Send a request from client(this) to server
 			// 
 			//load image with stb
 			int width, height, type;
-			unsigned char* data = stbi_load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\photo3.bmp", &width, &height, &type, 3);
+			//unsigned char* data = stbi_load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\photo3.bmp", &width, &height, &type, 3);
 			int len;
-			unsigned char *png = stbi_write_png_to_mem((unsigned char *)data, 0, width, height, type, &len);
-
-
+			unsigned char *png = stbi_write_png_to_mem((unsigned char *)recivedImage->pixels, 0, recivedImage->width, recivedImage->height, recivedImage->type, &len);
 
 			DWORD bytesCountWritten;
 

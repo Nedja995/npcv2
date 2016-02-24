@@ -5,8 +5,8 @@
 
 #include "thirdparty/stb/stb_image.h"
 
-namespace npcv {
 
+namespace npcv {
 
 	Image::Image()
 	{
