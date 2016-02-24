@@ -7,7 +7,7 @@
 #include "npcv/types/Image.h"
 #include "npcv/utils/ImageStreamNP.h"
 #include "npcv/utils/SamplingImage.h"
-
+#include "npcv/utils/converters/NPipeRequestToImageProcess.h"
 
 
 #include <iostream>
