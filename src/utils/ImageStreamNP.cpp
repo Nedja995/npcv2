@@ -24,27 +24,28 @@ namespace npcv
 	{
 		ImageStreamNP * ret = new ImageStreamNP();
 		ret->_serverName = ".";
-		ret->_pipeName = "SamplePipe";
+		ret->_pipeName = "NpcvPipe";
 		ret->_fullPipeName = "\\\\" 
 							+ ret->_serverName 
 							+ "\\pipe\\" 
 							+ ret->_pipeName;
 		return ret;
 	}
+
 	Image * ImageStreamNP::Load(std::string path)
 	{
 		_openWinNamedPipe();
 		return nullptr;
 	}
+
 	bool ImageStreamNP::Save(Image * image, std::string path)
 	{
 		return false;
 	}
+
 	void ImageStreamNP::free()
 	{
 	}
-
-
 
 	unsigned long ImageStreamNP::_openWinNamedPipe()
 	{

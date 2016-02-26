@@ -26,7 +26,9 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
+
 namespace npcv { namespace converters {
+
 	NPipeRequestToImageProcess::NPipeRequestToImageProcess(unsigned char * message, unsigned long lenght)
 		: _message(message)
 		, _msgLenght(lenght)
@@ -162,7 +164,7 @@ namespace npcv { namespace converters {
 		bias = stof(pTokens[2].c_str());
 		factor = stof(pTokens[3].c_str());
 
-		//matrix allocate
+		//matrix copy
 		int mLen = mWidth * mHeight;
 		matrix = new float[mLen];
 		for (int i = 4; i < pTokens.size(); i++) {

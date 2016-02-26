@@ -1,10 +1,7 @@
-GUI WPF Integration
-===================
+Named pipe
+==========
 
-- Communicate via Named Pipe
-
-
-## Named Pipe Communication
+- For comunication with WPF gui
 
 - Message examples:
 	1. Process image - apply matrix 3x3:
