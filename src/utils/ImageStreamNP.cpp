@@ -1,18 +1,22 @@
 #include "npcv/utils/ImageStreamNP.h"
 #include <windows.h>
 #include <iostream>
+#include <string>
 
 #include "thirdparty/stb/stb_image.h"
 #include "thirdparty/stb/stb_image_write.h"
 
-#include "npcv/processes/IPMatrixApply.h"
+//#include "npcv/processes/IPMatrixApply.h"
+#include "npcv/utils/converters/NPipeRequestToImageProcess.h"
 
 extern unsigned char *stbi_write_png_to_mem(unsigned char *pixels, int stride_bytes, int x, int y, int n, int *out_len);
 
 namespace npcv
 {
-	using namespace npcv;
-	using namespace processing;
+	using namespace std;
+	//using namespace npcv;
+//	using namespace processing;
+	using namespace converters;
 	void __cleanUp(HANDLE hPipe);
 
 
@@ -20,27 +24,28 @@ namespace npcv
 	{
 		ImageStreamNP * ret = new ImageStreamNP();
 		ret->_serverName = ".";
-		ret->_pipeName = "SamplePipe";
+		ret->_pipeName = "NpcvPipe";
 		ret->_fullPipeName = "\\\\" 
 							+ ret->_serverName 
 							+ "\\pipe\\" 
 							+ ret->_pipeName;
 		return ret;
 	}
+
 	Image * ImageStreamNP::Load(std::string path)
 	{
 		_openWinNamedPipe();
 		return nullptr;
 	}
+
 	bool ImageStreamNP::Save(Image * image, std::string path)
 	{
 		return false;
 	}
+
 	void ImageStreamNP::free()
 	{
 	}
-
-
 
 	unsigned long ImageStreamNP::_openWinNamedPipe()
 	{
@@ -87,15 +92,16 @@ namespace npcv
 				}
 			} //End while
 
-			  //
-			  // Receive a response from server.
-			  // 
+			//
+			// RECIVE a response from server.
+			// 
 			unsigned char charsRecived[_bufferSize];
 			unsigned long bytesCountRecived, bytesCountReaded;
 			bytesCountRecived = sizeof(charsRecived);
 			BOOL fFinishRead = FALSE;
-			do {
-
+			do 
+			{
+				// Read
 				fFinishRead = ReadFile(
 					hPipe,                  // Handle of the pipe
 					charsRecived,           // Buffer to receive the reply
@@ -104,62 +110,38 @@ namespace npcv
 					NULL                    // Not overlapped 
 					);
 
+				//check error
 				if (!fFinishRead && ERROR_MORE_DATA != GetLastError())
 				{
 					dwError = GetLastError();
-					std::cout << "ReadFile from pipe failed w/err " << dwError << std::endl;
-					__cleanUp(hPipe);
+					std::cout << "ReadFile from pipe failed because: " << dwError << std::endl;
+					__cleanUp(hPipe); //cleanup pipe
 				}
-
-				//std::wstring wstr(charsRecived);
-				//std::string recivedStr(wstr.begin(), wstr.end());
-
+				//log
 				std::cout << "Receive " << bytesCountReaded << " bytes from server: " << charsRecived << std::endl;
+			//
+			// Repeat loop if ERROR_MORE_DATA
+			} while (!fFinishRead); 
 
-			} while (!fFinishRead); // Repeat loop if ERROR_MORE_DATA
-
-
-			Image* recivedImage = new Image();
-			recivedImage->loadFromMemory(charsRecived, bytesCountReaded);
-
-			///////////////////////////////////////////////
-			//PROCESS
-			IPMatrixApply* matrixProc = new IPMatrixApply();
-			//configure process
-			matrixProc->setImage(recivedImage);
-			int matrixSize = 3;
-
-			matrixProc->matrixSize = matrixSize;
-			float filter[9] =
-			{
-				1, 0, 1,
-				-2, 0, 2,
-				-1, 0, 1
-			};
-			matrixProc->matrix = &filter[0];
-			/*matrixProc->bias = ;
-			matrixProc->factor = ;*/
-			matrixProc->initialize();
-			matrixProc->execute();
-
-			//free
-			matrixProc->free();
-			delete matrixProc;
-
-
-			///////////////////////////////
-
-
-			stbi_write_png("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\transfer.png", recivedImage->width, recivedImage->height, recivedImage->type, recivedImage->pixels, 0);
+			IProcessImage* imageProcessing = 0;
+			NPipeRequestToImageProcess* reqestConverter = new NPipeRequestToImageProcess(charsRecived, bytesCountReaded);
+			if (!reqestConverter->parse()) {
+				cout << "npcv:ImageStreamNP: FAILED pasing request to image process" << endl;
+			}
+			else {
+				imageProcessing = reqestConverter->getProcess();
+			}
+			
+			imageProcessing->execute();
 
 			// 
-			// Send a request from client(this) to server
+			// SEND a request from client(this) to server
 			// 
 			//load image with stb
 			int width, height, type;
 			//unsigned char* data = stbi_load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\photo3.bmp", &width, &height, &type, 3);
 			int len;
-			unsigned char *png = stbi_write_png_to_mem((unsigned char *)recivedImage->pixels, 0, recivedImage->width, recivedImage->height, recivedImage->type, &len);
+			unsigned char *png = stbi_write_png_to_mem((unsigned char *)imageProcessing->getImage()->pixels, 0, imageProcessing->getImage()->width, imageProcessing->getImage()->height, imageProcessing->getImage()->type, &len);
 
 			DWORD bytesCountWritten;
 
@@ -176,9 +158,8 @@ namespace npcv
 			}
 
 			std::cout << "Send " << bytesCountWritten << " bytes " << std::endl;
-
 		
-
+			//free pipe
 			__cleanUp(hPipe);
 		}
 		return dwError;

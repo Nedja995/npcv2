@@ -39,6 +39,7 @@ SET (utils_headers
 	${NPCV_INCLUDE_DIR}/utils/ImageStreamNP.h
 	${NPCV_INCLUDE_DIR}/utils/ResourceManager.h
 	${NPCV_INCLUDE_DIR}/utils/SamplingImage.h
+	${NPCV_INCLUDE_DIR}/utils/converters/NPipeRequestToImageProcess.h
 #	${NPCV_INCLUDE_DIR}/utils/
 )
 # ui
@@ -95,7 +96,8 @@ SET (utils_source
 	${NPCV_SRC_DIR}/utils/ImageStreamSTB.cpp
 	${NPCV_SRC_DIR}/utils/ImageStreamNP.cpp
 	${NPCV_SRC_DIR}/utils/ResourceManager.cpp
-	${NPCV_INCLUDE_DIR}/utils/SamplingImage.cpp
+	${NPCV_SRC_DIR}/utils/SamplingImage.cpp
+	${NPCV_SRC_DIR}/utils/converters/NPipeRequestToImageProcess.h
 #	${NPCV_INCLUDE_DIR}/utils/
 )
 
