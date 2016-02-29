@@ -96,8 +96,8 @@ SET (utils_source
 	${NPCV_SRC_DIR}/utils/ImageStreamSTB.cpp
 	${NPCV_SRC_DIR}/utils/ImageStreamNP.cpp
 	${NPCV_SRC_DIR}/utils/ResourceManager.cpp
-	${NPCV_SRC_DIR}/utils/SamplingImage.cpp
-	${NPCV_SRC_DIR}/utils/converters/NPipeRequestToImageProcess.h
+	${NPCV_SRC_DIR}/npcv/utils/SamplingImage.cpp
+	${NPCV_SRC_DIR}/utils/converters/NPipeRequestToImageProcess.cpp
 #	${NPCV_INCLUDE_DIR}/utils/
 )
 
