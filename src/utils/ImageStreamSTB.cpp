@@ -33,7 +33,7 @@ namespace npcv {
 
 #ifdef NPCV_STB_IMAGE
 			//load image with stb
-			uchar* data = stbi_load(path.c_str(), &width, &height, &type, 3);
+			uchar* data = stbi_load(path.c_str(), &width, &height, &type, 0);
 			if (data == 0) {
 				cerr << "NPCV: ImageStreamSTB: cannot load image from: " << path;
 			}

@@ -22,7 +22,7 @@ namespace npcv {
 	{
 		size_t memSize = sizeof(unsigned char) * width * height * type;
 		pixels = (uchar*)malloc(memSize);
-		memset(pixels, 255, memSize);
+		//memset(pixels, 255, memSize);
 	}
 
 	Image::Image(uchar* data, int width, int height, PixelType type) 

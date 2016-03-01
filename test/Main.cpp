@@ -1,4 +1,3 @@
-
 #include "npcv/utils/ImageStreamSTB.h"
 #include "npcv/LogListenerDebug.h"
 #include "npcv/Toolset.h"
@@ -8,7 +7,7 @@
 #include "npcv/utils/ImageStreamNP.h"
 #include "npcv/utils/SamplingImage.h"
 #include "npcv/utils/converters/NPipeRequestToImageProcess.h"
-
+#include "npcv/processes/IPBlending.h"
 
 #include <iostream>
 #include <chrono>
@@ -24,6 +23,8 @@ using namespace std;
 using namespace npcv;
 using namespace processing;
 
+extern Image* npcv::processing::Blend(Image* first, Image* second, float ratio);
+
 void printTime(double miliseconds) {
 	if (miliseconds < 1000) {
 		cout << "Time: " << miliseconds << " milisec" << endl;
@@ -36,16 +37,41 @@ void printTime(double miliseconds) {
 void testImageFilter();
 void testImageStreamNP();
 void testOCRClassify();
+void testBlend();
 
 int main(int argc, int *argv[])
 {
 	//testImageFilter();
-	testImageStreamNP();
+	//testImageStreamNP();
 	//testOCRClassify();
-
+	testBlend();
 	char in;
 	cin >> in;
 	return 0;
+}
+
+
+void testBlend() {
+	IImageStream *is = Toolset::SharedInstance()->imageStream;
+	Image * img = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\pum1dim1.gif");
+	Image * img2 = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\pum1dim1.gif");
+
+	Image* blended = npcv::processing::Blend(img, img2, 0.5);
+
+	is->Save(blended, "D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\tmpl2.png");
+	//npcv::processing::Blend(img, )
+
+
+}
+
+void testImageStreamNP() {
+	std::cout << "Test ImageStreamNP" << std::endl;
+
+	npcv::ImageStreamNP* pipeImage = npcv::ImageStreamNP::Create();
+	pipeImage->Load("");
+
+
+	std::cout << "END Test ImageStreamNP" << std::endl;
 }
 
 void testOCRClassify() {
@@ -87,16 +113,6 @@ void testOCRClassify() {
 
 	is->Save(img, SAMPLE_DATAS + std::string("output\\hwLetters.jpg"));
 
-}
-
-void testImageStreamNP() {
-	std::cout << "Test ImageStreamNP" << std::endl;
-
-	npcv::ImageStreamNP* pipeImage = npcv::ImageStreamNP::Create();
-	pipeImage->Load("");
-
-
-	std::cout << "END Test ImageStreamNP" << std::endl;
 }
 
 void testImageFilter() {

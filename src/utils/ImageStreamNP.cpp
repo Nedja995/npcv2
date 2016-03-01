@@ -95,7 +95,7 @@ namespace npcv
 			//
 			// RECIVE a response from server.
 			// 
-			unsigned char charsRecived[_bufferSize];
+			unsigned char charsRecived[950000];
 			unsigned long bytesCountRecived, bytesCountReaded;
 			bytesCountRecived = sizeof(charsRecived);
 			BOOL fFinishRead = FALSE;

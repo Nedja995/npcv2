@@ -17,6 +17,9 @@ namespace npcv {
 
 		bool IProcessImage::isInitialized()
 		{
+			if (_image == 0) {
+				return false;
+			}
 			return _initialized;
 		}
 

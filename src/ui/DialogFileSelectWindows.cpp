@@ -5,29 +5,35 @@
 #include <tchar.h>
 #endif
 #include <iostream>
-namespace npcv {
-	namespace ui {
 
-
+namespace npcv
+{
+	/// <summary>
+	/// 
+	/// </summary>
+	namespace ui
+	{
 		DialogFileSelectWindows::DialogFileSelectWindows()
 			: _title(std::string("File Select"))
-			, _multiselect(false)
-			, _rootPath(std::string("fdsf"))
-	//		, _pathsSelected(nullptr)
+			  , _multiselect(false)
+			  , _rootPath(std::string("fdsf"))
+		//		, _pathsSelected(nullptr)
 		{
 			_pathSelected = new char[MAX_STR_PATH];
 		}
 
+		
 		DialogFileSelectWindows::~DialogFileSelectWindows()
 		{
 		}
 
+		
 		void DialogFileSelectWindows::setTitle(std::string& title)
 		{
 			_title = title;
 		}
 
-		void DialogFileSelectWindows::setRoot(std::string & root)
+		void DialogFileSelectWindows::setRoot(std::string& root)
 		{
 			_rootPath = root;
 		}
@@ -54,18 +60,18 @@ namespace npcv {
 			GetOpenFileName(&ofn);
 #endif
 
-			if (_pathSelected == 0) {
+			if (_pathSelected == 0)
+			{
 				std::cerr << "npcv:ui:DialogFileSelectWindows:show: nothing selected" << std::endl;
 			}
-
 		}
 
-		std::string * DialogFileSelectWindows::getPathSelected()
+		std::string* DialogFileSelectWindows::getPathSelected()
 		{
 			return new std::string(_pathSelected);
 		}
 
-		std::string * DialogFileSelectWindows::getPathsSelected()
+		std::string* DialogFileSelectWindows::getPathsSelected()
 		{
 			return nullptr;
 		}
@@ -74,6 +80,6 @@ namespace npcv {
 		{
 			_multiselect = multiselect;
 		}
-
 	}
 }
+

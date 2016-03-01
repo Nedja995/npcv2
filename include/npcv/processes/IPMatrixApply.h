@@ -2,21 +2,26 @@
 #include "IProcessImage.h"
 namespace npcv {
 	namespace processing {
+
 		class IPMatrixApply : public IProcessImage
 		{
 		public:
-			IPMatrixApply(); 
 
+			/**
+			 * @brief	Default constructor.
+			 */
+			IPMatrixApply(); 
+			
 			int matrixSize;
+
 			float *matrix;
-			/* Multiply result with factor */
+
 			float factor = 1.0;
-			/* Make image brightnes */
+
 			float bias = 0.0;
 
 			virtual void initialize() override;
 
-			// Inherited via IProcessImage
 			virtual void processImage() override;
 
 		protected:

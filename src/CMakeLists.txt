@@ -18,6 +18,7 @@ SET (processes_headers
 	${NPCV_INCLUDE_DIR}/processes/IPMatrixApply.h
 	${NPCV_INCLUDE_DIR}/processes/IProcessImage.h
 	${NPCV_INCLUDE_DIR}/processes/ProcessGray.h
+	${NPCV_INCLUDE_DIR}/processes/IPBlending.h
 )
 # abstractions
 SET (abs_headers
@@ -79,6 +80,7 @@ SET (npcvbase_source
 SET (processes_source
 	${NPCV_SRC_DIR}/processes/IPMatrixApply.cpp
 	${NPCV_SRC_DIR}/processes/IProcessImage.cpp
+	${NPCV_SRC_DIR}/processes/IPBlending.cpp
 	${NPCV_SRC_DIR}/processes/ProcessGray.cpp
 )
 # types
@@ -97,7 +99,7 @@ SET (utils_source
 	${NPCV_SRC_DIR}/utils/ImageStreamNP.cpp
 	${NPCV_SRC_DIR}/utils/ResourceManager.cpp
 	${NPCV_SRC_DIR}/utils/SamplingImage.cpp
-	${NPCV_SRC_DIR}/utils/converters/NPipeRequestToImageProcess.h
+	${NPCV_SRC_DIR}/utils/converters/NPipeRequestToImageProcess.cpp
 #	${NPCV_INCLUDE_DIR}/utils/
 )
 

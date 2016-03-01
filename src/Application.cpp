@@ -9,5 +9,6 @@ namespace npcv {
 #elif __unix__
 		return Platform::Unix;
 #endif
+		return Platform::Windows;
 	}
 }
