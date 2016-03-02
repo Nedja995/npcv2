@@ -1,4 +1,4 @@
-#include "Erosion.h"
+#include "npcv/processes/Erosion.h"
 #include <iostream>
 #include <string>
 namespace npcv {

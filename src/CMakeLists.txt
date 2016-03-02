@@ -32,6 +32,7 @@ SET (abs_headers
 # types
 SET (types_headers
 	${NPCV_INCLUDE_DIR}/types/Image.h
+	${NPCV_INCLUDE_DIR}/types/Pixel.h
 #	${NPCV_INCLUDE_DIR}/types/
 )
 # utils

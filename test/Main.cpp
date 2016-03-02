@@ -48,8 +48,8 @@ int main(int argc, int *argv[])
 	//testImageStreamNP();
 	//testOCRClassify();
 	//testBlend();
-	//testImageArithmetic();
-	testImageErosion();
+	testImageArithmetic();
+	//testImageErosion();
 
 	char in;
 	cin >> in;
@@ -72,14 +72,14 @@ void testImageErosion() {
 
 void testImageArithmetic() {
 	IImageStream *is = Toolset::SharedInstance()->imageStream;
-	Image * img = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\hse1fou1.gif");
-	Image * img2 = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\hse1msk3.gif");
+	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\img.jpg"));
+	Image * img2 = is->Load(SAMPLE_DATAS + std::string("input\\mask2.jpg"));
 	
 	Image inp1 = Image(img);
 	Image inp2 = Image(img2);
 	inp2 += inp1;
 
-	is->Save(&inp2, "D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\tmpl2.png");
+	is->Save(&inp2, SAMPLE_DATAS + std::string("output\\Add.jpg"));
 }
 
 void testBlend() {
@@ -109,7 +109,7 @@ void testImageStreamNP() {
 
 void testOCRClassify() {
 	IImageStream *is = Toolset::SharedInstance()->imageStream;
-	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\hwLetters.jpg"));
+	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\lena.jpg"));
 
 
 	/*
@@ -144,7 +144,7 @@ void testOCRClassify() {
 	//utils::SamplingImage* samplImage = new utils::SamplingImage(img);
 	//std::vector<Image*> digits = samplImage->Subimages(20, 20);
 
-	is->Save(img, SAMPLE_DATAS + std::string("output\\hwLetters.jpg"));
+	is->Save(img, SAMPLE_DATAS + std::string("output\\lena.jpg"));
 
 }
 

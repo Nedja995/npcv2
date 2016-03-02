@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Pixel.h"
+
 #include <string>
 #include <functional>
 
@@ -17,100 +19,8 @@ namespace npcv {
 
 	typedef unsigned char uchar;
 
-	enum PixelType {
-		GRAY = 1,
-		GA = 2,
-		RGB = 3,
-		RGBA = 4
-	};
 
 
-	class Pixel {
-	public:
-		Pixel(uchar* firstComp, PixelType type) : firstComp(firstComp), type(type) {};
-		PixelType type;
-		uchar* firstComp;
-
-		Pixel operator+(Pixel px) {
-			int r1 = R((&px));
-			int g1 = G((&px));
-			int b1 = B((&px));
-			int r2 = R(this);
-			int g2 = G(this);
-			int b2 = B(this);
-			Pixel ret = Pixel(px);
-			int rN = r1 + r2;
-			int gN = g1 + g2;
-			int bN = b1 + b2;
-			rN = (rN > 255) ? 255 : rN;
-			rN = (rN < 0) ? 0 : rN;
-			gN = (gN > 255) ? 255 : gN;
-			gN = (gN < 0) ? 0 : gN;
-			bN = (bN > 255) ? 255 : bN;
-			bN = (bN < 0) ? 0 : bN;
-			R((&ret)) = 255 - rN;
-			G((&ret)) = 255 - gN;
-			B((&ret)) = 255 - bN;
-			return ret;
-		}
-
-		Pixel operator-(Pixel px) {
-			int r1 = R((&px));
-			int g1 = G((&px));
-			int b1 = B((&px));
-			int r2 = R(this);
-			int g2 = G(this);
-			int b2 = B(this);
-			Pixel ret = Pixel(px);
-			int rN = r1 - r2;
-			int gN = g1 - g2;
-			int bN = b1 - b2;
-			rN = (rN > 255) ? 255 : rN;
-			rN = (rN < 0) ? 0 : rN;
-			gN = (gN > 255) ? 255 : gN;
-			gN = (gN < 0) ? 0 : gN;
-			bN = (bN > 255) ? 255 : bN;
-			bN = (bN < 0) ? 0 : bN;
-			R((&ret)) = 255 - rN;
-			G((&ret)) = 255 - gN;
-			B((&ret)) = 255 - bN;
-			return ret;
-		}
-
-		Pixel operator*(float value) {
-			Pixel ret = Pixel(*this);
-			int rN = R(this) * value;
-			int gN = G(this) * value;
-			int bN = B(this) * value;
-			rN = (rN > 255) ? 255 : rN;
-			rN = (rN < 0) ? 0 : rN;
-			gN = (gN > 255) ? 255 : gN;
-			gN = (gN < 0) ? 0 : gN;
-			bN = (bN > 255) ? 255 : bN;
-			bN = (bN < 0) ? 0 : bN;
-			R((&ret)) = rN;
-			G((&ret)) = gN;
-			B((&ret)) = bN;
-			return ret;
-		}
-
-		Pixel operator*=(Pixel value) {
-			Pixel ret = Pixel(*this);
-			int rN = R(this) * R((&value));
-			int gN = G(this) * G((&value));
-			int bN = B(this) * B((&value));
-			rN = (rN > 255) ? 255 : rN;
-			rN = (rN < 0) ? 0 : rN;
-			gN = (gN > 255) ? 255 : gN;
-			gN = (gN < 0) ? 0 : gN;
-			bN = (bN > 255) ? 255 : bN;
-			bN = (bN < 0) ? 0 : bN;
-			R((&ret)) = rN;
-			G((&ret)) = gN;
-			B((&ret)) = bN;
-			return ret;
-		}
-	};
 
 	class Image
 	{
@@ -151,7 +61,8 @@ namespace npcv {
 
 		bool setColor(int r, int g, int b);
 
-		Image operator+=(Image image) {
+		void operator+=(Image image) {
+			//Image ret = Image(width, height, type);
 			for_each_pixel(this)
 				Pixel* px2 = image.pixelAt(x, y);
 				int r = R(pixel);
@@ -171,14 +82,14 @@ namespace npcv {
 				b -= B(px2);
 				b = (b > 255) ? 255 : b;
 				b = (b < 0) ? 0 : b;
-				/*R(pixel) = r;
+				R(pixel) = r;
 				G(pixel) = g;
-				B(pixel) = b;*/
-				R(pixel) = R(pixel) - R(px2);
-				G(pixel) = G(pixel) - G(px2);
-				B(pixel) = B(pixel) - B(px2);
+				B(pixel) = b;
+				//R(pixel) = R(pixel) - R(px2);
+				//G(pixel) = G(pixel) - G(px2);
+				//B(pixel) = B(pixel) - B(px2);
 			for_each_pixel_end
-			return *this;
+			//return *this;
 		}
 
 	};
