@@ -19,6 +19,7 @@ SET (processes_headers
 	${NPCV_INCLUDE_DIR}/processes/IProcessImage.h
 	${NPCV_INCLUDE_DIR}/processes/ProcessGray.h
 	${NPCV_INCLUDE_DIR}/processes/IPBlending.h
+	${NPCV_INCLUDE_DIR}/processes/Erosion.h
 )
 # abstractions
 SET (abs_headers
@@ -82,6 +83,7 @@ SET (processes_source
 	${NPCV_SRC_DIR}/processes/IProcessImage.cpp
 	${NPCV_SRC_DIR}/processes/IPBlending.cpp
 	${NPCV_SRC_DIR}/processes/ProcessGray.cpp
+	${NPCV_SRC_DIR}/processes/Erosion.cpp
 )
 # types
 SET (types_source
@@ -100,7 +102,7 @@ SET (utils_source
 	${NPCV_SRC_DIR}/utils/ResourceManager.cpp
 	${NPCV_SRC_DIR}/utils/SamplingImage.cpp
 	${NPCV_SRC_DIR}/utils/converters/NPipeRequestToImageProcess.cpp
-#	${NPCV_INCLUDE_DIR}/utils/
+#	${NPCV_SRC_DIR}/utils/
 )
 
 SET (npcv_source
