@@ -58,11 +58,16 @@ int main(int argc, int *argv[])
 
 void testImageErosion() {
 	IImageStream *is = Toolset::SharedInstance()->imageStream;
-	Image * img = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\Untitled.bmp");
+	Image * img = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\opencv-logo.png");
+	bool cg = img->threshold(200);
+	static int i = 0;
+	Image * img2 = npcv::processing::Erosion::erosion(img, 1, 0, 8, 
+		[](Image* img) {
+			img->saveToFile("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\Erosion\\opencv-logo" + std::to_string(i++) + ".bmp");
+		});
 
-	Image * img2 = npcv::processing::Erosion::erosion(img, 1, 0, 5);
 	cout << "Finish" << endl;
-	is->Save(img2, "D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\erosionUntitled.bmp");
+	is->Save(img, "D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\Erosion\\opencv-logo.png");
 }
 
 void testImageArithmetic() {

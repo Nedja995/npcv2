@@ -4,7 +4,7 @@
 #include <string.h>
 
 #include "thirdparty/stb/stb_image.h"
-
+#include "npcv/Toolset.h"
 
 namespace npcv {
 
@@ -22,7 +22,7 @@ namespace npcv {
 	{
 		size_t memSize = sizeof(unsigned char) * width * height * type;
 		pixels = (uchar*)malloc(memSize);
-		//memset(pixels, 255, memSize);
+		memset(pixels, 255, memSize);
 	}
 
 	Image::Image(uchar* data, int width, int height, PixelType type) 
@@ -147,6 +147,90 @@ namespace npcv {
 
 		}
 		return ret;
+	}
+
+	bool Image::saveToFile(std::string filepath)
+	{	
+		return Toolset::SharedInstance()->imageStream->Save(this, filepath);
+	}
+	static int vp = 0;
+	bool Image::convertToGrayscale()
+	{
+		if (type == GRAY) { return false; }
+		Image* gray = new Image(width, height, PixelType::GRAY);
+
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				Pixel* px = pixelAt(x, y);
+				int val = R(px) + G(px) + B(px);
+				val /= 3;
+				if (val == 205) {
+					int a = 3;
+				}
+				if (R(px) != vp) {
+					vp = R(px);
+				}
+				R(gray->pixelAt(x, y)) = val;
+
+			}
+		}
+		free(pixels);
+		pixels = gray->pixels;
+
+		type = GRAY;
+		return true;
+	}
+
+	bool Image::threshold(int borderValue)
+	{
+		Image::convertToGrayscale();
+		Image* tresh = new Image(width, height, type);
+
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				Pixel* px = pixelAt(x, y);
+				int val = R(px);
+				if (val < borderValue) {
+					R(tresh->pixelAt(x, y)) = 0;
+				}
+				else {
+					R(tresh->pixelAt(x, y)) = 255;
+				}
+			}
+		}
+		free(pixels);
+		pixels = tresh->pixels;
+		return true;
+	}
+
+	void Image::foreachPixel(std::function<void(Pixel*)> iterFunction)
+	{
+		for (int x = 0; x < width; x++) {
+		for (int y = 0; y < height; y++) {
+			iterFunction(pixelAt(x, y));
+		}
+		}
+	}
+
+	bool Image::setColor(int r, int g, int b)
+	{
+		for (int x = 0; x < width; x++) {
+		for (int y = 0; y < height; y++) {
+			Pixel* p = pixelAt(x, y);
+			if (type == RGB) {
+				R(p) = r;
+				G(p) = g;
+				B(p) = b;
+			}
+			else if (type == GRAY) {
+				R(p) = r;
+			}
+			else {
+				return false;
+			}
+		}
+		}
+		return true;
 	}
 
 }

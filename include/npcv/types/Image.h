@@ -1,5 +1,8 @@
 #pragma once
 
+#include <string>
+#include <functional>
+
 #define R(pixel) *(pixel->firstComp )
 #define G(pixel) *(pixel->firstComp + 1)
 #define B(pixel) *(pixel->firstComp + 2)
@@ -138,6 +141,15 @@ namespace npcv {
 
 		Image* getSubImage(int x, int y, int width, int height);
 
+		bool saveToFile(std::string filepath);
+
+		bool convertToGrayscale();
+
+		bool threshold(int borderValue);
+
+		void foreachPixel(std::function<void(Pixel*)> iterFunction);
+
+		bool setColor(int r, int g, int b);
 
 		Image operator+=(Image image) {
 			for_each_pixel(this)
