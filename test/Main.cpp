@@ -8,6 +8,7 @@
 #include "npcv/utils/SamplingImage.h"
 #include "npcv/utils/converters/NPipeRequestToImageProcess.h"
 #include "npcv/processes/IPBlending.h"
+#include "npcv/processes/Erosion.h"
 
 #include <iostream>
 #include <chrono>
@@ -38,23 +39,50 @@ void testImageFilter();
 void testImageStreamNP();
 void testOCRClassify();
 void testBlend();
+void testImageArithmetic();
+void testImageErosion();
 
 int main(int argc, int *argv[])
 {
 	//testImageFilter();
 	//testImageStreamNP();
 	//testOCRClassify();
-	testBlend();
+	//testBlend();
+	//testImageArithmetic();
+	testImageErosion();
+
 	char in;
 	cin >> in;
 	return 0;
 }
 
+void testImageErosion() {
+	IImageStream *is = Toolset::SharedInstance()->imageStream;
+	Image * img = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\Untitled.bmp");
+
+	Image * img2 = npcv::processing::Erosion::erosion(img, 1, 0, 5);
+	cout << "Finish" << endl;
+	is->Save(img2, "D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\erosionUntitled.bmp");
+}
+
+void testImageArithmetic() {
+	IImageStream *is = Toolset::SharedInstance()->imageStream;
+	Image * img = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\hse1fou1.gif");
+	Image * img2 = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\hse1msk3.gif");
+	
+	Image inp1 = Image(img);
+	Image inp2 = Image(img2);
+	inp2 += inp1;
+
+	is->Save(&inp2, "D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\tmpl2.png");
+}
 
 void testBlend() {
 	IImageStream *is = Toolset::SharedInstance()->imageStream;
-	Image * img = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\pum1dim1.gif");
-	Image * img2 = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\pum1dim1.gif");
+	Image * img = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\hse1fou1.gif");
+	Image * img2 = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\hse1msk3.gif");
+	Image inp1 = Image(img);
+	Image inp2 = Image(img);
 
 	Image* blended = npcv::processing::Blend(img, img2, 0.5);
 

@@ -57,13 +57,16 @@ namespace npcv {
 	void Image::pixelSet(int x, int y, int r, int g, int b)
 	{
 		if (type < RGB) {
-			std::cerr << "npcv: Image::pixelSet: missing RGB components" << std::endl;
-			return;
+			uchar* pixel = pixelAt_ptr(x, y);
+			*(pixel) = r;
 		}
-		uchar* pixel = pixelAt_ptr(x, y);
-		*(pixel) = r;
-		*(pixel + 1) = g;
-		*(pixel + 2) = b;
+		else if (type >= RGB) {
+			uchar* pixel = pixelAt_ptr(x, y);
+			*(pixel) = r;
+			*(pixel + 1) = g;
+			*(pixel + 2) = b;
+		}
+
 	}
 
 	void Image::pixelSet(int x, int y, Pixel * value)
