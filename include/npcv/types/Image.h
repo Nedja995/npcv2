@@ -5,9 +5,7 @@
 #include <string>
 #include <functional>
 
-#define R(pixel) *(pixel->firstComp )
-#define G(pixel) *(pixel->firstComp + 1)
-#define B(pixel) *(pixel->firstComp + 2)
+
 
 #define for_each_pixel(image) \
 	for(int x = 0; x < image->width; x++) { \
@@ -90,6 +88,46 @@ namespace npcv {
 				//B(pixel) = B(pixel) - B(px2);
 			for_each_pixel_end
 			//return *this;
+		}
+
+		Image operator-(Image image) {
+			Image ret = Image(width, height, type);
+			for_each_pixel(this)
+				Pixel* px2 = image.pixelAt(x, y);
+				int r = R(pixel);
+				if (R(pixel) == 255) {
+					int a = 2;
+				}
+				r += R(px2);
+				r = (r > 255) ? 255 : r;
+				r = (r < 0) ? 0 : r;
+
+				int g = G(pixel);
+				g += G(px2);
+				g = (g > 255) ? 255 : g;
+				g = (g < 0) ? 0 : g;
+
+				int b = B(pixel);
+				b += B(px2);
+				b = (b > 255) ? 255 : b;
+				b = (b < 0) ? 0 : b;
+				R(ret.pixelAt(x,y)) = r;
+				G(ret.pixelAt(x, y)) = g;
+				B(ret.pixelAt(x, y)) = b;
+			for_each_pixel_end
+			return ret;
+		}
+
+		Image operator+(Image image) {
+			Image ret = Image(width, height, type);
+			for_each_pixel(this)
+				Pixel* px2 = image.pixelAt(x, y);
+				ret.pixelSet(x, y, &(*px2 + *pixel));
+				//R(pixel) = R(pixel) - R(px2);
+				//G(pixel) = G(pixel) - G(px2);
+				//B(pixel) = B(pixel) - B(px2);
+			for_each_pixel_end
+			return ret;
 		}
 
 	};

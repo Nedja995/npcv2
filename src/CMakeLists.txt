@@ -85,10 +85,12 @@ SET (processes_source
 	${NPCV_SRC_DIR}/processes/IPBlending.cpp
 	${NPCV_SRC_DIR}/processes/ProcessGray.cpp
 	${NPCV_SRC_DIR}/processes/Erosion.cpp
+
 )
 # types
 SET (types_source
 	${NPCV_SRC_DIR}/types/Image.cpp
+	${NPCV_SRC_DIR}/types/Pixel.cpp
 #	${NPCV_SRC_DIR}/types/
 )
 # ui

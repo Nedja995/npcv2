@@ -75,11 +75,12 @@ void testImageArithmetic() {
 	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\img.jpg"));
 	Image * img2 = is->Load(SAMPLE_DATAS + std::string("input\\mask2.jpg"));
 	
-	Image inp1 = Image(img);
-	Image inp2 = Image(img2);
-	inp2 += inp1;
+	Image add = *img2 + *img;
+	Image minus = *img2 - *img;
 
-	is->Save(&inp2, SAMPLE_DATAS + std::string("output\\Add.jpg"));
+	is->Save(&add, SAMPLE_DATAS + std::string("output\\Add.jpg"));
+	is->Save(&minus, SAMPLE_DATAS + std::string("output\\Minus.jpg"));
+	cout << "End image artihmetic" << endl;
 }
 
 void testBlend() {
