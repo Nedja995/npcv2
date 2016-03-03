@@ -47,6 +47,7 @@ namespace npcv {
 		pixel = pixels + pos;
 		return pixel;
 
+		//old
 		int columnPosition = x * type;
 		int rowBeginPosition = width * type * y;
 		uchar* rowBegin = pixels + rowBeginPosition;

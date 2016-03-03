@@ -5,6 +5,8 @@
 #include <string>
 #include <functional>
 
+#include <algorithm>
+
 
 
 #define for_each_pixel(image) \
@@ -59,76 +61,48 @@ namespace npcv {
 
 		bool setColor(int r, int g, int b);
 
-		void operator+=(Image image) {
-			//Image ret = Image(width, height, type);
+		Image operator+(Image image) {
+			Image ret = Image(width, height, type);
 			for_each_pixel(this)
 				Pixel* px2 = image.pixelAt(x, y);
 				int r = R(pixel);
-				if (R(pixel) == 255) {
-					int a = 2;
-				}
-				r -= R(px2);
-				r = (r > 255) ? 255 : r;
-				r = (r < 0) ? 0 : r;
-
 				int g = G(pixel);
-				g -= G(px2);
-				g = (g > 255) ? 255 : g;
-				g = (g < 0) ? 0 : g;
-
 				int b = B(pixel);
-				b -= B(px2);
-				b = (b > 255) ? 255 : b;
-				b = (b < 0) ? 0 : b;
-				R(pixel) = r;
-				G(pixel) = g;
-				B(pixel) = b;
-				//R(pixel) = R(pixel) - R(px2);
-				//G(pixel) = G(pixel) - G(px2);
-				//B(pixel) = B(pixel) - B(px2);
+				r += R(px2);
+				g += G(px2);
+				b += B(px2);
+				r = std::max(std::min(r, 255), 0);
+				g = std::max(std::min(g, 255), 0);
+				b = std::max(std::min(b, 255), 0);
+				ret.pixelSet(x, y, r, g, b);
 			for_each_pixel_end
-			//return *this;
+			return ret;
+		}
+
+		void operator+=(Image image) {
+			for_each_pixel(this)
+				Pixel* px2 = image.pixelAt(x, y);
+				*pixel += *px2;
+			for_each_pixel_end
+		}
+
+		void operator-=(Image image) {
+			for_each_pixel(this)
+				Pixel* px2 = image.pixelAt(x, y);
+				*pixel -= *px2;
+			for_each_pixel_end
 		}
 
 		Image operator-(Image image) {
 			Image ret = Image(width, height, type);
 			for_each_pixel(this)
 				Pixel* px2 = image.pixelAt(x, y);
-				int r = R(pixel);
-				if (R(pixel) == 255) {
-					int a = 2;
-				}
-				r += R(px2);
-				r = (r > 255) ? 255 : r;
-				r = (r < 0) ? 0 : r;
-
-				int g = G(pixel);
-				g += G(px2);
-				g = (g > 255) ? 255 : g;
-				g = (g < 0) ? 0 : g;
-
-				int b = B(pixel);
-				b += B(px2);
-				b = (b > 255) ? 255 : b;
-				b = (b < 0) ? 0 : b;
-				R(ret.pixelAt(x,y)) = r;
-				G(ret.pixelAt(x, y)) = g;
-				B(ret.pixelAt(x, y)) = b;
+				ret.pixelSet(x, y, &(*pixel - *px2));
 			for_each_pixel_end
 			return ret;
 		}
 
-		Image operator+(Image image) {
-			Image ret = Image(width, height, type);
-			for_each_pixel(this)
-				Pixel* px2 = image.pixelAt(x, y);
-				ret.pixelSet(x, y, &(*px2 + *pixel));
-				//R(pixel) = R(pixel) - R(px2);
-				//G(pixel) = G(pixel) - G(px2);
-				//B(pixel) = B(pixel) - B(px2);
-			for_each_pixel_end
-			return ret;
-		}
+
 
 	};
 

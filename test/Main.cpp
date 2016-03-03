@@ -70,17 +70,41 @@ void testImageErosion() {
 	is->Save(img, "D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\Erosion\\opencv-logo.png");
 }
 
-void testImageArithmetic() {
-	IImageStream *is = Toolset::SharedInstance()->imageStream;
-	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\img.jpg"));
-	Image * img2 = is->Load(SAMPLE_DATAS + std::string("input\\mask2.jpg"));
-	
-	Image add = *img2 + *img;
-	Image minus = *img2 - *img;
+void _testImageAdd();
 
-	is->Save(&add, SAMPLE_DATAS + std::string("output\\Add.jpg"));
-	is->Save(&minus, SAMPLE_DATAS + std::string("output\\Minus.jpg"));
-	cout << "End image artihmetic" << endl;
+void testImageArithmetic() {
+	
+	_testImageAdd();
+}
+
+void _testImageAdd() {
+	IImageStream *is = Toolset::SharedInstance()->imageStream;
+	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\test\\flower.jpg"));
+	Image * img2 = is->Load(SAMPLE_DATAS + std::string("input\\test\\cows.jpg"));
+
+	Image add =  *img + *img2 ;
+	Image add2 = *img + *img2;
+	Image add3 = *img + *img2;
+	//*img2 += *img;
+
+	is->Save(&add, SAMPLE_DATAS + std::string("output\\test\\AddflowerCows.jpg"));
+	is->Save(&add2, SAMPLE_DATAS + std::string("output\\test\\AddAssignflowerCows.jpg"));
+	is->Save(&add3, SAMPLE_DATAS + std::string("output\\test\\AddAssignflowerCows2.jpg"));
+	cout << "End image artihmetic - ADD" << endl;
+}
+
+void _testImageSubstract() {
+	IImageStream *is = Toolset::SharedInstance()->imageStream;
+	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\test\\cows.jpg"));
+	Image * img2 = is->Load(SAMPLE_DATAS + std::string("input\\test\\horser.jpg"));
+
+	Image add = *img - *img2;
+	//*img2 -= *img;
+
+	is->Save(&add, SAMPLE_DATAS + std::string("output\\test\\SubstractHorsersCows.jpg"));
+	is->Save(img2, SAMPLE_DATAS + std::string("output\\test\\SubstractAssignHorsersCows.jpg"));
+
+	cout << "End image artihmetic - ADD" << endl;
 }
 
 void testBlend() {
