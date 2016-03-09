@@ -20,6 +20,7 @@ SET (processes_headers
 	${NPCV_INCLUDE_DIR}/processes/ProcessGray.h
 	${NPCV_INCLUDE_DIR}/processes/IPBlending.h
 	${NPCV_INCLUDE_DIR}/processes/Erosion.h
+	${NPCV_INCLUDE_DIR}/processes/Treshold.h
 )
 # abstractions
 SET (abs_headers
@@ -85,7 +86,7 @@ SET (processes_source
 	${NPCV_SRC_DIR}/processes/IPBlending.cpp
 	${NPCV_SRC_DIR}/processes/ProcessGray.cpp
 	${NPCV_SRC_DIR}/processes/Erosion.cpp
-
+	${NPCV_SRC_DIR}/processes/Treshold.cpp
 )
 # types
 SET (types_source
