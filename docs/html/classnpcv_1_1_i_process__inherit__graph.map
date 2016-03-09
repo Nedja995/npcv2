@@ -1,0 +1,6 @@
+<map id="npcv::IProcess" name="npcv::IProcess">
+<area shape="rect" id="node2" href="$classnpcv_1_1processing_1_1_i_process_image.html" title="The process image. " alt="" coords="217,189,396,428"/>
+<area shape="rect" id="node3" href="$classnpcv_1_1processing_1_1_i_p_blending.html" title="Blending Image Process. " alt="" coords="5,476,195,656"/>
+<area shape="rect" id="node4" href="$classnpcv_1_1processing_1_1_i_p_matrix_apply.html" title="{npcv::processing::IPMatrix\lApply\n|+ matrixSize\l+ matrix\l+ factor\l+ bias\l|+ IPMatrixApply()\l+ initialize()\l+ processImage()\l# matrixApply()\l}" alt="" coords="219,476,394,656"/>
+<area shape="rect" id="node5" href="$classnpcv_1_1processing_1_1_process_gray.html" title="{npcv::processing::ProcessGray\n|# _intensity\l|+ processImage()\l+ getIntensity()\l+ setIntensity()\l# divideImagePixels()\l# divideImagePixels2()\l}" alt="" coords="419,498,621,634"/>
+</map>

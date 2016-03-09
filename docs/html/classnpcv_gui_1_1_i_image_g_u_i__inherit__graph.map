@@ -1,0 +1,3 @@
+<map id="npcvGui::IImageGUI" name="npcvGui::IImageGUI">
+<area shape="rect" id="node2" href="$classnpcv_gui_1_1_image_box.html" title="{npcvGui::ImageBox\n|+ sgMainBox\l+ imageFile\l+ imageSizeBytes\l# npImage\l|+ init()\l+ ImageBox()\l+ ~ImageBox()\l+ getCVImage()\l+ load()\l+ load()\l+ load()\l+ resize()\l+ refresh()\l# _onResize()\l}" alt="" coords="27,248,162,501"/>
+</map>

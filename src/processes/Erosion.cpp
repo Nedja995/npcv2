@@ -21,7 +21,7 @@ namespace processing {
 			//Iterate over pixels
 			for (int x = size; x < image->width - size; x++) {
 			for (int y = size; y < image->height - size; y++) {
-				center = image->pixelAt(x, y);
+				center = image->pixel(x, y);
 				//Looking for foreground pixel
 				if (R(center) != foregroundValue) 
 					continue;
@@ -30,7 +30,7 @@ namespace processing {
 				
 				for (mx = -size; mx < size; mx++) {
 				for (my = -size; my < size; my++) {
-					mpx = image->pixelAt(x + mx, y + my); //nearby pixel
+					mpx = image->pixel(x + mx, y + my); //nearby pixel
 					//Not surounded by foreground
 					if (R(mpx) != R(center)) {
 						surounded = false;
@@ -47,7 +47,7 @@ namespace processing {
 
 				//Draw filtered foreground pixel
 				if ( surounded ) {
-					ret->pixelSet(x, y, foregroundValue, foregroundValue, foregroundValue);
+					ret->pixel(x, y)->setColor(foregroundValue, foregroundValue, foregroundValue);
 					changed = true;
 				}
 				else {

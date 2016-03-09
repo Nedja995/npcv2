@@ -55,7 +55,7 @@ namespace npcv {
 						{
 							imageX = (x - matrixSize / 2 + mx + image->width) % image->width;
 							imageY = (y - matrixSize / 2 + my + image->height) % image->height;
-							pixelProc = image->pixelAt(imageX, imageY);
+							pixelProc = image->pixel(imageX, imageY);
 
 							mat =  *(matrix + index++);
 
@@ -66,11 +66,11 @@ namespace npcv {
 							delete pixelProc;
 						}
 					}
-					pixel = image->pixelAt(x, y);
+					pixel = image->pixel(x, y);
 					r = std::min(std::max(int(factor * red + bias), 0), 255);
 					g = std::min(std::max(int(factor * green + bias), 0), 255);
 					b = std::min(std::max(int(factor * blue + bias), 0), 255);
-					ret->pixelSet(x, y, r, g, b);
+					ret->pixel(x,y)->setColor(r, g, b);
 					
 					delete pixel;
 				}

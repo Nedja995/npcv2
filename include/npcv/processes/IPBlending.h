@@ -19,13 +19,13 @@ namespace npcv {
 
 			for (int x = 0; x < first->width; x++) {
 				for (int y = 0; y < first->height; y++) {
-					Pixel* fp = first->pixelAt(x, y);
+					Pixel* fp = first->pixel(x, y);
 
 					int r11 = R(fp);
 					int g11 = G(fp);
 					int b11 = B(fp);
 
-					Pixel* sp = second->pixelAt(x, y);
+					Pixel* sp = second->pixel(x, y);
 					Pixel px = Pixel(*fp);
 					Pixel px2 = Pixel(*sp);
 
@@ -38,12 +38,12 @@ namespace npcv {
 					int b2 = B((&px2));
 
 					//Pixel newPX = px + px2;
-					Pixel newPX = px * 3;
+					//Pixel newPX = 0; px * 3;
 
-					int r =  R((&newPX));
-					int g = G((&newPX));
-					int b =  B((&newPX));
-					ret->pixelSet(x, y, &newPX);
+					//int r =  R((&newPX));
+					//int g = G((&newPX));
+					//int b =  B((&newPX));
+					//ret->pixelSet(x, y, &newPX);
 				}
 			}
 			return ret;

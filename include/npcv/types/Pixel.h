@@ -19,20 +19,39 @@ namespace npcv {
 
 	class Pixel {
 	public:
-		Pixel(uchar* colorPtr, PixelType type) : colorPtr(colorPtr), type(type), allocated(false){};
+		Pixel(uchar* colorPtr, PixelType type) : colorPtr(colorPtr), type(type), _allocated(false){};
 		Pixel(Pixel* pixel, bool copy);
 		~Pixel();
 		PixelType type;
 		uchar* colorPtr;
-		bool allocated;
-		int color[];
+		bool isPointer();
 
-		int& operator[] (int i) {
-			return color[i];
-		}
+		int color(int index);
 
-		//bool setColor(int color[]);
+		bool setColor(int r, int g, int b);
 
+		bool setColor(Pixel* pixel);
+
+		/**
+		 * @fn	bool Pixel::setColor(int g);
+		 *
+		 * @brief	Sets a color.
+		 *
+		 * @param	g	Gray value.
+		 *
+		 * @return	true if image type is GRAY.
+		 */
+		bool setColor(int g);
+
+		/**
+		 * @fn	Pixel Pixel::operator+(Pixel px)
+		 *
+		 * @brief	Addition operator.
+		 *
+		 * @param	px	The pixel.
+		 *
+		 * @return	The result of the operation.
+		 */
 		Pixel operator+(Pixel px) {
 			Pixel ret = Pixel(&px, true);
 			R((&ret)) = std::max(std::min(R(this) + R((&px)), 255), 0);
@@ -40,7 +59,15 @@ namespace npcv {
 			B((&ret)) = std::max(std::min(B(this) + B((&px)), 255), 0);
 			return ret;
 		}
-
+		/**
+		 * @fn	Pixel Pixel::operator-(Pixel px)
+		 *
+		 * @brief	Subtraction operator.
+		 *
+		 * @param	px	The pixel.
+		 *
+		 * @return	The result of the operation.
+		 */
 		Pixel operator-(Pixel px) {
 			Pixel ret = Pixel(&px, true);
 			R((&ret)) = std::max(std::min(R(this) - R((&px)), 255), 0);
@@ -48,51 +75,49 @@ namespace npcv {
 			B((&ret)) = std::max(std::min(B(this) - B((&px)), 255), 0);
 			return ret;
 		}
-
+		/**
+		 * @fn	void Pixel::operator+=(Pixel px)
+		 *
+		 * @brief	Addition assignment operator.
+		 *
+		 * @param	px	The pixel.
+		 */
 		void operator+=(Pixel px) {
 			R(this) = std::max(std::min(R((&px)) + R(this), 255), 0);
 			G(this) = std::max(std::min(G((&px)) + G(this), 255), 0);
 			B(this) = std::max(std::min(B((&px)) + B(this), 255), 0);
 		}
-
+		/**
+		 * @fn	void Pixel::operator-=(Pixel px)
+		 *
+		 * @brief	Subtraction assignment operator.
+		 *
+		 * @param	px	The pixel.
+		 */
 		void operator-=(Pixel px) {
 			R(this) = std::max(std::min(R(this) - R((&px)), 255), 0);
 			G(this) = std::max(std::min(G(this) - G((&px)), 255), 0);
 			B(this) = std::max(std::min(B(this) - B((&px)), 255), 0);
 		}
+	protected:
+		/** @brief	Is allocated memory on creation or point to image pixels array. */
+		bool _allocated;
+		/**
+		* @brief	Check is component number equal.
+		*
+		* @param	target	 	Target type.
+		*
+		* @return	true if image type same.
+		*/
+		bool _assertTypeStrict(PixelType target);
+		/**
+		* @brief	Check is component number equal or greater.
+		*
+		* @param	target	 	Target type.
+		*
+		* @return	true if image type same.
+		*/
+		bool _assertType(PixelType target );
 
-		Pixel operator*(float value) {
-			Pixel ret = Pixel(*this);
-			int rN = color[0] * value;
-			int gN = color[1] * value;
-			int bN = color[2] * value;
-			rN = (rN > 255) ? 255 : rN;
-			rN = (rN < 0) ? 0 : rN;
-			gN = (gN > 255) ? 255 : gN;
-			gN = (gN < 0) ? 0 : gN;
-			bN = (bN > 255) ? 255 : bN;
-			bN = (bN < 0) ? 0 : bN;
-			color[0] = rN;
-			color[1] = gN;
-			color[2] = bN;
-			return ret;
-		}
-
-		Pixel operator*=(Pixel value) {
-			Pixel ret = Pixel(*this);
-			int rN = color[0] * value[0];
-			int gN = color[1] * value[1];
-			int bN = color[2] * value[2];
-			rN = (rN > 255) ? 255 : rN;
-			rN = (rN < 0) ? 0 : rN;
-			gN = (gN > 255) ? 255 : gN;
-			gN = (gN < 0) ? 0 : gN;
-			bN = (bN > 255) ? 255 : bN;
-			bN = (bN < 0) ? 0 : bN;
-			color[0] = rN;
-			color[1] = gN;
-			color[2] = bN;
-			return ret;
-		}
 	};
 }

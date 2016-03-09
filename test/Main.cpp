@@ -9,6 +9,7 @@
 #include "npcv/utils/converters/NPipeRequestToImageProcess.h"
 #include "npcv/processes/IPBlending.h"
 #include "npcv/processes/Erosion.h"
+#include "npcv/processes/Treshold.h"
 
 #include <iostream>
 #include <chrono>
@@ -35,16 +36,22 @@ void printTime(double miliseconds) {
 	}
 }
 
+void testImage();
 void testImageFilter();
 void testImageStreamNP();
 void testOCRClassify();
 void testBlend();
 void testImageArithmetic();
 void testImageErosion();
+void testImageSegmentation();
 
 int main(int argc, int *argv[])
 {
-	//testImageFilter();
+	testImage();
+	testImageFilter();
+	
+	testImageSegmentation();
+	 
 	//testImageStreamNP();
 	//testOCRClassify();
 	//testBlend();
@@ -52,14 +59,14 @@ int main(int argc, int *argv[])
 	//testImageErosion();
 
 	char in;
-	cin >> in;
+	//cin >> in;
 	return 0;
 }
 
 void testImageErosion() {
 	IImageStream *is = Toolset::SharedInstance()->imageStream;
 	Image * img = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\opencv-logo.png");
-	bool cg = img->threshold(200);
+	bool cg = false;// img->threshold(200);
 	static int i = 0;
 	Image * img2 = npcv::processing::Erosion::erosion(img, 1, 0, 8, 
 		[](Image* img) {
@@ -73,10 +80,40 @@ void testImageErosion() {
 void _testImageAdd();
 void _testImageSubstract();
 
+void testImageSegmentation() {
+	cout << "Start segmentation test - TRESHOLD" << endl;
+
+	IImageStream *is = Toolset::SharedInstance()->imageStream;
+	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\lena.jpg"));
+
+	segmentation::Treshold::global(img, 100);
+
+	is->Save(img, SAMPLE_DATAS + std::string("output\\test\\segmentation\\globalTresholdLena.jpg"));
+
+	delete img;
+
+	cout << "End segmentation test - TRESHOLD" << endl;
+}
+
 void testImageArithmetic() {
 	
 	_testImageAdd();
 	_testImageSubstract();
+}
+
+void testImage() {
+	cout << "Start image test - GRAYSCALE" << endl;
+
+	IImageStream *is = Toolset::SharedInstance()->imageStream;
+	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\lena.jpg"));
+
+	img->convertToGrayscale();
+
+	is->Save(img, SAMPLE_DATAS + std::string("output\\test\\grayLena.jpg"));
+
+	delete img;
+
+	cout << "End image test - GRAYSCALE" << endl;
 }
 
 void _testImageAdd() {
@@ -352,5 +389,5 @@ void testImageFilter() {
 	matrixProc->free();
 	delete matrixProc;
 
-	Toolset::SharedInstance()->imageStream->Save(img, "D:\\Projects\\npcv2\\samples\\data\\output\\photo3.bmp");
+	Toolset::SharedInstance()->imageStream->Save(img, SAMPLE_DATAS + std::string("output\\photo3.bmp"));
 }

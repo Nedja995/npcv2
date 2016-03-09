@@ -41,12 +41,12 @@ namespace npcv {
 		}*/
 	}
 
-	Pixel * Image::pixelAt(int x, int y)
+	Pixel * Image::pixel(int x, int y)
 	{
-		return new Pixel(pixelAt_ptr(x, y), (PixelType)type);
+		return new Pixel(pixel_ptr(x, y), (PixelType)type);
 	}
 
-	uchar* Image::pixelAt_ptr(int x, int y)
+	uchar* Image::pixel_ptr(int x, int y)
 	{
 		uchar* pixel = 0;
 		
@@ -62,38 +62,23 @@ namespace npcv {
 		return pixel;
 	}
 
-	void Image::pixelSet(int x, int y, int r, int g, int b)
-	{
-		if (type < RGB) {
-			uchar* pixel = pixelAt_ptr(x, y);
-			*(pixel) = r;
-		}
-		else if (type >= RGB) {
-			uchar* pixel = pixelAt_ptr(x, y);
-			*(pixel) = r;
-			*(pixel + 1) = g;
-			*(pixel + 2) = b;
-		}
-
-	}
-
-	void Image::pixelSet(int x, int y, Pixel * value)
-	{
-		pixelSet_ptr(x, y, value->colorPtr);
-	}
+	//void Image::pixelSet(int x, int y, Pixel * value)
+	//{
+	//	pixelSet_ptr(x, y, value->colorPtr);
+	//}
 
 	void Image::pixelSet_ptr(int x, int y, uchar* colorPtr)
 	{
-		uchar* pixel = pixelAt_ptr(x, y);
+		uchar* pixel = pixel_ptr(x, y);
 		for (int i = 0; i < type; i++) {
 			*(pixel + i) = *(colorPtr + i);
 		}
 	}
 
-	bool Image::loadFromMemory(unsigned char * fileMem, size_t bytes)
+	bool Image::loadFromMemory(unsigned char * fileMem, size_t size)
 	{
 		int w, h, t;
-		unsigned char* imageData = stbi_load_from_memory(fileMem, bytes, &w, &h, &t, 0);
+		unsigned char* imageData = stbi_load_from_memory(fileMem, size, &w, &h, &t, 0);
 		if (imageData != 0) {
 			this->pixels = imageData;
 			this->width = w;
@@ -158,56 +143,27 @@ namespace npcv {
 	}
 
 	bool Image::saveToFile(std::string filepath)
-	{	
+	{
 		return Toolset::SharedInstance()->imageStream->Save(this, filepath);
 	}
-	static int vp = 0;
+
 	bool Image::convertToGrayscale()
 	{
 		if (type == GRAY) { return false; }
+
 		Image* gray = new Image(width, height, PixelType::GRAY);
 
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				Pixel* px = pixelAt(x, y);
-				int val = R(px) + G(px) + B(px);
-				val /= 3;
-				if (val == 205) {
-					int a = 3;
-				}
-				if (R(px) != vp) {
-					vp = R(px);
-				}
-				R(gray->pixelAt(x, y)) = val;
+		for_each_pixel(this)
+			gray->pixel(x, y)
+				->setColor((pixel->color(0) + pixel->color(1) + pixel->color(2)) / 3);		
+		for_each_pixel_end
 
-			}
-		}
+		//free old and replace with new
 		free(pixels);
 		pixels = gray->pixels;
 
+		//change type
 		type = GRAY;
-		return true;
-	}
-
-	bool Image::threshold(int borderValue)
-	{
-		Image::convertToGrayscale();
-		Image* tresh = new Image(width, height, type);
-
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				Pixel* px = pixelAt(x, y);
-				int val = R(px);
-				if (val < borderValue) {
-					R(tresh->pixelAt(x, y)) = 0;
-				}
-				else {
-					R(tresh->pixelAt(x, y)) = 255;
-				}
-			}
-		}
-		free(pixels);
-		pixels = tresh->pixels;
 		return true;
 	}
 
@@ -215,7 +171,7 @@ namespace npcv {
 	{
 		for (int x = 0; x < width; x++) {
 		for (int y = 0; y < height; y++) {
-			iterFunction(pixelAt(x, y));
+			iterFunction(pixel(x, y));
 		}
 		}
 	}
@@ -224,7 +180,7 @@ namespace npcv {
 	{
 		for (int x = 0; x < width; x++) {
 		for (int y = 0; y < height; y++) {
-			Pixel* p = pixelAt(x, y);
+			Pixel* p = pixel(x, y);
 			if (type == RGB) {
 				R(p) = r;
 				G(p) = g;
