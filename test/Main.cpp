@@ -71,13 +71,17 @@ void testImageErosion() {
 }
 
 void _testImageAdd();
+void _testImageSubstract();
 
 void testImageArithmetic() {
 	
 	_testImageAdd();
+	_testImageSubstract();
 }
 
 void _testImageAdd() {
+	cout << "Start image artihmetic - ADD" << endl;
+
 	IImageStream *is = Toolset::SharedInstance()->imageStream;
 	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\test\\flower.jpg"));
 	Image * img2 = is->Load(SAMPLE_DATAS + std::string("input\\test\\cows.jpg"));
@@ -87,8 +91,8 @@ void _testImageAdd() {
 	*img2 += *img;
 
 	is->Save(&add, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddflowerCows.jpg"));
-	is->Save(&add2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddAssignflowerCows.jpg"));
-	is->Save(img2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddAssignflowerCows2.jpg"));
+	is->Save(&add2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddflowerCows2.jpg"));
+	is->Save(img2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddAssignflowerCows.jpg"));
 	
 	delete img;
 	delete img2;
@@ -97,17 +101,23 @@ void _testImageAdd() {
 }
 
 void _testImageSubstract() {
+	cout << "Start image artihmetic - SUBSTRACTION" << endl;
 	IImageStream *is = Toolset::SharedInstance()->imageStream;
 	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\test\\cows.jpg"));
-	Image * img2 = is->Load(SAMPLE_DATAS + std::string("input\\test\\horser.jpg"));
+	Image * img2 = is->Load(SAMPLE_DATAS + std::string("input\\test\\horses.jpg"));
 
-	Image add = *img - *img2;
-	//*img2 -= *img;
+	Image sub = *img - *img2;
+	Image sub2 = *img - *img2;
+	*img2 -= *img;
 
-	is->Save(&add, SAMPLE_DATAS + std::string("output\\test\\SubstractHorsersCows.jpg"));
-	is->Save(img2, SAMPLE_DATAS + std::string("output\\test\\SubstractAssignHorsersCows.jpg"));
+	is->Save(&sub, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\SubstractionHorserCows.jpg"));
+	is->Save(&sub2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\SubstractionHorserCows.jpg"));
+	is->Save(img2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\SubstractionAssignHorserCows.jpg"));
 
-	cout << "End image artihmetic - ADD" << endl;
+	delete img;
+	delete img2;
+
+	cout << "End image artihmetic - SUBSTRACTION" << endl;
 }
 
 void testBlend() {

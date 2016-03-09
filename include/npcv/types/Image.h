@@ -69,16 +69,6 @@ namespace npcv {
 				Pixel np = (*px2 + *pixel);
 				ret.pixelSet(x, y, &np);
 				delete px2;
-				//int r = R(pixel);
-				//int g = G(pixel);
-				//int b = B(pixel);
-				//r += R(px2);
-				//g += G(px2);
-				//b += B(px2);
-				//r = std::max(std::min(r, 255), 0);
-				//g = std::max(std::min(g, 255), 0);
-				//b = std::max(std::min(b, 255), 0);
-				//ret.pixelSet(x, y, r, g, b);
 			for_each_pixel_end
 			return ret;
 		}
@@ -90,7 +80,7 @@ namespace npcv {
 				delete px2;
 			for_each_pixel_end
 		}
-
+		\
 		void operator-=(Image image) {
 			for_each_pixel(this)
 				Pixel* px2 = image.pixelAt(x, y);
@@ -102,7 +92,9 @@ namespace npcv {
 			Image ret = Image(width, height, type);
 			for_each_pixel(this)
 				Pixel* px2 = image.pixelAt(x, y);
-				ret.pixelSet(x, y, &(*pixel - *px2));
+				Pixel np = *pixel - *px2;
+				ret.pixelSet(x, y, &np);
+			delete px2;
 			for_each_pixel_end
 			return ret;
 		}

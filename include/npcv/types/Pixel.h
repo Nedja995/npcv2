@@ -41,6 +41,14 @@ namespace npcv {
 			return ret;
 		}
 
+		Pixel operator-(Pixel px) {
+			Pixel ret = Pixel(&px, true);
+			R((&ret)) = std::max(std::min(R(this) - R((&px)), 255), 0);
+			G((&ret)) = std::max(std::min(G(this) - G((&px)), 255), 0);
+			B((&ret)) = std::max(std::min(B(this) - B((&px)), 255), 0);
+			return ret;
+		}
+
 		void operator+=(Pixel px) {
 			R(this) = std::max(std::min(R((&px)) + R(this), 255), 0);
 			G(this) = std::max(std::min(G((&px)) + G(this), 255), 0);
@@ -51,29 +59,6 @@ namespace npcv {
 			R(this) = std::max(std::min(R(this) - R((&px)), 255), 0);
 			G(this) = std::max(std::min(G(this) - G((&px)), 255), 0);
 			B(this) = std::max(std::min(B(this) - B((&px)), 255), 0);
-		}
-
-		Pixel operator-(Pixel px) {
-			int r1 = R((&px));
-			int g1 = G((&px));
-			int b1 = B((&px));
-			int r2 = R(this);
-			int g2 = G(this);
-			int b2 = B(this);
-			Pixel ret = Pixel(px);
-			int rN = r1 - r2;
-			int gN = g1 - g2;
-			int bN = b1 - b2;
-			rN = (rN > 255) ? 255 : rN;
-			rN = (rN < 0) ? 0 : rN;
-			gN = (gN > 255) ? 255 : gN;
-			gN = (gN < 0) ? 0 : gN;
-			bN = (bN > 255) ? 255 : bN;
-			bN = (bN < 0) ? 0 : bN;
-			R((&ret)) = 255 - rN;
-			G((&ret)) = 255 - gN;
-			B((&ret)) = 255 - bN;
-			return ret;
 		}
 
 		Pixel operator*(float value) {
