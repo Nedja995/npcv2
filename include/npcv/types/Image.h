@@ -13,7 +13,7 @@
 	for(int x = 0; x < image->width; x++) { \
 	for(int y = 0; y < image->height; y++) { \
 		Pixel* pixel = image->pixelAt(x, y);
-#define for_each_pixel_end	}}
+#define for_each_pixel_end	delete pixel;}}
 
 namespace npcv {
 
@@ -35,6 +35,7 @@ namespace npcv {
 		int width;
 		int height;
 		PixelType type;
+		std::function<void(Image*)> freeDataFunc;
 
 		Pixel* pixelAt(int x, int y);
 
@@ -45,7 +46,7 @@ namespace npcv {
 		void pixelSet(int x, int y, Pixel* value);
 
 
-		void pixelSet_ptr(int x, int y, uchar* firstComp);
+		void pixelSet_ptr(int x, int y, uchar* colorPtr);
 
 		bool loadFromMemory(unsigned char* fileMem, size_t bytes);
 
@@ -65,16 +66,19 @@ namespace npcv {
 			Image ret = Image(width, height, type);
 			for_each_pixel(this)
 				Pixel* px2 = image.pixelAt(x, y);
-				int r = R(pixel);
-				int g = G(pixel);
-				int b = B(pixel);
-				r += R(px2);
-				g += G(px2);
-				b += B(px2);
-				r = std::max(std::min(r, 255), 0);
-				g = std::max(std::min(g, 255), 0);
-				b = std::max(std::min(b, 255), 0);
-				ret.pixelSet(x, y, r, g, b);
+				Pixel np = (*px2 + *pixel);
+				ret.pixelSet(x, y, &np);
+				delete px2;
+				//int r = R(pixel);
+				//int g = G(pixel);
+				//int b = B(pixel);
+				//r += R(px2);
+				//g += G(px2);
+				//b += B(px2);
+				//r = std::max(std::min(r, 255), 0);
+				//g = std::max(std::min(g, 255), 0);
+				//b = std::max(std::min(b, 255), 0);
+				//ret.pixelSet(x, y, r, g, b);
 			for_each_pixel_end
 			return ret;
 		}
@@ -83,6 +87,7 @@ namespace npcv {
 			for_each_pixel(this)
 				Pixel* px2 = image.pixelAt(x, y);
 				*pixel += *px2;
+				delete px2;
 			for_each_pixel_end
 		}
 

@@ -1,9 +1,9 @@
 
 #include <algorithm>
 
-#define R(pixel) *(pixel->firstComp )
-#define G(pixel) *(pixel->firstComp + 1)
-#define B(pixel) *(pixel->firstComp + 2)
+#define R(pixel) *(pixel->colorPtr )
+#define G(pixel) *(pixel->colorPtr + 1)
+#define B(pixel) *(pixel->colorPtr + 2)
 
 namespace npcv {
 
@@ -19,10 +19,12 @@ namespace npcv {
 
 	class Pixel {
 	public:
-		Pixel(uchar* firstComp, PixelType type) : firstComp(firstComp), type(type) {};
+		Pixel(uchar* colorPtr, PixelType type) : colorPtr(colorPtr), type(type), allocated(false){};
 		Pixel(Pixel* pixel, bool copy);
+		~Pixel();
 		PixelType type;
-		uchar* firstComp;
+		uchar* colorPtr;
+		bool allocated;
 		int color[];
 
 		int& operator[] (int i) {
@@ -32,22 +34,10 @@ namespace npcv {
 		//bool setColor(int color[]);
 
 		Pixel operator+(Pixel px) {
-			Pixel ret = Pixel(px);
-			//R((&ret)) = std::max(std::min(R(this) + R((&px)), 255), 0);
-			//G((&ret)) = std::max(std::min(G(this) + G((&px)), 255), 0);
-			//B((&ret)) = std::max(std::min(B(this) + B((&px)), 255), 0);
-			int r = R(this);
-			int g = G(this);
-			int b = B(this);
-			r += R((&px));
-			g += G((&px));
-			b += B((&px));
-			r = std::max(std::min(r, 255), 0);
-			g = std::max(std::min(g, 255), 0);
-			b = std::max(std::min(b, 255), 0);
-			R((&ret)) = r;
-			G((&ret)) = g;
-			B((&ret)) = b;
+			Pixel ret = Pixel(&px, true);
+			R((&ret)) = std::max(std::min(R(this) + R((&px)), 255), 0);
+			G((&ret)) = std::max(std::min(G(this) + G((&px)), 255), 0);
+			B((&ret)) = std::max(std::min(B(this) + B((&px)), 255), 0);
 			return ret;
 		}
 

@@ -8,8 +8,26 @@ namespace npcv {
 	
 	Pixel::Pixel(Pixel * pixel, bool copy)
 	{
-		firstComp = new uchar[pixel->type];
-		//firstComp
+		allocated = copy;
+		type = pixel->type;
+		if (copy) 
+		{
+			colorPtr = new uchar[type];
+			for (int i = 0; i <= type; i++) {
+				colorPtr[i] = *(pixel->colorPtr + i);
+			}
+		}
+		else 
+		{
+			colorPtr = pixel->colorPtr;
+		}
+	}
+
+	Pixel::~Pixel()
+	{
+		//if (allocated) {
+		//	delete colorPtr;
+		//}
 	}
 
 }

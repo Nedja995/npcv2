@@ -84,12 +84,15 @@ void _testImageAdd() {
 
 	Image add =  *img + *img2 ;
 	Image add2 = *img + *img2;
-	Image add3 = *img + *img2;
-	//*img2 += *img;
+	*img2 += *img;
 
-	is->Save(&add, SAMPLE_DATAS + std::string("output\\test\\AddflowerCows.jpg"));
-	is->Save(&add2, SAMPLE_DATAS + std::string("output\\test\\AddAssignflowerCows.jpg"));
-	is->Save(&add3, SAMPLE_DATAS + std::string("output\\test\\AddAssignflowerCows2.jpg"));
+	is->Save(&add, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddflowerCows.jpg"));
+	is->Save(&add2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddAssignflowerCows.jpg"));
+	is->Save(img2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddAssignflowerCows2.jpg"));
+	
+	delete img;
+	delete img2;
+	
 	cout << "End image artihmetic - ADD" << endl;
 }
 

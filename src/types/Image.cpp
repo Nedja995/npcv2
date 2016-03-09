@@ -21,7 +21,11 @@ namespace npcv {
 		: width(width), height(height), type(type)
 	{
 		size_t memSize = sizeof(unsigned char) * width * height * type;
-		pixels = (uchar*)malloc(memSize);
+		pixels = new uchar[memSize];
+
+		/*freeDataFunc = [](Image* image) {
+			delete image->pixels;
+		};*/
 		memset(pixels, 255, memSize);
 	}
 
@@ -32,6 +36,9 @@ namespace npcv {
 
 	Image::~Image()
 	{
+		/*if (freeDataFunc != 0) {
+			freeDataFunc(this);
+		}*/
 	}
 
 	Pixel * Image::pixelAt(int x, int y)
@@ -72,14 +79,14 @@ namespace npcv {
 
 	void Image::pixelSet(int x, int y, Pixel * value)
 	{
-		pixelSet_ptr(x, y, value->firstComp);
+		pixelSet_ptr(x, y, value->colorPtr);
 	}
 
-	void Image::pixelSet_ptr(int x, int y, uchar* firstComp)
+	void Image::pixelSet_ptr(int x, int y, uchar* colorPtr)
 	{
 		uchar* pixel = pixelAt_ptr(x, y);
 		for (int i = 0; i < type; i++) {
-			*(pixel + i) = *(firstComp + i);
+			*(pixel + i) = *(colorPtr + i);
 		}
 	}
 
