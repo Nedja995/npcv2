@@ -21,7 +21,16 @@ namespace npcv {
 		ret.pixels = new uchar[ret.memSize()]{ 0 };
 		return ret;
 	}
+
+	Image& Image::Null()
+	{
+		Image& ret = *new Image();
+		return ret;
+	}
+
 	Image::Image()
+		: type(PixelType::Null)
+		, pixels(nullptr)
 	{
 	}
 
@@ -174,7 +183,7 @@ namespace npcv {
 
 	bool Image::saveToFile(std::string filepath)
 	{
-		return Toolset::SharedInstance()->imageStream->Save(this, filepath);
+		return Toolset::SharedInstance().imageStream.Save(*this, filepath);
 	}
 
 	bool Image::convertToGrayscale()

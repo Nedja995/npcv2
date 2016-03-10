@@ -1,6 +1,6 @@
 #include "npcv/ui/DialogFileSelectWindows.h"
 #include "npcv/Config.h"
-#ifdef _WIN64
+#ifdef _WIN32
 #include <Windows.h>
 #include <tchar.h>
 #endif
@@ -41,7 +41,7 @@ namespace npcv
 		void DialogFileSelectWindows::show()
 		{
 			//MessageBox(0, "Hello World!", "Greetings", 0);
-#ifdef _WIN64
+#ifdef _WIN32
 			OPENFILENAME ofn;
 			ZeroMemory(&ofn, sizeof(ofn));
 

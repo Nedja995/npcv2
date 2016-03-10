@@ -10,9 +10,9 @@ namespace npcv {
 
 		//virtual ~IImageStream() = 0;
 
-		virtual Image* Load(std::string path) = 0;
+		virtual Image& Load(std::string path) = 0;
 
-		virtual bool Save(Image* image, std::string path) = 0;
+		virtual bool Save(Image& image, std::string path) = 0;
 
 		virtual void free() = 0;
 	};

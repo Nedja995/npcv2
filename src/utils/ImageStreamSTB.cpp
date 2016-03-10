@@ -26,7 +26,7 @@ namespace npcv {
 		{
 		}
 
-		Image * ImageStreamSTB::Load(std::string path)
+		Image& ImageStreamSTB::Load(std::string path)
 		{
 			int width, height, type;
 			Image * ret = 0;
@@ -39,17 +39,17 @@ namespace npcv {
 			}
 			ret = new Image(data, width, height, (PixelType)type);
 #endif
-			return ret;
+			return *ret;
 
 		}
 
-		bool ImageStreamSTB::Save(Image * image, std::string path)
+		bool ImageStreamSTB::Save(Image& image, std::string path)
 		{
 			int res = stbi_write_png(path.c_str(),
-				image->width,
-				image->height,
-				image->type,
-				image->pixels,
+				image.width,
+				image.height,
+				image.type,
+				image.pixels,
 				0);
 
 			if (res == 0) {

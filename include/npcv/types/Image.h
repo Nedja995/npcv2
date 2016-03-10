@@ -43,6 +43,8 @@ namespace npcv {
 		static Image& Create();
 		static Image& Create(int width, int height, PixelType type);
 
+		static Image& Null();
+
 		Image();
 		Image(Image& image);
 		Image(int width, int height, PixelType type);

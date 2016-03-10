@@ -54,14 +54,14 @@ int main(int argc, int *argv[])
 
 	testImageConvolutionMatrix();
 
-//	testImageFilter();
+	testImageFilter();
 	
 	//testImageSegmentation();
 	 
 	//testImageStreamNP();
 	//testOCRClassify();
 	//testBlend();
-//	testImageArithmetic();
+	testImageArithmetic();
 	//testImageErosion();
 
 	char in;
@@ -72,8 +72,8 @@ int main(int argc, int *argv[])
 void testImageConvolutionMatrix() {
 	cout << "Start processing test - CONVOLUTION MATRIX" << endl;
 
-	IImageStream *is = Toolset::SharedInstance()->imageStream;
-	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\photo3.bmp"));
+	IImageStream& is = Toolset::SharedInstance().imageStream;
+	Image& img = is.Load(SAMPLE_DATAS + std::string("input\\photo3.bmp"));
 
 
 
@@ -83,7 +83,7 @@ void testImageConvolutionMatrix() {
 	//make process
 	IPMatrixApply* matrixProc = new IPMatrixApply();
 	//configure process
-	matrixProc->setImage(img);
+	matrixProc->setImage(&img);
 	int matrixSize = 3;
 
 	matrixProc->matrixSize = matrixSize;
@@ -107,25 +107,25 @@ void testImageConvolutionMatrix() {
 
 
 
-	is->Save(img, SAMPLE_DATAS + std::string("output\\test\\matrixphoto3.bmp"));
+	is.Save(img, SAMPLE_DATAS + std::string("output\\test\\matrixphoto3.bmp"));
 
-	delete img;
+	delete &img;
 
 	cout << "End processing test - CONVOLUTION MATRIX" << endl;
 }
 
 void testImageErosion() {
-	IImageStream *is = Toolset::SharedInstance()->imageStream;
-	Image * img = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\opencv-logo.png");
+	IImageStream& is = Toolset::SharedInstance().imageStream;
+	Image& img = is.Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\opencv-logo.png");
 	bool cg = false;// img->threshold(200);
 	static int i = 0;
-	Image * img2 = npcv::processing::Erosion::erosion(img, 1, 0, 8, 
+	Image * img2 = npcv::processing::Erosion::erosion(&img, 1, 0, 8, 
 		[](Image* img) {
 			img->saveToFile("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\Erosion\\opencv-logo" + std::to_string(i++) + ".bmp");
 		});
 
 	cout << "Finish" << endl;
-	is->Save(img, "D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\Erosion\\opencv-logo.png");
+	is.Save(img, "D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\Erosion\\opencv-logo.png");
 }
 
 void _testImageAdd();
@@ -134,14 +134,14 @@ void _testImageSubstract();
 void testImageSegmentation() {
 	cout << "Start segmentation test - TRESHOLD" << endl;
 
-	IImageStream *is = Toolset::SharedInstance()->imageStream;
-	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\lena.jpg"));
+	IImageStream& is = Toolset::SharedInstance().imageStream;
+	Image& img = is.Load(SAMPLE_DATAS + std::string("input\\lena.jpg"));
 
-	segmentation::Treshold::global(*img, 100);
+	segmentation::Treshold::global(img, 100);
 
-	is->Save(img, SAMPLE_DATAS + std::string("output\\test\\segmentation\\globalTresholdLena.jpg"));
+	is.Save(img, SAMPLE_DATAS + std::string("output\\test\\segmentation\\globalTresholdLena.jpg"));
 
-	delete img;
+	delete &img;
 
 	cout << "End segmentation test - TRESHOLD" << endl;
 }
@@ -155,14 +155,14 @@ void testImageArithmetic() {
 void testImage() {
 	cout << "Start image test - GRAYSCALE" << endl;
 
-	IImageStream *is = Toolset::SharedInstance()->imageStream;
-	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\lena.jpg"));
+	IImageStream& is = Toolset::SharedInstance().imageStream;
+	Image& img = is.Load(SAMPLE_DATAS + std::string("input\\lena.jpg"));
 
-	bool c=	img->convertToGrayscale();
+	bool c=	img.convertToGrayscale();
 
-	is->Save(img, SAMPLE_DATAS + std::string("output\\test\\grayLena.jpg"));
+	is.Save(img, SAMPLE_DATAS + std::string("output\\test\\grayLena.jpg"));
 
-	delete img;
+	delete &img;
 
 	cout << "End image test - GRAYSCALE" << endl;
 }
@@ -170,54 +170,54 @@ void testImage() {
 void _testImageAdd() {
 	cout << "Start image artihmetic - ADD" << endl;
 
-	IImageStream *is = Toolset::SharedInstance()->imageStream;
-	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\test\\flower.jpg"));
-	Image * img2 = is->Load(SAMPLE_DATAS + std::string("input\\test\\cows.jpg"));
+	IImageStream& is = Toolset::SharedInstance().imageStream;
+	Image& img = is.Load(SAMPLE_DATAS + std::string("input\\test\\flower.jpg"));
+	Image& img2 = is.Load(SAMPLE_DATAS + std::string("input\\test\\cows.jpg"));
 
-	Image add =  *img + *img2 ;
-	Image add2 = *img + *img2;
-	*img2 += *img;
+	Image add =  img + img2 ;
+	Image add2 = img + img2;
+	img2 += img;
 
-	is->Save(&add, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddflowerCows.jpg"));
-	is->Save(&add2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddflowerCows2.jpg"));
-	is->Save(img2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddAssignflowerCows.jpg"));
+	is.Save(add, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddflowerCows.jpg"));
+	is.Save(add2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddflowerCows2.jpg"));
+	is.Save(img2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddAssignflowerCows.jpg"));
 	
-	delete img;
-	delete img2;
+	delete &img;
+	delete &img2;
 	
 	cout << "End image artihmetic - ADD" << endl;
 }
 
 void _testImageSubstract() {
 	cout << "Start image artihmetic - SUBSTRACTION" << endl;
-	IImageStream *is = Toolset::SharedInstance()->imageStream;
-	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\test\\cows.jpg"));
-	Image * img2 = is->Load(SAMPLE_DATAS + std::string("input\\test\\horses.jpg"));
+	IImageStream& is = Toolset::SharedInstance().imageStream;
+	Image& img = is.Load(SAMPLE_DATAS + std::string("input\\test\\cows.jpg"));
+	Image& img2 = is.Load(SAMPLE_DATAS + std::string("input\\test\\horses.jpg"));
 
-	Image sub = *img - *img2;
-	Image sub2 = *img - *img2;
-	*img2 -= *img;
+	Image sub = img - img2;
+	Image sub2 = img - img2;
+	img2 -= img;
 
-	is->Save(&sub, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\SubstractionHorserCows.jpg"));
-	is->Save(&sub2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\SubstractionHorserCows.jpg"));
-	is->Save(img2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\SubstractionAssignHorserCows.jpg"));
+	is.Save(sub, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\SubstractionHorserCows.jpg"));
+	is.Save(sub2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\SubstractionHorserCows2.jpg"));
+	is.Save(img2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\SubstractionAssignHorserCows.jpg"));
 
-	delete img;
-	delete img2;
+	delete &img;
+	delete &img2;
 
 	cout << "End image artihmetic - SUBSTRACTION" << endl;
 }
 
 void testBlend() {
-	IImageStream *is = Toolset::SharedInstance()->imageStream;
-	Image * img = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\hse1fou1.gif");
-	Image * img2 = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\hse1msk3.gif");
-	Image inp1 = Image(*img);
-	Image inp2 = Image(*img);
+	IImageStream& is = Toolset::SharedInstance().imageStream;
+	Image& img = is.Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\hse1fou1.gif");
+	Image& img2 = is.Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\hse1msk3.gif");
+	Image inp1 = Image(img);
+	Image inp2 = Image(img);
 
-	Image* blended = npcv::processing::Blend(img, img2, 0.5);
+	Image* blended = npcv::processing::Blend(&img, &img2, 0.5);
 
-	is->Save(blended, "D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\tmpl2.png");
+	is.Save(*blended, "D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\tmpl2.png");
 	//npcv::processing::Blend(img, )
 
 
@@ -234,8 +234,8 @@ void testImageStreamNP() {
 }
 
 void testOCRClassify() {
-	IImageStream *is = Toolset::SharedInstance()->imageStream;
-	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\lena.jpg"));
+	IImageStream& is = Toolset::SharedInstance().imageStream;
+	Image& img = is.Load(SAMPLE_DATAS + std::string("input\\lena.jpg"));
 
 
 	/*
@@ -244,7 +244,7 @@ void testOCRClassify() {
 	//make process
 	IPMatrixApply* matrixProc = new IPMatrixApply();
 	//configure process
-	matrixProc->setImage(img);
+	matrixProc->setImage(&img);
 	int matrixSize = 3;
 
 	matrixProc->matrixSize = matrixSize;
@@ -270,19 +270,13 @@ void testOCRClassify() {
 	//utils::SamplingImage* samplImage = new utils::SamplingImage(img);
 	//std::vector<Image*> digits = samplImage->Subimages(20, 20);
 
-	is->Save(img, SAMPLE_DATAS + std::string("output\\lena.jpg"));
+	is.Save(img, SAMPLE_DATAS + std::string("output\\lena.jpg"));
 
 }
 
 void testImageFilter() {
-	IImageStream *is = Toolset::SharedInstance()->imageStream;
-	//Image * bmi = is->Load("/home/ubuntudev/Desktop/Projects/npcv2/samples/data/input/photo3.bmp");
-	//stbi__context* con = new stbi__context();
-	//stbi__bmp_load()
-
-	//is->Save(bmi, "D:\\Projects\\NPComputerVision\\npcv2\\samples\\data\\output\\lena.jpg");
-
-	Image * img = Toolset::SharedInstance()->imageStream->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\photo3.bmp");
+	IImageStream& is = Toolset::SharedInstance().imageStream;
+	Image& img = is.Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\photo3.bmp");
 
 	/*
 	* graying with divide pixel with 2
@@ -290,7 +284,7 @@ void testImageFilter() {
 	//make process
 	ProcessGray* grayProc = new ProcessGray();
 	//configure process
-	grayProc->setImage(img);
+	grayProc->setImage(&img);
 	grayProc->setIntensity(2);
 	grayProc->initialize(); //initialize
 
@@ -304,141 +298,6 @@ void testImageFilter() {
 	sum += milisec;
 	cout << "ProcessGray: " << endl;				//function name
 	printTime(milisec);
-	//////1
-	//start = std::chrono::steady_clock::now();  //measure start	
-	//grayProc->execute();							//execute process
-	//end = std::chrono::steady_clock::now();	//measure end
-	//diff = end - start;						//duration
-	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
-	//sum += milisec;
-	//printTime(milisec);
-	////2
-	//start = std::chrono::steady_clock::now();  //measure start	
-	//grayProc->execute();							//execute process
-	//end = std::chrono::steady_clock::now();	//measure end
-	//diff = end - start;						//duration
-	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
-	//sum += milisec;
-	//printTime(milisec);
-	////3
-	//start = std::chrono::steady_clock::now();  //measure start	
-	//grayProc->execute();							//execute process
-	//end = std::chrono::steady_clock::now();	//measure end
-	//diff = end - start;						//duration
-	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
-	//sum += milisec;
-	//printTime(milisec);
-	////4
-	//start = std::chrono::steady_clock::now();  //measure start	
-	//grayProc->execute();							//execute process
-	//end = std::chrono::steady_clock::now();	//measure end
-	//diff = end - start;						//duration
-	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
-	//sum += milisec;
-	//printTime(milisec);
-	////5
-	//start = std::chrono::steady_clock::now();  //measure start	
-	//grayProc->execute();							//execute process
-	//end = std::chrono::steady_clock::now();	//measure end
-	//diff = end - start;						//duration
-	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
-	//sum += milisec;
-	//printTime(milisec);
-	////6
-	//start = std::chrono::steady_clock::now();  //measure start	
-	//grayProc->execute();							//execute process
-	//end = std::chrono::steady_clock::now();	//measure end
-	//diff = end - start;						//duration
-	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
-	//sum += milisec;
-	//printTime(milisec);
-	////7
-	//start = std::chrono::steady_clock::now();  //measure start	
-	//grayProc->execute();							//execute process
-	//end = std::chrono::steady_clock::now();	//measure end
-	//diff = end - start;						//duration
-	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
-	//sum += milisec;
-	//printTime(milisec);
-	////8
-	//start = std::chrono::steady_clock::now();  //measure start	
-	//grayProc->execute();							//execute process
-	//end = std::chrono::steady_clock::now();	//measure end
-	//diff = end - start;						//duration
-	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
-	//sum += milisec;
-	//printTime(milisec);
-	////9
-	//start = std::chrono::steady_clock::now();  //measure start	
-	//grayProc->execute();							//execute process
-	//end = std::chrono::steady_clock::now();	//measure end
-	//diff = end - start;						//duration
-	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
-	//sum += milisec;
-	//printTime(milisec);
-	////10
-	//start = std::chrono::steady_clock::now();  //measure start	
-	//grayProc->execute();							//execute process
-	//end = std::chrono::steady_clock::now();	//measure end
-	//diff = end - start;						//duration
-	//milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
-	//sum += milisec;
-	//printTime(milisec);
 
-
-	//sum /= 11;
-	//cout << endl << "Avarage: " << sum << " milis" <<  endl;
-
-	//free res and delete process
-	grayProc->free();
-	delete grayProc;
-
-
-	//DebugStream ob;
-	// initialize output stream with that output buffer
-	//std::ostream out(&ob);
-
-	//ob << "dfdsf";
-
-	//ostream oss();
-	//oss << "Fd";
-
-	//DebugStream mc;
-	//mc << "fdsfds" << "Fdsfsd";
-
-
-	/*
-	* Image apply matrix
-	*/
-	//make process
-	IPMatrixApply* matrixProc = new IPMatrixApply();
-	//configure process
-	matrixProc->setImage(img);
-	int matrixSize = 3;
-
-	matrixProc->matrixSize = matrixSize;
-	float filter[9] =
-	{
-		1,  1,  1,
-		1, -7,  1,
-		1,  1,  1
-	};
-	matrixProc->matrix = &filter[0];
-	/*matrixProc->bias = ;
-	matrixProc->factor = ;*/
-
-	matrixProc->initialize(); //initialize
-
-	start = std::chrono::steady_clock::now();  //measure start
-	matrixProc->execute();							//execute process
-	end = std::chrono::steady_clock::now();	//measure end
-	diff = end - start;						//duration
-	milisec = chrono::duration <double, milli>(diff).count(); //miliseconds
-	cout << "IPMatrixApply: " << endl;				//function name
-	printTime(milisec);
-	//free res and delete process
-	matrixProc->free();
-	delete matrixProc;
-
-	Toolset::SharedInstance()->imageStream->Save(img, SAMPLE_DATAS + std::string("output\\photo3.bmp"));
+	Toolset::SharedInstance().imageStream.Save(img, SAMPLE_DATAS + std::string("output\\photo3.bmp"));
 }

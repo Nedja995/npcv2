@@ -4,7 +4,7 @@
 #include "npcv/abs/IImageStream.h"
 #include <stdarg.h>
 
-#if _WIN64
+#if _WIN32
 #include "npcv/ui/DialogFileSelectWindows.h"
 #endif
 
@@ -14,34 +14,35 @@ namespace npcv {
 
 	Toolset* Toolset::_sharedInstance = 0;
 
-	Toolset * Toolset::SharedInstance()
+	Toolset& Toolset::SharedInstance()
 	{
 		if (Toolset::_sharedInstance == 0) {
 			Toolset::_sharedInstance = new Toolset();
 		}
-		return _sharedInstance;
+		return *_sharedInstance;
 	}
 
-	Toolset::Toolset()
+	Toolset::Toolset() 
+		: log(*new LogListenerDebug())
+		, imageStream(*((IImageStream*)new ImageStreamSTB()))
 	{
-		log = new LogListenerDebug();
-		imageStream = (npcv::IImageStream*)new ImageStreamSTB();
+
 	}
 
 	Toolset::~Toolset()
 	{
-		delete log;
+		delete &log;
 	}
 
-	ui::IDialogFileSelect * Toolset::uiDialogFileselect()
+	ui::IDialogFileSelect& Toolset::uiDialogFileselect()
 	{
-#if _WIN64
-		return new ui::DialogFileSelectWindows();
+#if _WIN32
+		return *new ui::DialogFileSelectWindows();
 #elif __linux__
 
 #endif
 
-		return 0;
+		return *new ui::DialogFileSelectWindows();
 	}
 
 

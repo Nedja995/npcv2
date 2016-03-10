@@ -10,6 +10,7 @@ namespace npcv {
 	typedef unsigned char uchar;
 
 	enum PixelType {
+		Null = 0,
 		GRAY = 1,
 		GA = 2,
 		RGB = 3,

@@ -10,8 +10,8 @@ namespace npcv {
 			ImageStreamSTB();
 			//virtual ~ImageStreamSTB() override;
 			// Inherited via IImageStream
-			virtual Image * Load(std::string path) override;
-			virtual bool Save(Image * image, std::string path) override;
+			virtual Image& Load(std::string path) override;
+			virtual bool Save(Image& image, std::string path) override;
 			virtual void free() override;
 		};
 	}

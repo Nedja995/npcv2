@@ -4,7 +4,7 @@ namespace npcv {
 
 	Application::Platform Application::getRuntimePLatform()
 	{
-#ifdef _WIN64
+#ifdef _WIN32
 		return Platform::Windows;
 #elif __unix__
 		return Platform::Unix;

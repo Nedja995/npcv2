@@ -32,13 +32,13 @@ namespace npcv
 		return ret;
 	}
 
-	Image * ImageStreamNP::Load(std::string path)
+	Image& ImageStreamNP::Load(std::string path)
 	{
 		_openWinNamedPipe();
-		return nullptr;
+		return Image::Null();
 	}
 
-	bool ImageStreamNP::Save(Image * image, std::string path)
+	bool ImageStreamNP::Save(Image& image, std::string path)
 	{
 		return false;
 	}

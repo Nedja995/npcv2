@@ -32,8 +32,8 @@ namespace npcv
 	public:
 		static ImageStreamNP * Create();
 		// Inherited via IImageStream
-		virtual Image * Load(std::string path = "") override;
-		virtual bool Save(Image * image, std::string path) override;
+		virtual Image& Load(std::string path = "") override;
+		virtual bool Save(Image& image, std::string path) override;
 		virtual void free() override;
 
 	private:
