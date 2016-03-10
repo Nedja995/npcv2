@@ -6,9 +6,9 @@ namespace processing {
 
 	Image * Erosion::erosion(Image * imageGray, int size, int foregroundValue, int iteration, std::function<void(Image*)> iterationResults )
 	{
-		Image* ret = new Image(imageGray->width, imageGray->height, imageGray->type);
+/*		Image* ret = new Image(imageGray->width, imageGray->height, imageGray->type);
 		ret->setColor(255 - foregroundValue, 255 - foregroundValue, 255 - foregroundValue);
-		Image* image = new Image(imageGray);
+		Image* image = new Image(*imageGray);
 		iterationResults(image);
 		int mx = 0, my = 0; //nearby pixel iterators
 		bool changed = true, surounded = true;
@@ -79,7 +79,7 @@ namespace processing {
 			}
 		}//end iteration
 
-		return ret;
+		return ret;*/return nullptr;
 	}
 }
 }

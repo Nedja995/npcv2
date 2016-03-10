@@ -25,7 +25,7 @@ namespace npcv {
 			virtual void processImage() override;
 
 		protected:
-			bool matrixApply(Image* image);
+			bool matrixApply(Image& image);
 		};
 	}
 }

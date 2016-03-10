@@ -7,13 +7,26 @@
 #include "npcv/Toolset.h"
 
 namespace npcv {
-
+	Image& Image::Create()
+	{
+		Image& ret = *new Image();
+		return ret;
+	}
+	Image & Image::Create(int width, int height, PixelType type)
+	{
+		Image& ret = *new Image();
+		ret.width = width;
+		ret.height = height;
+		ret.type = type;
+		ret.pixels = new uchar[ret.memSize()]{ 0 };
+		return ret;
+	}
 	Image::Image()
 	{
 	}
 
-	Image::Image(Image * image)
-		: Image(image->pixels, image->width, image->height, image->type)
+	Image::Image(Image&  image)
+		: Image(image.pixels, image.width, image.height, image.type)
 	{
 	}
 
@@ -41,9 +54,14 @@ namespace npcv {
 		}*/
 	}
 
-	Pixel * Image::pixel(int x, int y)
+	inline size_t Image::memSize()
 	{
-		return new Pixel(pixel_ptr(x, y), (PixelType)type);
+		return width * height * type * sizeof(uchar);
+	}
+
+	Pixel& Image::pixel(int x, int y)
+	{
+		return *new Pixel(pixel_ptr(x, y), (PixelType)type);
 	}
 
 	uchar* Image::pixel_ptr(int x, int y)
@@ -86,6 +104,18 @@ namespace npcv {
 			this->type = (PixelType)t;
 
 			return true;
+		}
+		return false;
+	}
+
+	bool Image::setPixelsCopy(Image& image)
+	{
+		int re = memcpy_s(pixels, memSize(), image.pixels, image.memSize());
+		if (re == 0) {
+			true;
+		}
+		else {
+			false;
 		}
 		return false;
 	}
@@ -151,23 +181,22 @@ namespace npcv {
 	{
 		if (type == GRAY) { return false; }
 
-		Image* gray = new Image(width, height, PixelType::GRAY);
+		Image gray = Image(width, height, PixelType::GRAY);
 
-		for_each_pixel(this)
-			gray->pixel(x, y)
-				->setColor((pixel->color(0) + pixel->color(1) + pixel->color(2)) / 3);		
+		for_each_pixel((*this))
+			gray.pixel(x, y)
+				.setColor((pixel.color(0) + pixel.color(1) + pixel.color(2)) / 3);		
 		for_each_pixel_end
 
 		//free old and replace with new
-		free(pixels);
-		pixels = gray->pixels;
+		setPixelsCopy(gray);
 
 		//change type
 		type = GRAY;
 		return true;
 	}
 
-	void Image::foreachPixel(std::function<void(Pixel*)> iterFunction)
+	void Image::foreachPixel(std::function<void(Pixel&)> iterFunction)
 	{
 		for (int x = 0; x < width; x++) {
 		for (int y = 0; y < height; y++) {
@@ -180,14 +209,12 @@ namespace npcv {
 	{
 		for (int x = 0; x < width; x++) {
 		for (int y = 0; y < height; y++) {
-			Pixel* p = pixel(x, y);
+			Pixel& p = pixel(x, y);
 			if (type == RGB) {
-				R(p) = r;
-				G(p) = g;
-				B(p) = b;
+				p.setColor(r, g, b);
 			}
 			else if (type == GRAY) {
-				R(p) = r;
+				p.setColor(r);
 			}
 			else {
 				return false;

@@ -19,6 +19,7 @@ namespace npcv {
 
 	class Pixel {
 	public:
+		Pixel();
 		Pixel(uchar* colorPtr, PixelType type) : colorPtr(colorPtr), type(type), _allocated(false){};
 		Pixel(Pixel* pixel, bool copy);
 		~Pixel();

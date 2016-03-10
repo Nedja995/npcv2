@@ -20,7 +20,7 @@ namespace npcv {
 		 *
 		 * @return	true if it succeeds, false if it fails.
 		 */
-		static bool global(Image* image, int intensity);
+		static bool global(Image& image, int intensity);
 	};
 
 }

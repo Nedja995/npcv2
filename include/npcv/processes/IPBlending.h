@@ -19,15 +19,15 @@ namespace npcv {
 
 			for (int x = 0; x < first->width; x++) {
 				for (int y = 0; y < first->height; y++) {
-					Pixel* fp = first->pixel(x, y);
+					Pixel& fp = first->pixel(x, y);
 
-					int r11 = R(fp);
+					/*int r11 = R(fp);
 					int g11 = G(fp);
 					int b11 = B(fp);
 
-					Pixel* sp = second->pixel(x, y);
-					Pixel px = Pixel(*fp);
-					Pixel px2 = Pixel(*sp);
+					Pixel& sp = second.pixel(x, y);
+					Pixel px = Pixel(fp);
+					Pixel px2 = Pixel(sp);
 
 					int r1 = R((&px));
 					int g1 = G((&px));
@@ -35,7 +35,7 @@ namespace npcv {
 
 					int r2 = R((&px2));
 					int g2 = G((&px2));
-					int b2 = B((&px2));
+					int b2 = B((&px2));*/
 
 					//Pixel newPX = px + px2;
 					//Pixel newPX = 0; px * 3;

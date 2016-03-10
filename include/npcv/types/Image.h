@@ -15,15 +15,15 @@
  * @param	image	The image.
  */
 #define for_each_pixel(image) \
-	for(int x = 0; x < image->width; x++) { \
-	for(int y = 0; y < image->height; y++) { \
-		Pixel* pixel = image->pixel(x, y);
+	for(int x = 0; x < image.width; x++) { \
+	for(int y = 0; y < image.height; y++) { \
+		Pixel& pixel = image.pixel(x, y);
  /**
  * @def	for_each_pixel_end	delete pixel;}}
  *
  * @brief	End macro for iterating over image pixels.
  */
-#define for_each_pixel_end	delete pixel;}}
+#define for_each_pixel_end	delete &pixel;}}
 
 namespace npcv {
 
@@ -38,8 +38,13 @@ namespace npcv {
 	class Image
 	{
 	public:
+
+
+		static Image& Create();
+		static Image& Create(int width, int height, PixelType type);
+
 		Image();
-		Image(Image* image);
+		Image(Image& image);
 		Image(int width, int height, PixelType type);
 		Image(uchar* data, int width, int height, PixelType type);
 		~Image();
@@ -54,7 +59,14 @@ namespace npcv {
 		/** @brief	Image color type. */
 		PixelType type;
 
-		std::function<void(Image*)> freeDataFunc;
+		std::function<void(Image&)> freeDataFunc;
+
+		/**
+		 * @brief	Memory size.
+		 *
+		 * @return	Size in bytes.
+		 */
+		inline size_t memSize();
 
 		/**
 		 * @brief	Get pixel at coordinate.
@@ -64,7 +76,7 @@ namespace npcv {
 		 *
 		 * @return	null if it fails, else a pointer to a Pixel.
 		 */
-		Pixel* pixel(int x, int y);
+		Pixel& pixel(int x, int y);
 
 		//void pixelSet(int x, int y, Pixel* value);
 
@@ -77,6 +89,16 @@ namespace npcv {
 		 * @return	true if it succeeds, false if it fails.
 		 */
 		bool loadFromMemory(unsigned char* fileMem, size_t size);
+
+		/**
+		 * @brief	Sets pixels copy.
+		 *
+		 * @param [in,out]	image	The image which pixels to copy.
+		 *
+		 * @return	true if it succeeds, false if it fails.
+		 * @todo Implement image check
+		 */
+		bool setPixelsCopy(Image& image);
 
 		/**
 		 * @brief	Gets sub image.
@@ -111,7 +133,7 @@ namespace npcv {
 
 //		foreachPixel( [](Pixel* pixel) {
 //		});
-		void foreachPixel(std::function<void(Pixel*)> iterFunction);
+		void foreachPixel(std::function<void(Pixel&)> iterFunction);
 
 		/**
 		 * @brief	Set all pixels color.
@@ -136,11 +158,11 @@ namespace npcv {
 		 */
 		Image operator+(Image image) {
 			Image ret = Image(width, height, type);
-			for_each_pixel(this)
-				Pixel* px2 = image.pixel(x, y);
-				Pixel np = (*px2 + *pixel);
-				ret.pixel(x, y)->setColor(&np);
-				delete px2;
+			for_each_pixel((*this))
+				Pixel& px2 = image.pixel(x, y);
+				Pixel np = pixel + px2;
+				ret.pixel(x, y).setColor(&np);
+				delete &px2;
 			for_each_pixel_end
 			return ret;
 		}
@@ -153,10 +175,9 @@ namespace npcv {
 		 * @param	image	The image.
 		 */
 		void operator+=(Image image) {
-			for_each_pixel(this)
-				Pixel* px2 = image.pixel(x, y);
-				*pixel += *px2;
-				delete px2;
+			for_each_pixel((*this))
+				Pixel& px2 = image.pixel(x, y);
+				pixel += px2;
 			for_each_pixel_end
 		}
 		/**
@@ -167,9 +188,9 @@ namespace npcv {
 		 * @param	image	The image.
 		 */
 		void operator-=(Image image) {
-			for_each_pixel(this)
-				Pixel* px2 = image.pixel(x, y);
-				*pixel -= *px2;
+			for_each_pixel((*this))
+				Pixel& px2 = image.pixel(x, y);
+				pixel -= px2;
 			for_each_pixel_end
 		}
 		/**
@@ -183,11 +204,11 @@ namespace npcv {
 		 */
 		Image operator-(Image image) {
 			Image ret = Image(width, height, type);
-			for_each_pixel(this)
-				Pixel* px2 = image.pixel(x, y);
-				Pixel np = *pixel - *px2;
-				ret.pixel(x, y)->setColor(&np);
-			delete px2;
+			for_each_pixel((*this))
+				Pixel& px2 = image.pixel(x, y);
+				Pixel np = pixel - px2;
+				ret.pixel(x, y).setColor(&np);
+				delete &px2;
 			for_each_pixel_end
 			return ret;
 		}

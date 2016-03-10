@@ -28,12 +28,12 @@ namespace npcv {
 
 		void IPMatrixApply::processImage()
 		{
-			matrixApply(_image);
+			matrixApply(*_image);
 		}
 
-		bool IPMatrixApply::matrixApply(Image * image)
+		bool IPMatrixApply::matrixApply(Image& image)
 		{
-			Image * ret = new Image(image->width, image->height, image->type);
+			Image& ret = Image::Create(image.width, image.height, image.type);
 
 			//temporals
 			int mat = 0;
@@ -42,40 +42,39 @@ namespace npcv {
 			int imageY = 0;
 			float red = 0.0f, green = 0.0f, blue = 0.0f;
 			int r = 0, g = 0, b = 0;
-		    Pixel *pixel = 0; //curent center pixel
-			Pixel *pixelProc = 0; //curent pixel that is processing with filter
-			for (int x = 0; x < image->width; x++) {
-				for (int y = 0; y < image->height; y++)
+		    
+			
+			for (int x = 0; x < image.width; x++) {
+				for (int y = 0; y < image.height; y++)
 				{
+					Pixel pixel; //curent center pixel
 					index = 0;
 					red = 0.0f, green = 0.0f, blue = 0.0f;
 					//iterate throught matrix
 					for (int mx = 0; mx < matrixSize; mx++) {
 						for (int my = 0; my < matrixSize; my++)
 						{
-							imageX = (x - matrixSize / 2 + mx + image->width) % image->width;
-							imageY = (y - matrixSize / 2 + my + image->height) % image->height;
-							pixelProc = image->pixel(imageX, imageY);
+							imageX = (x - matrixSize / 2 + mx + image.width) % image.width;
+							imageY = (y - matrixSize / 2 + my + image.height) % image.height;
+
+							Pixel pixelProc; //curent pixel that is processing with filter
+							pixelProc = image.pixel(imageX, imageY);
 
 							mat =  *(matrix + index++);
 
-							red += R(pixelProc) * mat;
-							green += G(pixelProc) * mat;
-							blue += B(pixelProc) * mat;
-
-							delete pixelProc;
+							red += pixelProc.color(0) * mat;
+							green += pixelProc.color(1) * mat;
+							blue += pixelProc.color(2) * mat;
 						}
 					}
-					pixel = image->pixel(x, y);
+					pixel = image.pixel(x, y);
 					r = std::min(std::max(int(factor * red + bias), 0), 255);
 					g = std::min(std::max(int(factor * green + bias), 0), 255);
 					b = std::min(std::max(int(factor * blue + bias), 0), 255);
-					ret->pixel(x,y)->setColor(r, g, b);
-					
-					delete pixel;
+					ret.pixel(x,y).setColor(r, g, b);
 				}
 			}
-			image->pixels = ret->pixels;
+			image.setPixelsCopy(ret);
 			return true;
 		}
 	}

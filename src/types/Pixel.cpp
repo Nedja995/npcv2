@@ -6,6 +6,10 @@ namespace npcv {
 
 
 	
+	Pixel::Pixel()
+	{
+	}
+
 	Pixel::Pixel(Pixel * pixel, bool copy)
 	{
 		_allocated = copy;

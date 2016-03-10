@@ -37,6 +37,7 @@ void printTime(double miliseconds) {
 }
 
 void testImage();
+void testImageConvolutionMatrix();
 void testImageFilter();
 void testImageStreamNP();
 void testOCRClassify();
@@ -45,22 +46,72 @@ void testImageArithmetic();
 void testImageErosion();
 void testImageSegmentation();
 
+
 int main(int argc, int *argv[])
 {
+
 	testImage();
-	testImageFilter();
+
+	testImageConvolutionMatrix();
+
+//	testImageFilter();
 	
-	testImageSegmentation();
+	//testImageSegmentation();
 	 
 	//testImageStreamNP();
 	//testOCRClassify();
 	//testBlend();
-	testImageArithmetic();
+//	testImageArithmetic();
 	//testImageErosion();
 
 	char in;
 	//cin >> in;
 	return 0;
+}
+
+void testImageConvolutionMatrix() {
+	cout << "Start processing test - CONVOLUTION MATRIX" << endl;
+
+	IImageStream *is = Toolset::SharedInstance()->imageStream;
+	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\photo3.bmp"));
+
+
+
+	/*
+	* Image apply matrix
+	*/
+	//make process
+	IPMatrixApply* matrixProc = new IPMatrixApply();
+	//configure process
+	matrixProc->setImage(img);
+	int matrixSize = 3;
+
+	matrixProc->matrixSize = matrixSize;
+	float filter[9] =
+	{
+		1,  1,  1,
+		1, -7,  1,
+		1,  1,  1
+	};
+	matrixProc->matrix = &filter[0];
+	/*matrixProc->bias = ;
+	matrixProc->factor = ;*/
+
+	matrixProc->initialize(); //initialize
+
+	matrixProc->execute();							//execute process
+
+	//free res and delete process
+	matrixProc->free();
+	delete matrixProc;
+
+
+
+	is->Save(img, SAMPLE_DATAS + std::string("output\\test\\matrixphoto3.bmp"));
+
+	delete img;
+
+	cout << "End processing test - CONVOLUTION MATRIX" << endl;
 }
 
 void testImageErosion() {
@@ -86,7 +137,7 @@ void testImageSegmentation() {
 	IImageStream *is = Toolset::SharedInstance()->imageStream;
 	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\lena.jpg"));
 
-	segmentation::Treshold::global(img, 100);
+	segmentation::Treshold::global(*img, 100);
 
 	is->Save(img, SAMPLE_DATAS + std::string("output\\test\\segmentation\\globalTresholdLena.jpg"));
 
@@ -107,7 +158,7 @@ void testImage() {
 	IImageStream *is = Toolset::SharedInstance()->imageStream;
 	Image * img = is->Load(SAMPLE_DATAS + std::string("input\\lena.jpg"));
 
-	img->convertToGrayscale();
+	bool c=	img->convertToGrayscale();
 
 	is->Save(img, SAMPLE_DATAS + std::string("output\\test\\grayLena.jpg"));
 
@@ -161,8 +212,8 @@ void testBlend() {
 	IImageStream *is = Toolset::SharedInstance()->imageStream;
 	Image * img = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\hse1fou1.gif");
 	Image * img2 = is->Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\hse1msk3.gif");
-	Image inp1 = Image(img);
-	Image inp2 = Image(img);
+	Image inp1 = Image(*img);
+	Image inp2 = Image(*img);
 
 	Image* blended = npcv::processing::Blend(img, img2, 0.5);
 
