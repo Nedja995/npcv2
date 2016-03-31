@@ -6,6 +6,12 @@ namespace npcv {
 
 
 	
+	Pixel & Pixel::Null()
+	{
+		Pixel& ret = *new Pixel();
+		return ret;
+	}
+
 	Pixel::Pixel()
 	{
 	}

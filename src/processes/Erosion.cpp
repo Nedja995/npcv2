@@ -6,7 +6,7 @@ namespace processing {
 
 	Image * Erosion::erosion(Image * imageGray, int size, int foregroundValue, int iteration, std::function<void(Image*)> iterationResults )
 	{
-/*		Image* ret = new Image(imageGray->width, imageGray->height, imageGray->type);
+		Image* ret = new Image(imageGray->width, imageGray->height, imageGray->type);
 		ret->setColor(255 - foregroundValue, 255 - foregroundValue, 255 - foregroundValue);
 		Image* image = new Image(*imageGray);
 		iterationResults(image);
@@ -21,7 +21,7 @@ namespace processing {
 			//Iterate over pixels
 			for (int x = size; x < image->width - size; x++) {
 			for (int y = size; y < image->height - size; y++) {
-				center = image->pixel(x, y);
+				center = &image->pixel(x, y);
 				//Looking for foreground pixel
 				if (R(center) != foregroundValue) 
 					continue;
@@ -30,12 +30,12 @@ namespace processing {
 				
 				for (mx = -size; mx < size; mx++) {
 				for (my = -size; my < size; my++) {
-					mpx = image->pixel(x + mx, y + my); //nearby pixel
+					mpx = &image->pixel(x + mx, y + my); //nearby pixel
 					//Not surounded by foreground
 					if (R(mpx) != R(center)) {
 						surounded = false;
 						
-						delete mpx;
+						//delete mpx;
 						break;
 					}
 					delete mpx;
@@ -43,15 +43,16 @@ namespace processing {
 				if (surounded) break;
 				}//end iterate nerby
 
-				delete center;
+				//delete center;
 
 				//Draw filtered foreground pixel
 				if ( surounded ) {
-					ret->pixel(x, y)->setColor(foregroundValue, foregroundValue, foregroundValue);
+					ret->pixel(x, y).setColor(foregroundValue, foregroundValue, foregroundValue);
 					changed = true;
 				}
 				else {
-					//ret->pixelSet(x, y, 255 - foregroundValue, 255 - foregroundValue, 255 - foregroundValue);
+					ret->pixel(x, y).setColor(255 - foregroundValue, 255 - foregroundValue, 255 - foregroundValue);
+					
 				}
 
 				surounded = true;
@@ -63,7 +64,7 @@ namespace processing {
 			//}
 			if ( changed ) {
 				//free old image
-				delete image;
+			//	delete image;
 				//Iterate again over filtered image
 				image = ret;
 				
@@ -79,7 +80,7 @@ namespace processing {
 			}
 		}//end iteration
 
-		return ret;*/return nullptr;
+		return ret;
 	}
 }
 }

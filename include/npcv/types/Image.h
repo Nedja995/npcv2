@@ -39,9 +39,47 @@ namespace npcv {
 	{
 	public:
 
+		/*************************************************
+		/*  CONSTRUCTORS
+		**************************************************/
 
+		/**
+		 * @fn	static Image& Image::Create();
+		 *
+		 * @brief	Creates a new Image&amp;
+		 *
+		 * @return	A reference to an Image.
+		 */
 		static Image& Create();
+		/**
+		 * @brief	Creates a new Image&amp;
+		 *
+		 * @param	width 	The width.
+		 * @param	height	The height.
+		 * @param	type  	The type.
+		 *
+		 * @return	A reference to an Image.
+		 */
 		static Image& Create(int width, int height, PixelType type);
+		/**
+		 * @brief	Creates a new Image&amp;
+		 *
+		 * @param	width		  	The width.
+		 * @param	height		  	The height.
+		 * @param	type		  	The type.
+		 * @param [in,out]	pixels	If non-null, the pixels.
+		 *
+		 * @return	A reference to an Image.
+		 */
+		static Image& Create(int width, int height, PixelType type, uchar* pixels);
+		/**
+		 * @brief	Creates a new Image that point to pixels allocated in other place;
+		 *
+		 * @param [in,out]	image	The image to point at their pixels.
+		 *
+		 * @return	A reference to an new Image.
+		 */
+		static Image& Create(Image& image);
 
 		static Image& Null();
 

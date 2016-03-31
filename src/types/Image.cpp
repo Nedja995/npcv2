@@ -12,6 +12,7 @@ namespace npcv {
 		Image& ret = *new Image();
 		return ret;
 	}
+
 	Image & Image::Create(int width, int height, PixelType type)
 	{
 		Image& ret = *new Image();
@@ -19,6 +20,19 @@ namespace npcv {
 		ret.height = height;
 		ret.type = type;
 		ret.pixels = new uchar[ret.memSize()]{ 0 };
+		return ret;
+	}
+
+	Image & Image::Create(int width, int height, PixelType type, uchar * pixels)
+	{
+		Image& ret = Create(width, height, type);
+		ret.pixels = pixels;
+		return ret;
+	}
+
+	Image & Image::Create(Image & image)
+	{
+		Image& ret = Create(image.width, image.height, image.type, image.pixels);
 		return ret;
 	}
 
