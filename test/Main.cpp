@@ -54,11 +54,14 @@ int main(int argc, int *argv[])
 //	testImageConvolutionMatrix();
 //	testImageArithmetic();
 
+//	testImageSegmentation();
+
 	testImageErosion();
+	
 
 //	testImageFilter();
 	
-//	testImageSegmentation();
+	
 	 
 	//testImageStreamNP();
 	//testOCRClassify();
@@ -121,10 +124,18 @@ void testImageErosion() {
 	Image& img = is.Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\opencv-logo.png");
 	bool cg = segmentation::Treshold::global(img, 100);
 	static int i = 0;
-	Image* img2 = npcv::processing::Erosion::erosion(&img, 1, 255, 8, 
-		[](Image* img) {
-			img->saveToFile("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\test\\morphology\\erosion\\opencv-logo" + std::to_string(i++) + ".bmp");
+
+/*	Image& img2 = npcv::processing::Erosion::erosion(img, 1, 0, 5, 
+		[](Image& img) {
+			img.saveToFile("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\test\\morphology\\erosion\\opencv-logo" + std::to_string(i++) + ".bmp");
 		});
+*/
+
+	Pixel& foreground = Pixel::Create(0);
+	npcv::processing::Erosion::erosion(img, 1, foreground, 
+		[](Image& img) {
+		img.saveToFile("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\test\\morphology\\erosion\\opencv-logo" + std::to_string(i++) + ".bmp");
+	});
 
 	//cout << "Finish" << endl;
 	//is.Save(img, "D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\Erosion\\opencv-logo.png");
@@ -142,6 +153,12 @@ void testImageSegmentation() {
 	segmentation::Treshold::global(img, 100);
 
 	is.Save(img, SAMPLE_DATAS + std::string("output\\test\\segmentation\\globalTresholdLena.jpg"));
+
+	img.foreachPixel([](Pixel& pixel) {
+		pixel.setColor(0);
+	});
+
+	is.Save(img, SAMPLE_DATAS + std::string("output\\test\\segmentation\\globalTresholdLenaColored.jpg"));
 
 	delete &img;
 

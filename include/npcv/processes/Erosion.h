@@ -7,7 +7,8 @@ namespace processing {
 
 	class Erosion {
 	public:
-		static Image* erosion(Image* imageGray, int size, int foregroundValue, int iteration, std::function<void(Image*)> iterationResults);
+		static void erosion(Image& grayImage, int size, Pixel& foregroundPixel, std::function<void(Image&)> iterationResults);
+
 	};
 
 }

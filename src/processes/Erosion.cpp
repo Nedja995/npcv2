@@ -4,83 +4,60 @@
 namespace npcv {
 namespace processing {
 
-	Image * Erosion::erosion(Image * imageGray, int size, int foregroundValue, int iteration, std::function<void(Image*)> iterationResults )
-	{
-		Image* ret = new Image(imageGray->width, imageGray->height, imageGray->type);
-		ret->setColor(255 - foregroundValue, 255 - foregroundValue, 255 - foregroundValue);
-		Image* image = new Image(*imageGray);
-		iterationResults(image);
-		int mx = 0, my = 0; //nearby pixel iterators
-		bool changed = true, surounded = true;
-		Pixel *center = 0, *mpx = 0; //center and nearby pixels
+	void Erosion::erosion(Image& imageGray, int size, Pixel& foregroundPixel, std::function<void(Image&)> iterationResults) {
 
-		int i = 0;
+		Image& current = Image::Create(imageGray);
+		//Image to write pixel that is surrounded by same pixel (foreground)
+		Image& next = Image::Create(imageGray.width, imageGray.height, imageGray.type);
+		next.setColor(255 - foregroundPixel.color(0), 255 - foregroundPixel.color(0), 255 - foregroundPixel.color(0));
+
+		bool changed = true, surounded = false;
+		int mx, my;
+
+		//Loop while no one pixels writen to next step image
 		while (changed) {
 			changed = false;
-			std::cout << "Iter" << std::endl;
-			//Iterate over pixels
-			for (int x = size; x < image->width - size; x++) {
-			for (int y = size; y < image->height - size; y++) {
-				center = &image->pixel(x, y);
-				//Looking for foreground pixel
-				if (R(center) != foregroundValue) 
-					continue;
-					
-				//Check nearby pixels to confirm that is surounded with foreground
-				
-				for (mx = -size; mx < size; mx++) {
-				for (my = -size; my < size; my++) {
-					mpx = &image->pixel(x + mx, y + my); //nearby pixel
-					//Not surounded by foreground
-					if (R(mpx) != R(center)) {
-						surounded = false;
-						
-						//delete mpx;
-						break;
+			//Iterate throught current step image pixels
+			for (int x = size; x < current.width - size; x++) {
+			for (int y = size; y < current.height - size; y++) {
+				//Check is foreground
+				if (current.pixel(x, y) == foregroundPixel) {
+					//if foreground - Check is surrounded with foreground pixels
+					surounded = true;
+					for (mx = -size; mx < size; mx++) {
+					for (my = -size; my < size; my++) {
+						Pixel& nearbyPx = current.pixel(x + mx, y + my);
+						if (nearbyPx != foregroundPixel) {
+							surounded = false;
+						}
+						delete &nearbyPx;
 					}
-					delete mpx;
+					}//end check surounded iters
+					//if surrounded - draw current foreground pixel to next step image
+					if (surounded) {
+						Pixel& px = next.pixel(x, y);
+						px.setColor(foregroundPixel);
+						delete &px;
+						changed = true;
+					}
 				}
-				if (surounded) break;
-				}//end iterate nerby
-
-				//delete center;
-
-				//Draw filtered foreground pixel
-				if ( surounded ) {
-					ret->pixel(x, y).setColor(foregroundValue, foregroundValue, foregroundValue);
-					changed = true;
-				}
-				else {
-					ret->pixel(x, y).setColor(255 - foregroundValue, 255 - foregroundValue, 255 - foregroundValue);
-					
-				}
-
-				surounded = true;
 			}
-			}//end iterate pixels
+			}//end image iterations
+			//delete &current;
+			current = next;
+			//delete &next;
+			next = Image::Create(imageGray.width, imageGray.height, imageGray.type);
+			next.setColor(255 - foregroundPixel.color(0), 255 - foregroundPixel.color(0), 255 - foregroundPixel.color(0));
+			iterationResults(current);
+			//If change happened - go to next step
+				//Set next step image to current image
+				//Create new next step image
+			//If not change happened break loop - last iteration
+		}
 
-		//	if (i++ == iteration) {
-			//	changed = false;
-			//}
-			if ( changed ) {
-				//free old image
-			//	delete image;
-				//Iterate again over filtered image
-				image = ret;
-				
-				if (iterationResults != 0) {
-					iterationResults(ret);
-				}
-				
-
-				ret = new Image(imageGray->width, imageGray->height, imageGray->type);
-			}
-			else {
-				break;
-			}
-		}//end iteration
-
-		return ret;
+		iterationResults(current);
+		delete &current;
 	}
+
 }
 }

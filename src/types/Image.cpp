@@ -19,7 +19,7 @@ namespace npcv {
 		ret.width = width;
 		ret.height = height;
 		ret.type = type;
-		ret.pixels = new uchar[ret.memSize()]{ 0 };
+		ret.pixels = new uchar[ret.memSize()]{ (uchar)255 };
 		return ret;
 	}
 

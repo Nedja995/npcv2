@@ -21,6 +21,10 @@ namespace npcv {
 	class Pixel {
 	public:
 
+		//static Pixel& Create();
+		//static Pixel& Create(Pixel& pixel);
+		static Pixel& Create(int g);
+
 		static Pixel& Null();
 
 		Pixel();
@@ -36,6 +40,8 @@ namespace npcv {
 		bool setColor(int r, int g, int b);
 
 		bool setColor(Pixel* pixel);
+
+		bool setColor(Pixel& pixel);
 
 		/**
 		 * @fn	bool Pixel::setColor(int g);
@@ -104,6 +110,25 @@ namespace npcv {
 			G(this) = std::max(std::min(G(this) - G((&px)), 255), 0);
 			B(this) = std::max(std::min(B(this) - B((&px)), 255), 0);
 		}
+
+		bool operator==(Pixel& px) {
+			if (type == GRAY) {
+				if (px.color(0) == color(0)) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		bool operator!=(Pixel& px) {
+			if (type == GRAY) {
+				if (px.color(0) == color(0)) {
+					return false;
+				}
+			}
+			return true;
+		}
+
 	protected:
 		/** @brief	Is allocated memory on creation or point to image pixels array. */
 		bool _allocated;

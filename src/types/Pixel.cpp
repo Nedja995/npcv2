@@ -6,6 +6,14 @@ namespace npcv {
 
 
 	
+	Pixel & Pixel::Create(int g)
+	{
+		Pixel& ret = *new Pixel();
+		ret.type = GRAY;
+		ret.setColor(g);
+		return ret;
+	}
+
 	Pixel & Pixel::Null()
 	{
 		Pixel& ret = *new Pixel();
@@ -14,6 +22,7 @@ namespace npcv {
 
 	Pixel::Pixel()
 	{
+		colorPtr = nullptr;
 	}
 
 	Pixel::Pixel(Pixel * pixel, bool copy)
@@ -35,9 +44,9 @@ namespace npcv {
 
 	Pixel::~Pixel()
 	{
-		//if (allocated) {
-		//	delete colorPtr;
-		//}
+		if (_allocated) {
+			//delete colorPtr;
+		}
 	}
 
 	bool Pixel::isPointer()
@@ -78,9 +87,24 @@ namespace npcv {
 		return true;
 	}
 
+	bool Pixel::setColor(Pixel& pixel)
+	{
+		if (!_assertTypeStrict(pixel.type)) {
+			// Cannot set XX pixel type to XX 
+			return false;
+		}
+		setColor(pixel.color(0));
+		return true;
+	}
+
 	bool Pixel::setColor(int g)
 	{
 		if (!_assertType(GRAY)) { 	
+		}
+
+		if (colorPtr == nullptr) {
+			colorPtr = new uchar[1];
+			_allocated = true;
 		}
 
 		*(colorPtr) = g;

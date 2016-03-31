@@ -81,6 +81,11 @@ namespace npcv {
 		 */
 		static Image& Create(Image& image);
 
+		/**
+		* @brief	Creates a empty Image;
+		*
+		* @return	A reference to an new Image.
+		*/
 		static Image& Null();
 
 		Image();
