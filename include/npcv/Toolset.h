@@ -12,6 +12,7 @@ namespace npcv {
 	class Toolset {
 	public:
 		static Toolset& SharedInstance();
+		static void Free();
 
 		Toolset();
 		~Toolset();

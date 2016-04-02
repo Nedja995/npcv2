@@ -19,7 +19,11 @@ namespace npcv {
 		ret.width = width;
 		ret.height = height;
 		ret.type = type;
-		ret.pixels = new uchar[ret.memSize()]{ (uchar)255 };
+		ret.pixels = new uchar[ret.memSize()]{ 255 };
+		memset(ret.pixels, 255, ret.memSize());
+		ret.freeDataFunc = [](Image* image) {
+			delete image->pixels;
+		};
 		return ret;
 	}
 
@@ -45,36 +49,41 @@ namespace npcv {
 	Image::Image()
 		: type(PixelType::Null)
 		, pixels(nullptr)
+		, freeDataFunc(nullptr)
 	{
 	}
 
 	Image::Image(Image&  image)
 		: Image(image.pixels, image.width, image.height, image.type)
 	{
+		_allocatedPixels = false;
 	}
 
 	Image::Image(int width, int height, PixelType type)
 		: width(width), height(height), type(type)
 	{
-		size_t memSize = sizeof(unsigned char) * width * height * type;
+		size_t memSize = sizeof(uchar) * width * height * type;
 		pixels = new uchar[memSize];
 
-		/*freeDataFunc = [](Image* image) {
-			delete image->pixels;
-		};*/
+		freeDataFunc = [](Image* image) {
+			delete [] image->pixels;
+		};
 		memset(pixels, 255, memSize);
 	}
 
 	Image::Image(uchar* data, int width, int height, PixelType type) 
 		: pixels(data), width(width), height(height), type(type)
 	{
+		freeDataFunc = [](Image* image) {
+			free(image->pixels);
+		};
 	}
 
 	Image::~Image()
 	{
-		/*if (freeDataFunc != 0) {
+		if (freeDataFunc != 0) {
 			freeDataFunc(this);
-		}*/
+		}
 	}
 
 	inline size_t Image::memSize()
@@ -84,7 +93,20 @@ namespace npcv {
 
 	Pixel& Image::pixel(int x, int y)
 	{
-		return *new Pixel(pixel_ptr(x, y), (PixelType)type);
+		return Pixel::Create(pixel_ptr(x, y), type);
+	}
+
+	Pixel & Image::pixel(int x, int y, bool isPointer)
+	{
+		Pixel& ret = Pixel::Create(pixel_ptr(x, y), type, true);
+		return ret;
+	}
+
+	void Image::setPixel(int x, int y, Pixel & pixel)
+	{
+		Pixel& px = this->pixel(x, y, true);
+		px.setColor(pixel);
+		delete &px;
 	}
 
 	uchar* Image::pixel_ptr(int x, int y)
@@ -207,8 +229,9 @@ namespace npcv {
 		Image gray = Image(width, height, PixelType::GRAY);
 
 		for_each_pixel((*this))
-			gray.pixel(x, y)
-				.setColor((pixel.color(0) + pixel.color(1) + pixel.color(2)) / 3);		
+			Pixel& px = Pixel::Create((pixel.color(0) + pixel.color(1) + pixel.color(2)) / 3);
+			gray.setPixel(x, y, px);
+			delete &px;		
 		for_each_pixel_end
 
 		//free old and replace with new
@@ -223,7 +246,9 @@ namespace npcv {
 	{
 		for (int x = 0; x < width; x++) {
 		for (int y = 0; y < height; y++) {
-			iterFunction(pixel(x, y));
+			Pixel& pixelPtr = pixel(x, y, true);
+			iterFunction(pixelPtr);
+			delete &pixelPtr;
 		}
 		}
 	}

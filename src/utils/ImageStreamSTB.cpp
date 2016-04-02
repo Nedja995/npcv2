@@ -40,7 +40,6 @@ namespace npcv {
 			ret = new Image(data, width, height, (PixelType)type);
 #endif
 			return *ret;
-
 		}
 
 		bool ImageStreamSTB::Save(Image& image, std::string path)

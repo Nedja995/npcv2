@@ -22,6 +22,15 @@ namespace npcv {
 		return *_sharedInstance;
 	}
 
+	void Toolset::Free()
+	{
+		delete &Toolset::_sharedInstance->log;
+		delete &Toolset::_sharedInstance->imageStream;
+		delete Toolset::_sharedInstance;
+		Toolset::_sharedInstance = nullptr;
+
+	}
+
 	Toolset::Toolset() 
 		: log(*new LogListenerDebug())
 		, imageStream(*((IImageStream*)new ImageStreamSTB()))
@@ -31,7 +40,9 @@ namespace npcv {
 
 	Toolset::~Toolset()
 	{
-		delete &log;
+	//	delete &log;
+	//	delete &imageStream;
+		//delete _sharedInstance;
 	}
 
 	ui::IDialogFileSelect& Toolset::uiDialogFileselect()

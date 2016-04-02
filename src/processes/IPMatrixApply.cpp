@@ -33,8 +33,14 @@ namespace npcv {
 
 		bool IPMatrixApply::matrixApply(Image& image)
 		{
+			//Image* ret2 = &Image::Create(image.width, image.height, image.type);
+			////image.setPixelsCopy(ret);
+			//delete ret2;
+			//return true;
+
 			Image& ret = Image::Create(image.width, image.height, image.type);
 
+			
 			//temporals
 			int mat = 0;
 			int index = 0;
@@ -47,7 +53,7 @@ namespace npcv {
 			for (int x = 0; x < image.width; x++) {
 				for (int y = 0; y < image.height; y++)
 				{
-					Pixel pixel; //curent center pixel
+					Pixel* pixel = 0; //curent center pixel
 					index = 0;
 					red = 0.0f, green = 0.0f, blue = 0.0f;
 					//iterate throught matrix
@@ -57,24 +63,30 @@ namespace npcv {
 							imageX = (x - matrixSize / 2 + mx + image.width) % image.width;
 							imageY = (y - matrixSize / 2 + my + image.height) % image.height;
 
-							Pixel pixelProc; //curent pixel that is processing with filter
-							pixelProc = image.pixel(imageX, imageY);
+							 //curent pixel that is processing with filter
+							Pixel& pixelProc = image.pixel(imageX, imageY);
 
 							mat =  *(matrix + index++);
 
 							red += pixelProc.color(0) * mat;
 							green += pixelProc.color(1) * mat;
 							blue += pixelProc.color(2) * mat;
+
+							delete &pixelProc;
 						}
 					}
-					pixel = image.pixel(x, y);
+					pixel = &image.pixel(x, y);
 					r = std::min(std::max(int(factor * red + bias), 0), 255);
 					g = std::min(std::max(int(factor * green + bias), 0), 255);
 					b = std::min(std::max(int(factor * blue + bias), 0), 255);
-					ret.pixel(x,y).setColor(r, g, b);
+					Pixel& px = ret.pixel(x, y, true);
+					px.setColor(r, g, b);
+					delete pixel;
+					delete &px;
 				}
 			}
 			image.setPixelsCopy(ret);
+			delete &ret;
 			return true;
 		}
 	}

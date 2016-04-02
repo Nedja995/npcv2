@@ -53,21 +53,18 @@ int main(int argc, int *argv[])
 //	testImage();
 //	testImageConvolutionMatrix();
 //	testImageArithmetic();
-
 //	testImageSegmentation();
-
 	testImageErosion();
-	
 
-//	testImageFilter();
-	
-	
 	 
 	//testImageStreamNP();
 	//testOCRClassify();
 	//testBlend();
 
-	
+//	testImageFilter();
+
+
+	Toolset::Free();
 
 	char in;
 	//cin >> in;
@@ -79,8 +76,6 @@ void testImageConvolutionMatrix() {
 
 	IImageStream& is = Toolset::SharedInstance().imageStream;
 	Image& img = is.Load(SAMPLE_DATAS + std::string("input\\photo3.bmp"));
-
-
 
 	/*
 	* Image apply matrix
@@ -106,8 +101,8 @@ void testImageConvolutionMatrix() {
 
 	matrixProc->execute();							//execute process
 
-	//free res and delete process
-	matrixProc->free();
+	////free res and delete process
+	//matrixProc->free();
 	delete matrixProc;
 
 
@@ -132,7 +127,7 @@ void testImageErosion() {
 */
 
 	Pixel& foreground = Pixel::Create(0);
-	npcv::processing::Erosion::erosion(img, 1, foreground, 
+	npcv::processing::Erosion::erosion(img, 3, foreground, 
 		[](Image& img) {
 		img.saveToFile("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\test\\morphology\\erosion\\opencv-logo" + std::to_string(i++) + ".bmp");
 	});
@@ -154,12 +149,6 @@ void testImageSegmentation() {
 
 	is.Save(img, SAMPLE_DATAS + std::string("output\\test\\segmentation\\globalTresholdLena.jpg"));
 
-	img.foreachPixel([](Pixel& pixel) {
-		pixel.setColor(0);
-	});
-
-	is.Save(img, SAMPLE_DATAS + std::string("output\\test\\segmentation\\globalTresholdLenaColored.jpg"));
-
 	delete &img;
 
 	cout << "End segmentation test - TRESHOLD" << endl;
@@ -167,22 +156,24 @@ void testImageSegmentation() {
 
 void testImageArithmetic() {
 	
-	_testImageAdd();
+//	_testImageAdd();
 	_testImageSubstract();
 }
 
 void testImage() {
 	cout << "Start image test - GRAYSCALE" << endl;
 
-	IImageStream& is = Toolset::SharedInstance().imageStream;
+	Toolset ts = Toolset::SharedInstance();
+	IImageStream& is = ts.imageStream;
 	Image& img = is.Load(SAMPLE_DATAS + std::string("input\\lena.jpg"));
 
-	bool c =	img.convertToGrayscale();
+	bool c = img.convertToGrayscale();
 
 	is.Save(img, SAMPLE_DATAS + std::string("output\\test\\grayLena.jpg"));
 
 	delete &img;
-
+//	delete &ts;
+	//Toolset::Free();
 	cout << "End image test - GRAYSCALE" << endl;
 }
 
@@ -193,14 +184,16 @@ void _testImageAdd() {
 	Image& img = is.Load(SAMPLE_DATAS + std::string("input\\test\\flower.jpg"));
 	Image& img2 = is.Load(SAMPLE_DATAS + std::string("input\\test\\cows.jpg"));
 
-	Image add =  img + img2 ;
-	Image add2 = img + img2;
+	Image& add =  img + img2;
+	Image& add2 = img + img2;
 	img2 += img;
 
 	is.Save(add, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddflowerCows.jpg"));
 	is.Save(add2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddflowerCows2.jpg"));
 	is.Save(img2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\AddAssignflowerCows.jpg"));
 	
+	delete &add;
+	delete &add2;
 	delete &img;
 	delete &img2;
 	
@@ -213,14 +206,16 @@ void _testImageSubstract() {
 	Image& img = is.Load(SAMPLE_DATAS + std::string("input\\test\\cows.jpg"));
 	Image& img2 = is.Load(SAMPLE_DATAS + std::string("input\\test\\horses.jpg"));
 
-	Image sub = img - img2;
-	Image sub2 = img - img2;
+	Image& sub = img - img2;
+	Image& sub2 = img - img2;
 	img2 -= img;
 
 	is.Save(sub, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\SubstractionHorserCows.jpg"));
 	is.Save(sub2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\SubstractionHorserCows2.jpg"));
 	is.Save(img2, SAMPLE_DATAS + std::string("output\\test\\arithmetic\\SubstractionAssignHorserCows.jpg"));
 
+	delete &sub;
+	delete &sub2;
 	delete &img;
 	delete &img2;
 

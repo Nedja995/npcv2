@@ -16,6 +16,7 @@ namespace processing {
 
 		//Loop while no one pixels writen to next step image
 		while (changed) {
+			std::cout << "iter" << std::endl;
 			changed = false;
 			//Iterate throught current step image pixels
 			for (int x = size; x < current.width - size; x++) {
@@ -26,7 +27,7 @@ namespace processing {
 					surounded = true;
 					for (mx = -size; mx < size; mx++) {
 					for (my = -size; my < size; my++) {
-						Pixel& nearbyPx = current.pixel(x + mx, y + my);
+						Pixel& nearbyPx = current.pixel(x + mx, y + my, true);
 						if (nearbyPx != foregroundPixel) {
 							surounded = false;
 						}
@@ -35,7 +36,7 @@ namespace processing {
 					}//end check surounded iters
 					//if surrounded - draw current foreground pixel to next step image
 					if (surounded) {
-						Pixel& px = next.pixel(x, y);
+						Pixel& px = next.pixel(x, y, true);
 						px.setColor(foregroundPixel);
 						delete &px;
 						changed = true;

@@ -17,7 +17,7 @@
 #define for_each_pixel(image) \
 	for(int x = 0; x < image.width; x++) { \
 	for(int y = 0; y < image.height; y++) { \
-		Pixel& pixel = image.pixel(x, y);
+		Pixel& pixel = image.pixel(x, y, true);
  /**
  * @def	for_each_pixel_end	delete pixel;}}
  *
@@ -26,9 +26,8 @@
 #define for_each_pixel_end	delete &pixel;}}
 
 namespace npcv {
-
+	/** @brief Pixel component value */
 	typedef unsigned char uchar;
-
 	/**
 	 * @class	Image
 	 *
@@ -38,11 +37,9 @@ namespace npcv {
 	class Image
 	{
 	public:
-
 		/*************************************************
 		/*  CONSTRUCTORS
 		**************************************************/
-
 		/**
 		 * @fn	static Image& Image::Create();
 		 *
@@ -80,7 +77,6 @@ namespace npcv {
 		 * @return	A reference to an new Image.
 		 */
 		static Image& Create(Image& image);
-
 		/**
 		* @brief	Creates a empty Image;
 		*
@@ -104,7 +100,7 @@ namespace npcv {
 		/** @brief	Image color type. */
 		PixelType type;
 
-		std::function<void(Image&)> freeDataFunc;
+		std::function<void(Image*)> freeDataFunc;
 
 		/**
 		 * @brief	Memory size.
@@ -123,6 +119,13 @@ namespace npcv {
 		 */
 		Pixel& pixel(int x, int y);
 
+		Pixel& pixel(int x, int y, bool isPointer);
+
+		void setPixel(int x, int y, Pixel& pixel);
+
+	//	void setPixel(int x, int y, int g);
+
+		
 		//void pixelSet(int x, int y, Pixel* value);
 
 		/**
@@ -174,12 +177,7 @@ namespace npcv {
 		 */
 		bool convertToGrayscale();
 
-
-
-//		foreachPixel( [](Pixel* pixel) {
-//		});
 		void foreachPixel(std::function<void(Pixel&)> iterFunction);
-
 		/**
 		 * @brief	Set all pixels color.
 		 *
@@ -201,13 +199,14 @@ namespace npcv {
 		 *
 		 * @return	The result of the operation.
 		 */
-		Image operator+(Image image) {
-			Image ret = Image(width, height, type);
+		Image& operator+(Image& image) {
+			Image& ret = Image::Create(width, height, type);
 			for_each_pixel((*this))
-				Pixel& px2 = image.pixel(x, y);
-				Pixel np = pixel + px2;
-				ret.pixel(x, y).setColor(&np);
+				Pixel& px2 = image.pixel(x, y);		
+				Pixel& np = pixel + px2;
+				ret.setPixel(x, y, np);
 				delete &px2;
+				delete &np;
 			for_each_pixel_end
 			return ret;
 		}
@@ -219,10 +218,11 @@ namespace npcv {
 		 *
 		 * @param	image	The image.
 		 */
-		void operator+=(Image image) {
+		void operator+=(Image& image) {
 			for_each_pixel((*this))
 				Pixel& px2 = image.pixel(x, y);
 				pixel += px2;
+				delete &px2;
 			for_each_pixel_end
 		}
 		/**
@@ -232,10 +232,11 @@ namespace npcv {
 		 *
 		 * @param	image	The image.
 		 */
-		void operator-=(Image image) {
+		void operator-=(Image& image) {
 			for_each_pixel((*this))
 				Pixel& px2 = image.pixel(x, y);
 				pixel -= px2;
+				delete &px2;
 			for_each_pixel_end
 		}
 		/**
@@ -247,18 +248,19 @@ namespace npcv {
 		 *
 		 * @return	The result of the operation.
 		 */
-		Image operator-(Image image) {
-			Image ret = Image(width, height, type);
+		Image& operator-(Image& image) {
+			Image& ret = Image::Create(width, height, type);
 			for_each_pixel((*this))
 				Pixel& px2 = image.pixel(x, y);
-				Pixel np = pixel - px2;
-				ret.pixel(x, y).setColor(&np);
-				delete &px2;
+			Pixel& np = pixel - px2;
+			ret.setPixel(x, y, np);
+			delete &px2;
+			delete &np;
 			for_each_pixel_end
-			return ret;
+				return ret;
 		}
 	protected:
-
+		bool _allocatedPixels;
 		/**
 		 * @brief	Get pointer to first component for target pixel.
 		 *

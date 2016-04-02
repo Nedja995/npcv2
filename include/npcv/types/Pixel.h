@@ -23,6 +23,9 @@ namespace npcv {
 
 		//static Pixel& Create();
 		//static Pixel& Create(Pixel& pixel);
+		static Pixel& Create(PixelType type);
+		static Pixel& Create(uchar* components, PixelType type);
+		static Pixel& Create(uchar* components, PixelType type, bool isPointer);
 		static Pixel& Create(int g);
 
 		static Pixel& Null();
@@ -63,11 +66,12 @@ namespace npcv {
 		 *
 		 * @return	The result of the operation.
 		 */
-		Pixel operator+(Pixel px) {
-			Pixel ret = Pixel(&px, true);
-			R((&ret)) = std::max(std::min(R(this) + R((&px)), 255), 0);
-			G((&ret)) = std::max(std::min(G(this) + G((&px)), 255), 0);
-			B((&ret)) = std::max(std::min(B(this) + B((&px)), 255), 0);
+		Pixel& operator+(Pixel& px) {
+			Pixel& ret = Pixel::Create(px.type);
+			ret.setColor(
+				std::max(std::min(R(this) + R((&px)), 255), 0),
+				std::max(std::min(G(this) + G((&px)), 255), 0),
+				std::max(std::min(B(this) + B((&px)), 255), 0));
 			return ret;
 		}
 		/**
@@ -79,11 +83,12 @@ namespace npcv {
 		 *
 		 * @return	The result of the operation.
 		 */
-		Pixel operator-(Pixel px) {
-			Pixel ret = Pixel(&px, true);
-			R((&ret)) = std::max(std::min(R(this) - R((&px)), 255), 0);
-			G((&ret)) = std::max(std::min(G(this) - G((&px)), 255), 0);
-			B((&ret)) = std::max(std::min(B(this) - B((&px)), 255), 0);
+		Pixel& operator-(Pixel& px) {
+			Pixel& ret = Pixel::Create(px.type);
+			ret.setColor(
+				std::max(std::min(R(this) - R((&px)), 255), 0),
+				std::max(std::min(G(this) - G((&px)), 255), 0),
+				std::max(std::min(B(this) - B((&px)), 255), 0));
 			return ret;
 		}
 		/**
@@ -93,10 +98,11 @@ namespace npcv {
 		 *
 		 * @param	px	The pixel.
 		 */
-		void operator+=(Pixel px) {
-			R(this) = std::max(std::min(R((&px)) + R(this), 255), 0);
-			G(this) = std::max(std::min(G((&px)) + G(this), 255), 0);
-			B(this) = std::max(std::min(B((&px)) + B(this), 255), 0);
+		void operator+=(Pixel& px) {
+			setColor(
+				std::max(std::min(R(this) + R((&px)), 255), 0),
+				std::max(std::min(G(this) + G((&px)), 255), 0),
+				std::max(std::min(B(this) + B((&px)), 255), 0));
 		}
 		/**
 		 * @fn	void Pixel::operator-=(Pixel px)
@@ -105,10 +111,11 @@ namespace npcv {
 		 *
 		 * @param	px	The pixel.
 		 */
-		void operator-=(Pixel px) {
-			R(this) = std::max(std::min(R(this) - R((&px)), 255), 0);
-			G(this) = std::max(std::min(G(this) - G((&px)), 255), 0);
-			B(this) = std::max(std::min(B(this) - B((&px)), 255), 0);
+		void operator-=(Pixel& px) {
+			setColor(
+				std::max(std::min(R(this) - R((&px)), 255), 0),
+				std::max(std::min(G(this) - G((&px)), 255), 0),
+				std::max(std::min(B(this) - B((&px)), 255), 0));
 		}
 
 		bool operator==(Pixel& px) {
