@@ -7,6 +7,25 @@
 
 #include <algorithm>
 
+
+/**
+* @def	for_each_pixelPtr(image)
+*
+* @brief	Start macro for iterating over image pixels. Use also for_each_pixelPtr_end !
+*
+* @param	image	The image.
+*/
+#define for_each_pixelPtr(image) \
+	for(int x = 0; x < image.width; x++) { \
+	for(int y = 0; y < image.height; y++) { \
+		uchar* pixelPtr = image.pixelPtr(x, y);
+/**
+* @def	for_each_pixel_end	delete pixel;}}
+*
+* @brief	End macro for iterating over image pixels.
+*/
+#define for_each_pixelPtr_end }}
+
 /**
  * @def	for_each_pixel(image) for(int x = 0;
  *
@@ -110,6 +129,16 @@ namespace npcv {
 		inline size_t memSize();
 
 		/**
+		* @brief	Get pointer to first component for target pixel.
+		*
+		* @param	x	The x coordinate.
+		* @param	y	The y coordinate.
+		*
+		* @return	null if it fails, else a pointer to an uchar.
+		*/
+		uchar* pixelPtr(int x, int y);
+
+		/**
 		 * @brief	Get pixel at coordinate.
 		 *
 		 * @param	x	The x coordinate.
@@ -122,6 +151,10 @@ namespace npcv {
 		Pixel& pixel(int x, int y, bool isPointer);
 
 		void setPixel(int x, int y, Pixel& pixel);
+
+		void setPixel(int x, int y, int g);
+
+		void setPixel(int x, int y, int r, int g, int b);
 
 	//	void setPixel(int x, int y, int g);
 
@@ -178,6 +211,7 @@ namespace npcv {
 		bool convertToGrayscale();
 
 		void foreachPixel(std::function<void(Pixel&)> iterFunction);
+
 		/**
 		 * @brief	Set all pixels color.
 		 *
@@ -261,15 +295,6 @@ namespace npcv {
 		}
 	protected:
 		bool _allocatedPixels;
-		/**
-		 * @brief	Get pointer to first component for target pixel.
-		 *
-		 * @param	x	The x coordinate.
-		 * @param	y	The y coordinate.
-		 *
-		 * @return	null if it fails, else a pointer to an uchar.
-		 */
-		uchar* pixel_ptr(int x, int y);
 
 		/**
 		 * @brief	Set pointer to first component for target pixel.

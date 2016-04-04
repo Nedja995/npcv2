@@ -93,12 +93,12 @@ namespace npcv {
 
 	Pixel& Image::pixel(int x, int y)
 	{
-		return Pixel::Create(pixel_ptr(x, y), type);
+		return Pixel::Create(pixelPtr(x, y), type);
 	}
 
 	Pixel & Image::pixel(int x, int y, bool isPointer)
 	{
-		Pixel& ret = Pixel::Create(pixel_ptr(x, y), type, true);
+		Pixel& ret = Pixel::Create(pixelPtr(x, y), type, true);
 		return ret;
 	}
 
@@ -109,7 +109,30 @@ namespace npcv {
 		delete &px;
 	}
 
-	uchar* Image::pixel_ptr(int x, int y)
+	void Image::setPixel(int x, int y, int g)
+	{
+		if (type != GRAY) {
+			std::cerr << "npcv:Warning:Image:setPixel: image not GRAY but " << type << std::endl;
+		}
+		*(pixelPtr(x, y)) = g;
+	}
+
+	void Image::setPixel(int x, int y, int r, int g, int b)
+	{
+		if (type != RGB) {
+			std::cerr << "npcv:Error:Image:setPixel: not RGB image, but " << type << std::endl;
+			if (!(type >= RGB)) {
+				return;
+			}
+		}
+		uchar* px = pixelPtr(x, y);
+		*(px) = r;
+		*(px + 1) = g;
+		*(px + 2) = b;
+	}
+
+
+	uchar* Image::pixelPtr(int x, int y)
 	{
 		uchar* pixel = 0;
 		
@@ -132,7 +155,7 @@ namespace npcv {
 
 	void Image::pixelSet_ptr(int x, int y, uchar* colorPtr)
 	{
-		uchar* pixel = pixel_ptr(x, y);
+		uchar* pixel = pixelPtr(x, y);
 		for (int i = 0; i < type; i++) {
 			*(pixel + i) = *(colorPtr + i);
 		}
@@ -228,11 +251,17 @@ namespace npcv {
 
 		Image gray = Image(width, height, PixelType::GRAY);
 
-		for_each_pixel((*this))
+		// Slow but short
+/*		for_each_pixel((*this))
 			Pixel& px = Pixel::Create((pixel.color(0) + pixel.color(1) + pixel.color(2)) / 3);
 			gray.setPixel(x, y, px);
 			delete &px;		
 		for_each_pixel_end
+*/
+		for_each_pixelPtr((*this))
+			gray.setPixel(x, y, (*(pixelPtr) + *(pixelPtr + 1) + *(pixelPtr + 2)) / 3);
+		for_each_pixelPtr_end
+
 
 		//free old and replace with new
 		setPixelsCopy(gray);

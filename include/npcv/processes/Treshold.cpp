@@ -6,7 +6,18 @@ namespace npcv {namespace segmentation {
 		image.convertToGrayscale();
 		Image& tresh = Image::Create(image.width, image.height, image.type);
 
-		for (int x = 0; x < image.width; x++) {
+		for_each_pixelPtr(image)
+			if (*(pixelPtr) < intensity) {
+				tresh.setPixel(x, y, 0);
+			}
+			else {
+				tresh.setPixel(x, y, 255);
+			}
+			//	gray.setPixel(x, y, (*(pixelPtr)+*(pixelPtr + 1) + *(pixelPtr + 2) / 3));
+		for_each_pixelPtr_end
+
+		// Slow
+/*		for (int x = 0; x < image.width; x++) {
 			for (int y = 0; y < image.height; y++) {
 				Pixel& px = image.pixel(x, y);
 				int val = px.color(0);
@@ -23,6 +34,7 @@ namespace npcv {namespace segmentation {
 				delete &px;
 			}
 		}
+*/
 
 		image.setPixelsCopy(tresh);
 		delete &tresh;

@@ -117,9 +117,10 @@ void testImageConvolutionMatrix() {
 void testImageErosion() {
 	IImageStream& is = Toolset::SharedInstance().imageStream;
 	Image& img = is.Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\opencv-logo.png");
+
 	bool cg = segmentation::Treshold::global(img, 100);
 	static int i = 0;
-
+	img.saveToFile("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\test\\morphology\\erosion\\opencv-logo" + std::to_string(i++) + ".bmp");
 /*	Image& img2 = npcv::processing::Erosion::erosion(img, 1, 0, 5, 
 		[](Image& img) {
 			img.saveToFile("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\test\\morphology\\erosion\\opencv-logo" + std::to_string(i++) + ".bmp");
@@ -127,7 +128,7 @@ void testImageErosion() {
 */
 
 	Pixel& foreground = Pixel::Create(0);
-	npcv::processing::Erosion::erosion(img, 3, foreground, 
+	npcv::processing::Erosion::erosion(img, 1, foreground, 
 		[](Image& img) {
 		img.saveToFile("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\test\\morphology\\erosion\\opencv-logo" + std::to_string(i++) + ".bmp");
 	});
