@@ -20,9 +20,10 @@ namespace npcv {
 		ret.height = height;
 		ret.type = type;
 		ret.pixels = new uchar[ret.memSize()]{ 255 };
+		ret._allocatedPixels = true;
 		memset(ret.pixels, 255, ret.memSize());
 		ret.freeDataFunc = [](Image* image) {
-			delete image->pixels;
+			delete [] image->pixels;
 		};
 		return ret;
 	}
@@ -30,7 +31,7 @@ namespace npcv {
 	Image & Image::Create(int width, int height, PixelType type, uchar * pixels)
 	{
 		Image& ret = Create(width, height, type);
-		ret.pixels = pixels;
+		ret.setPixelsCopy(pixels, width * height * type * sizeof(uchar));
 		return ret;
 	}
 
@@ -44,6 +45,11 @@ namespace npcv {
 	{
 		Image& ret = *new Image();
 		return ret;
+	}
+
+	void Image::freeData()
+	{
+		freeDataFunc(this);
 	}
 
 	Image::Image()
@@ -178,7 +184,23 @@ namespace npcv {
 
 	bool Image::setPixelsCopy(Image& image)
 	{
-		int re = memcpy_s(pixels, memSize(), image.pixels, image.memSize());
+		if (image.type != type) {
+			std::cout << "npcv:Warning:Image:setPixelsCopy: Wrong type. Convert it" << std::endl;
+			freeDataFunc(this);
+			type = image.type;
+			pixels = new uchar[image.memSize()]{ 255 }; 
+			memset(pixels, 255, image.memSize());
+		}
+		return setPixelsCopy(image.pixels, image.memSize());
+	}
+
+	bool Image::setPixelsCopy(uchar * pixels, size_t memSize)
+	{
+		if (this->pixels != nullptr) {
+			freeDataFunc(this);
+			this->pixels = new uchar[memSize];
+		}
+		int re = memcpy_s(this->pixels, this->memSize(), pixels, memSize);
 		if (re == 0) {
 			true;
 		}
@@ -284,20 +306,22 @@ namespace npcv {
 
 	bool Image::setColor(int r, int g, int b)
 	{
-		for (int x = 0; x < width; x++) {
-		for (int y = 0; y < height; y++) {
-			Pixel& p = pixel(x, y);
-			if (type == RGB) {
-				p.setColor(r, g, b);
-			}
-			else if (type == GRAY) {
-				p.setColor(r);
-			}
-			else {
-				return false;
-			}
+		if (type == RGB) {
+			for_each_pixelPtr((*this))
+				*(pixelPtr) = r;
+				*(pixelPtr) = g;
+				*(pixelPtr) = b;
+			for_each_pixelPtr_end
 		}
+		else if (type == GRAY) {
+			for_each_pixelPtr((*this))
+				*(pixelPtr) = r;
+			for_each_pixelPtr_end
 		}
+		else {
+			return false;
+		}
+		
 		return true;
 	}
 

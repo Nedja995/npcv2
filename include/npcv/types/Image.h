@@ -103,11 +103,14 @@ namespace npcv {
 		*/
 		static Image& Null();
 
+		void freeData();
+
 		Image();
 		Image(Image& image);
 		Image(int width, int height, PixelType type);
 		Image(uchar* data, int width, int height, PixelType type);
 		~Image();
+
 
 		/** @brief	The pixels components array. */
 		uchar* pixels;
@@ -182,6 +185,17 @@ namespace npcv {
 		bool setPixelsCopy(Image& image);
 
 		/**
+		* @brief	Sets pixels copy.
+		*
+		* @param [in,out]	pixels	The data to copy.
+		* @param	pixels	The data to copy.
+		*
+		* @return	true if it succeeds, false if it fails.
+		* @todo Implement image check
+		*/
+		bool setPixelsCopy(uchar* pixels, size_t memSize);
+
+		/**
 		 * @brief	Gets sub image.
 		 *
 		 * @param	x	  	The x coordinate.
@@ -211,6 +225,7 @@ namespace npcv {
 		bool convertToGrayscale();
 
 		void foreachPixel(std::function<void(Pixel&)> iterFunction);
+
 
 		/**
 		 * @brief	Set all pixels color.

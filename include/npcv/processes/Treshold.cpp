@@ -13,7 +13,6 @@ namespace npcv {namespace segmentation {
 			else {
 				tresh.setPixel(x, y, 255);
 			}
-			//	gray.setPixel(x, y, (*(pixelPtr)+*(pixelPtr + 1) + *(pixelPtr + 2) / 3));
 		for_each_pixelPtr_end
 
 		// Slow

@@ -128,11 +128,12 @@ void testImageErosion() {
 */
 
 	Pixel& foreground = Pixel::Create(0);
-	npcv::processing::Erosion::erosion(img, 1, foreground, 
+	npcv::processing::Erosion::erosion(img, 10, foreground, 
 		[](Image& img) {
 		img.saveToFile("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\test\\morphology\\erosion\\opencv-logo" + std::to_string(i++) + ".bmp");
 	});
-
+	delete &img;
+	delete &foreground;
 	//cout << "Finish" << endl;
 	//is.Save(img, "D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\Erosion\\opencv-logo.png");
 }

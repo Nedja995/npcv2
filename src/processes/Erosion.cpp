@@ -70,9 +70,9 @@ namespace processing {
 			}//end image iterations
 */
 				
-			//delete &current;
-			current = next;
-			//delete &next;
+
+			current.setPixelsCopy(next);
+			delete &next;
 			next = Image::Create(imageGray.width, imageGray.height, imageGray.type);
 			next.setColor(255 - foregroundValue, 255 - foregroundValue, 255 - foregroundValue);
 			iterationResults(current);
@@ -80,11 +80,12 @@ namespace processing {
 				//Set next step image to current image
 				//Create new next step image
 			//If not change happened break loop - last iteration
-		}
 
+		}// END ITERATION
 		iterationResults(current);
+		delete &next;
 		delete &current;
-	}
+	}//end function
 
 }
 }
