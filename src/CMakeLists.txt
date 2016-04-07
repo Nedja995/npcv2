@@ -21,7 +21,13 @@ SET (processes_headers
 	${NPCV_INCLUDE_DIR}/processes/IPBlending.h
 	${NPCV_INCLUDE_DIR}/processes/Erosion.h
 	${NPCV_INCLUDE_DIR}/processes/Treshold.h
+
 )
+# processes
+SET (geometric_headers
+	${NPCV_INCLUDE_DIR}/geometric/Zoom.h
+)
+
 # abstractions
 SET (abs_headers
 	${NPCV_INCLUDE_DIR}/abs/IFilePath.h
@@ -43,6 +49,7 @@ SET (utils_headers
 	${NPCV_INCLUDE_DIR}/utils/ImageStreamNP.h
 	${NPCV_INCLUDE_DIR}/utils/ResourceManager.h
 	${NPCV_INCLUDE_DIR}/utils/SamplingImage.h
+	${NPCV_INCLUDE_DIR}/utils/Sampling.h
 	${NPCV_INCLUDE_DIR}/utils/converters/NPipeRequestToImageProcess.h
 #	${NPCV_INCLUDE_DIR}/utils/
 )
@@ -63,6 +70,7 @@ SET (npcv_headers
 SOURCE_GROUP("Header Files\\\\abs" FILES ${abs_headers})
 SOURCE_GROUP("Header Files\\\\types" FILES ${types_headers})
 SOURCE_GROUP("Header Files\\\\processes" FILES ${processes_headers})
+SOURCE_GROUP("Header Files\\\\geometric" FILES ${geometric_headers})
 SOURCE_GROUP("Header Files\\\\utils" FILES ${utils_headers})
 SOURCE_GROUP("Header Files\\\\ui" FILES ${ui_headers})
 	
@@ -88,6 +96,10 @@ SET (processes_source
 	${NPCV_SRC_DIR}/processes/Erosion.cpp
 	${NPCV_SRC_DIR}/processes/Treshold.cpp
 )
+# processes
+SET (geometric_source
+	${NPCV_SRC_DIR}/geometric/Zoom.h
+)
 # types
 SET (types_source
 	${NPCV_SRC_DIR}/types/Image.cpp
@@ -105,6 +117,7 @@ SET (utils_source
 	${NPCV_SRC_DIR}/utils/ImageStreamNP.cpp
 	${NPCV_SRC_DIR}/utils/ResourceManager.cpp
 	${NPCV_SRC_DIR}/utils/SamplingImage.cpp
+	${NPCV_SRC_DIR}/utils/Sampling.cpp
 	${NPCV_SRC_DIR}/utils/converters/NPipeRequestToImageProcess.cpp
 #	${NPCV_SRC_DIR}/utils/
 )
@@ -112,6 +125,7 @@ SET (utils_source
 SET (npcv_source
 	${npcvbase_source}
 	${processes_source}
+	${geometric_source}
 	${types_source}
 	${utils_source}
 	${ui_source}
@@ -119,6 +133,7 @@ SET (npcv_source
 
 SOURCE_GROUP("Source Files\\\\types" FILES ${types_source})
 SOURCE_GROUP("Source Files\\\\processes" FILES ${processes_source})
+SOURCE_GROUP("Source Files\\\\geometric" FILES ${geometric_source})
 SOURCE_GROUP("Source Files\\\\utils" FILES ${utils_source})	
 SOURCE_GROUP("Source Files\\\\ui" FILES ${ui_source})	
 	

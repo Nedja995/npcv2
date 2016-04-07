@@ -5,7 +5,7 @@
 
 #include "thirdparty/stb/stb_image.h"
 #include "npcv/Toolset.h"
-
+#include "npcv/geometric/Zoom.h"
 namespace npcv {
 	Image& Image::Create()
 	{
@@ -45,6 +45,16 @@ namespace npcv {
 	{
 		Image& ret = *new Image();
 		return ret;
+	}
+
+	void Image::Clone(Image & image)
+	{
+		freeDataFunc(this);
+		width = image.width;
+		height = image.height;
+		type = image.type;
+		pixels = new uchar[image.memSize()];
+		memcpy(pixels, image.pixels, image.memSize());
 	}
 
 	void Image::freeData()
@@ -194,6 +204,11 @@ namespace npcv {
 		return setPixelsCopy(image.pixels, image.memSize());
 	}
 
+	bool Image::Zoom(float xScale, float yScale)
+	{
+		return geometric::Replication(*this, xScale, yScale);
+	}
+
 	bool Image::setPixelsCopy(uchar * pixels, size_t memSize)
 	{
 		if (this->pixels != nullptr) {
@@ -210,10 +225,8 @@ namespace npcv {
 		return false;
 	}
 
-	Image * Image::getSubImage(int x, int y, int width, int height)
+	Image& Image::getSubImage(int x, int y, int width, int height)
 	{
-		Image * ret = 0;
-		Pixel * pixelTemp = 0;
 		uchar * newData = 0;
 
 		int srcPos, srcColumnPosition, srcCowBeginPosition, srcOffset;
@@ -227,7 +240,7 @@ namespace npcv {
 		}
 		else
 		{
-			ret = new Image(width, height, this->type);
+			Image& ret = Image::Create(width, height, this->type);
 
 			srcColumnPosition = x * this->type;
 			srcCowBeginPosition = this->width * this->type * y;
@@ -254,12 +267,12 @@ namespace npcv {
 					dstCowBeginPosition = width * this->type * iy;
 					dstPos = dstCowBeginPosition + dstColumnPosition;
 
-					memcpy(ret->pixels + dstPos - dstOffset, ipx, sizeof(uchar) * this->type);
+					memcpy(ret.pixels + dstPos - dstOffset, ipx, sizeof(uchar) * this->type);
 				}
 			}
-
+			return ret;
 		}
-		return ret;
+		return Image::Null();
 	}
 
 	bool Image::saveToFile(std::string filepath)

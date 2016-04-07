@@ -103,6 +103,8 @@ namespace npcv {
 		*/
 		static Image& Null();
 
+		void Clone(Image& image);
+
 		void freeData();
 
 		Image();
@@ -184,6 +186,8 @@ namespace npcv {
 		 */
 		bool setPixelsCopy(Image& image);
 
+		bool Zoom(float xScale, float yScale);
+
 		/**
 		* @brief	Sets pixels copy.
 		*
@@ -205,7 +209,7 @@ namespace npcv {
 		 *
 		 * @return	null if it fails, else the sub image.
 		 */
-		Image* getSubImage(int x, int y, int width, int height);
+		Image& getSubImage(int x, int y, int width, int height);
 
 		/**
 		 * @brief	Saves to file via shared ImageStream.
@@ -226,6 +230,7 @@ namespace npcv {
 
 		void foreachPixel(std::function<void(Pixel&)> iterFunction);
 
+		
 
 		/**
 		 * @brief	Set all pixels color.
@@ -238,6 +243,13 @@ namespace npcv {
 		 * @todo Make variant with Pixel* argument
 		 */
 		bool setColor(int r, int g, int b);
+
+		//Image& operator= (const Image &image) {
+		//	this = &image;
+
+		//	// return the existing object
+		//	return *this;
+		//}
 
 		/**
 		 * @fn	Image Image::operator+(Image image)

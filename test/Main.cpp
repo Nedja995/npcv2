@@ -10,15 +10,15 @@
 #include "npcv/processes/IPBlending.h"
 #include "npcv/processes/Erosion.h"
 #include "npcv/processes/Treshold.h"
-
+#include "npcv/utils/Sampling.h"
 #include <iostream>
 #include <chrono>
 #include <vector>
-//#define STB_IMAGE_IMPLEMENTATION
-//#include "thirdparty/stb/stb_image.h"
-//#define STB_IMAGE_WRITE_IMPLEMENTATION
-//#include "thirdparty/stb/stb_image_write.h"
+#include "stdio.h"
 
+//
+// SAMPLES DATA PATH STRING
+//
 #define SAMPLE_DATAS std::string("D:\\Projects\\CompVision\\npcv2\\samples\\data\\")
 
 using namespace std;
@@ -45,18 +45,19 @@ void testBlend();
 void testImageArithmetic();
 void testImageErosion();
 void testImageSegmentation();
-
+void testImageZoom();
+void testImageSampling();
 
 int main(int argc, int *argv[])
 {
-
 //	testImage();
 //	testImageConvolutionMatrix();
 //	testImageArithmetic();
 //	testImageSegmentation();
 	testImageErosion();
+//	testImageZoom();
+//	testImageSampling();
 
-	 
 	//testImageStreamNP();
 	//testOCRClassify();
 	//testBlend();
@@ -69,6 +70,55 @@ int main(int argc, int *argv[])
 	char in;
 	//cin >> in;
 	return 0;
+}
+
+void testImageSampling()
+{
+	cout << "Start image sampling test - subimages" << endl;
+
+	IImageStream& is = Toolset::SharedInstance().imageStream;
+	Image& img = is.Load(SAMPLE_DATAS + std::string("input\\digitsSmall.jpg"));
+	//img.Zoom(20.0f, 20.0f);
+	vector<Image*> zeros = sampling::Subimages(img, 20 , 20 );
+	static int i = 0;
+	for each (Image* chSample in zeros)
+	{
+		chSample->Zoom(2.0f, 2.0f);
+		Pixel& foreground = Pixel::Create(255);
+		
+		static int erCount = 0;
+		erCount = 0;
+		is.Save(*chSample, SAMPLE_DATAS + std::string("output\\test\\sampling\\digitsSmall\\digitsSmall.jpg"));
+		npcv::processing::Erosion::erosion(*chSample, 1, foreground,
+			[](Image& imga) {
+			if (erCount++ == 0) {
+				Toolset::SharedInstance().imageStream.Save(imga, SAMPLE_DATAS + std::string("output\\test\\sampling\\digitsSmall\\" + std::to_string(i) + "-" + std::to_string(erCount) + ".jpg"));
+			}	
+		});
+		i++;
+		
+		delete chSample;
+	}
+	//is.Save(img, SAMPLE_DATAS + std::string("output\\test\\sampling\\digitsSmall\\digitsSmall.jpg"));
+
+	delete &img;
+
+	cout << "End image test - ZOOM" << endl;
+}
+
+void testImageZoom() {
+	cout << "Start image test - ZOOM" << endl;
+
+	IImageStream& is = Toolset::SharedInstance().imageStream;
+	Image& img = is.Load(SAMPLE_DATAS + std::string("input\\5.bmp"));
+
+	img.Zoom(6.0f, 6.0f);
+
+	is.Save(img, SAMPLE_DATAS + std::string("output\\test\\zoom\\5.bmp"));
+
+	delete &img;
+
+	cout << "End image test - ZOOM" << endl;
 }
 
 void testImageConvolutionMatrix() {
@@ -116,11 +166,11 @@ void testImageConvolutionMatrix() {
 
 void testImageErosion() {
 	IImageStream& is = Toolset::SharedInstance().imageStream;
-	Image& img = is.Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\opencv-logo.png");
+	Image& img = is.Load("D:\\Projects\\CompVision\\npcv2\\samples\\data\\input\\3.jpg");
 
 	bool cg = segmentation::Treshold::global(img, 100);
 	static int i = 0;
-	img.saveToFile("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\test\\morphology\\erosion\\opencv-logo" + std::to_string(i++) + ".bmp");
+//	img.saveToFile("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\test\\morphology\\erosion\\7" + std::to_string(i++) + ".bmp");
 /*	Image& img2 = npcv::processing::Erosion::erosion(img, 1, 0, 5, 
 		[](Image& img) {
 			img.saveToFile("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\test\\morphology\\erosion\\opencv-logo" + std::to_string(i++) + ".bmp");
@@ -128,9 +178,12 @@ void testImageErosion() {
 */
 
 	Pixel& foreground = Pixel::Create(0);
-	npcv::processing::Erosion::erosion(img, 10, foreground, 
+	npcv::processing::Erosion::erosion(img, 1, foreground, 
 		[](Image& img) {
-		img.saveToFile("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\test\\morphology\\erosion\\opencv-logo" + std::to_string(i++) + ".bmp");
+		if (i++ == 24) {
+
+		img.saveToFile("D:\\Projects\\CompVision\\npcv2\\samples\\data\\output\\test\\morphology\\erosion\\3" + std::to_string(i++) + ".jpg");
+		}
 	});
 	delete &img;
 	delete &foreground;

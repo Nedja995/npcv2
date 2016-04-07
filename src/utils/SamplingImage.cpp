@@ -43,7 +43,7 @@ namespace npcv { namespace utils {
 		{
 			for (int y = 0; y < _image->height; y += height)
 			{
-				subImage = _image->getSubImage(x, y, width, height);
+				subImage = _image.getSubImage(x, y, width, height);
 				ret.push_back(subImage);
 			}
 		}
