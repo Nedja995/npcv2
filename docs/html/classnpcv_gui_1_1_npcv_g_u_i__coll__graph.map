@@ -1,0 +1,3 @@
+<map id="npcvGui::NpcvGUI" name="npcvGui::NpcvGUI">
+<area shape="rect" id="node2" href="$classnpcv_1_1_resource_manager.html" title="{npcv::ResourceManager\n|# rootDirectory\l|+ ResourceManager()\l+ ResourceManager()\l+ ~ResourceManager()\l+ getAbs()\l+ getRootDirPath()\l+ setRootDirPath()\l+ convertPathToPlatform()\l}" alt="" coords="9,5,181,171"/>
+</map>

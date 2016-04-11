@@ -1,0 +1,3 @@
+<map id="npcv::ui::IDialogFileSelect" name="npcv::ui::IDialogFileSelect">
+<area shape="rect" id="node2" href="$classnpcv_1_1ui_1_1_dialog_file_select_windows.html" title="{npcv::ui::DialogFileSelect\lWindows\n|# _title\l# _multiselect\l# _rootPath\l# _pathSelected\l|+ DialogFileSelectWindows()\l+ ~DialogFileSelectWindows()\l+ setTitle()\l+ setRoot()\l+ setMultiselect()\l+ show()\l+ getPathSelected()\l+ getPathsSelected()\l}" alt="" coords="5,204,203,443"/>
+</map>

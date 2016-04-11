@@ -11,15 +11,16 @@ namespace npcv {
 
 	class Toolset {
 	public:
-		static Toolset* SharedInstance();
+		static Toolset& SharedInstance();
+		static void Free();
 
 		Toolset();
 		~Toolset();
 
-		ILogListener* log;
-		IImageStream* imageStream;
+		ILogListener& log;
+		IImageStream& imageStream;
 
-		ui::IDialogFileSelect* uiDialogFileselect();
+		ui::IDialogFileSelect& uiDialogFileselect();
 
 
 	private:

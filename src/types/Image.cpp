@@ -4,42 +4,151 @@
 #include <string.h>
 
 #include "thirdparty/stb/stb_image.h"
-
-
+#include "npcv/Toolset.h"
+#include "npcv/geometric/Zoom.h"
 namespace npcv {
+	Image& Image::Create()
+	{
+		Image& ret = *new Image();
+		return ret;
+	}
+
+	Image & Image::Create(int width, int height, PixelType type)
+	{
+		Image& ret = *new Image();
+		ret.width = width;
+		ret.height = height;
+		ret.type = type;
+		ret.pixels = new uchar[ret.memSize()]{ 255 };
+		ret._allocatedPixels = true;
+		memset(ret.pixels, 255, ret.memSize());
+		ret.freeDataFunc = [](Image* image) {
+			delete [] image->pixels;
+		};
+		return ret;
+	}
+
+	Image & Image::Create(int width, int height, PixelType type, uchar * pixels)
+	{
+		Image& ret = Create(width, height, type);
+		ret.setPixelsCopy(pixels, width * height * type * sizeof(uchar));
+		return ret;
+	}
+
+	Image & Image::Create(Image & image)
+	{
+		Image& ret = Create(image.width, image.height, image.type, image.pixels);
+		return ret;
+	}
+
+	Image& Image::Null()
+	{
+		Image& ret = *new Image();
+		return ret;
+	}
+
+	void Image::Clone(Image & image)
+	{
+		freeDataFunc(this);
+		width = image.width;
+		height = image.height;
+		type = image.type;
+		pixels = new uchar[image.memSize()];
+		memcpy(pixels, image.pixels, image.memSize());
+	}
+
+	void Image::freeData()
+	{
+		freeDataFunc(this);
+	}
 
 	Image::Image()
+		: type(PixelType::Null)
+		, pixels(nullptr)
+		, freeDataFunc(nullptr)
 	{
 	}
 
-	Image::Image(Image * image)
-		: Image(image->pixels, image->width, image->height, image->type)
+	Image::Image(Image&  image)
+		: Image(image.pixels, image.width, image.height, image.type)
 	{
+		_allocatedPixels = false;
 	}
 
 	Image::Image(int width, int height, PixelType type)
 		: width(width), height(height), type(type)
 	{
-		size_t memSize = sizeof(unsigned char) * width * height * type;
-		pixels = (uchar*)malloc(memSize);
+		size_t memSize = sizeof(uchar) * width * height * type;
+		pixels = new uchar[memSize];
+
+		freeDataFunc = [](Image* image) {
+			delete [] image->pixels;
+		};
 		memset(pixels, 255, memSize);
 	}
 
 	Image::Image(uchar* data, int width, int height, PixelType type) 
 		: pixels(data), width(width), height(height), type(type)
 	{
+		freeDataFunc = [](Image* image) {
+			free(image->pixels);
+		};
 	}
 
 	Image::~Image()
 	{
+		if (freeDataFunc != 0) {
+			freeDataFunc(this);
+		}
 	}
 
-	Pixel * Image::pixelAt(int x, int y)
+	inline size_t Image::memSize()
 	{
-		return new Pixel(pixelAt_ptr(x, y), (PixelType)type);
+		return width * height * type * sizeof(uchar);
 	}
 
-	uchar* Image::pixelAt_ptr(int x, int y)
+	Pixel& Image::pixel(int x, int y)
+	{
+		return Pixel::Create(pixelPtr(x, y), type);
+	}
+
+	Pixel & Image::pixel(int x, int y, bool isPointer)
+	{
+		Pixel& ret = Pixel::Create(pixelPtr(x, y), type, true);
+		return ret;
+	}
+
+	void Image::setPixel(int x, int y, Pixel & pixel)
+	{
+		Pixel& px = this->pixel(x, y, true);
+		px.setColor(pixel);
+		delete &px;
+	}
+
+	void Image::setPixel(int x, int y, int g)
+	{
+		if (type != GRAY) {
+			std::cerr << "npcv:Warning:Image:setPixel: image not GRAY but " << type << std::endl;
+		}
+		*(pixelPtr(x, y)) = g;
+	}
+
+	void Image::setPixel(int x, int y, int r, int g, int b)
+	{
+		if (type != RGB) {
+			std::cerr << "npcv:Error:Image:setPixel: not RGB image, but " << type << std::endl;
+			if (!(type >= RGB)) {
+				return;
+			}
+		}
+		uchar* px = pixelPtr(x, y);
+		*(px) = r;
+		*(px + 1) = g;
+		*(px + 2) = b;
+	}
+
+
+	uchar* Image::pixelPtr(int x, int y)
 	{
 		uchar* pixel = 0;
 		
@@ -47,6 +156,7 @@ namespace npcv {
 		pixel = pixels + pos;
 		return pixel;
 
+		//old
 		int columnPosition = x * type;
 		int rowBeginPosition = width * type * y;
 		uchar* rowBegin = pixels + rowBeginPosition;
@@ -54,35 +164,23 @@ namespace npcv {
 		return pixel;
 	}
 
-	void Image::pixelSet(int x, int y, int r, int g, int b)
-	{
-		if (type < RGB) {
-			std::cerr << "npcv: Image::pixelSet: missing RGB components" << std::endl;
-			return;
-		}
-		uchar* pixel = pixelAt_ptr(x, y);
-		*(pixel) = r;
-		*(pixel + 1) = g;
-		*(pixel + 2) = b;
-	}
+	//void Image::pixelSet(int x, int y, Pixel * value)
+	//{
+	//	pixelSet_ptr(x, y, value->colorPtr);
+	//}
 
-	void Image::pixelSet(int x, int y, Pixel * value)
+	void Image::pixelSet_ptr(int x, int y, uchar* colorPtr)
 	{
-		pixelSet_ptr(x, y, value->firstComp);
-	}
-
-	void Image::pixelSet_ptr(int x, int y, uchar* firstComp)
-	{
-		uchar* pixel = pixelAt_ptr(x, y);
+		uchar* pixel = pixelPtr(x, y);
 		for (int i = 0; i < type; i++) {
-			*(pixel + i) = *(firstComp + i);
+			*(pixel + i) = *(colorPtr + i);
 		}
 	}
 
-	bool Image::loadFromMemory(unsigned char * fileMem, size_t bytes)
+	bool Image::loadFromMemory(unsigned char * fileMem, size_t size)
 	{
 		int w, h, t;
-		unsigned char* imageData = stbi_load_from_memory(fileMem, bytes, &w, &h, &t, 0);
+		unsigned char* imageData = stbi_load_from_memory(fileMem, size, &w, &h, &t, 0);
 		if (imageData != 0) {
 			this->pixels = imageData;
 			this->width = w;
@@ -94,10 +192,41 @@ namespace npcv {
 		return false;
 	}
 
-	Image * Image::getSubImage(int x, int y, int width, int height)
+	bool Image::setPixelsCopy(Image& image)
 	{
-		Image * ret = 0;
-		Pixel * pixelTemp = 0;
+		if (image.type != type) {
+			std::cout << "npcv:Warning:Image:setPixelsCopy: Wrong type. Convert it" << std::endl;
+			freeDataFunc(this);
+			type = image.type;
+			pixels = new uchar[image.memSize()]{ 255 }; 
+			memset(pixels, 255, image.memSize());
+		}
+		return setPixelsCopy(image.pixels, image.memSize());
+	}
+
+	bool Image::Zoom(float xScale, float yScale)
+	{
+		return geometric::Replication(*this, xScale, yScale);
+	}
+
+	bool Image::setPixelsCopy(uchar * pixels, size_t memSize)
+	{
+		if (this->pixels != nullptr) {
+			freeDataFunc(this);
+			this->pixels = new uchar[memSize];
+		}
+		int re = memcpy_s(this->pixels, this->memSize(), pixels, memSize);
+		if (re == 0) {
+			true;
+		}
+		else {
+			false;
+		}
+		return false;
+	}
+
+	Image& Image::getSubImage(int x, int y, int width, int height)
+	{
 		uchar * newData = 0;
 
 		int srcPos, srcColumnPosition, srcCowBeginPosition, srcOffset;
@@ -111,7 +240,7 @@ namespace npcv {
 		}
 		else
 		{
-			ret = new Image(width, height, this->type);
+			Image& ret = Image::Create(width, height, this->type);
 
 			srcColumnPosition = x * this->type;
 			srcCowBeginPosition = this->width * this->type * y;
@@ -138,12 +267,75 @@ namespace npcv {
 					dstCowBeginPosition = width * this->type * iy;
 					dstPos = dstCowBeginPosition + dstColumnPosition;
 
-					memcpy(ret->pixels + dstPos - dstOffset, ipx, sizeof(uchar) * this->type);
+					memcpy(ret.pixels + dstPos - dstOffset, ipx, sizeof(uchar) * this->type);
 				}
 			}
-
+			return ret;
 		}
-		return ret;
+		return Image::Null();
+	}
+
+	bool Image::saveToFile(std::string filepath)
+	{
+		return Toolset::SharedInstance().imageStream.Save(*this, filepath);
+	}
+
+	bool Image::convertToGrayscale()
+	{
+		if (type == GRAY) { return false; }
+
+		Image gray = Image(width, height, PixelType::GRAY);
+
+		// Slow but short
+/*		for_each_pixel((*this))
+			Pixel& px = Pixel::Create((pixel.color(0) + pixel.color(1) + pixel.color(2)) / 3);
+			gray.setPixel(x, y, px);
+			delete &px;		
+		for_each_pixel_end
+*/
+		for_each_pixelPtr((*this))
+			gray.setPixel(x, y, (*(pixelPtr) + *(pixelPtr + 1) + *(pixelPtr + 2)) / 3);
+		for_each_pixelPtr_end
+
+
+		//free old and replace with new
+		setPixelsCopy(gray);
+
+		//change type
+		type = GRAY;
+		return true;
+	}
+
+	void Image::foreachPixel(std::function<void(Pixel&)> iterFunction)
+	{
+		for (int x = 0; x < width; x++) {
+		for (int y = 0; y < height; y++) {
+			Pixel& pixelPtr = pixel(x, y, true);
+			iterFunction(pixelPtr);
+			delete &pixelPtr;
+		}
+		}
+	}
+
+	bool Image::setColor(int r, int g, int b)
+	{
+		if (type == RGB) {
+			for_each_pixelPtr((*this))
+				*(pixelPtr) = r;
+				*(pixelPtr) = g;
+				*(pixelPtr) = b;
+			for_each_pixelPtr_end
+		}
+		else if (type == GRAY) {
+			for_each_pixelPtr((*this))
+				*(pixelPtr) = r;
+			for_each_pixelPtr_end
+		}
+		else {
+			return false;
+		}
+		
+		return true;
 	}
 
 }

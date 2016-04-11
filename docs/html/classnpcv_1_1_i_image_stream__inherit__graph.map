@@ -1,0 +1,4 @@
+<map id="npcv::IImageStream" name="npcv::IImageStream">
+<area shape="rect" id="node2" href="$classnpcv_1_1_image_stream_n_p.html" title="{npcv::ImageStreamNP\n||+ Load()\l+ Save()\l+ free()\l+ Create()\l}" alt="" coords="5,160,156,281"/>
+<area shape="rect" id="node3" href="$classnpcv_1_1utils_1_1_image_stream_s_t_b.html" title="{npcv::utils::ImageStreamSTB\n||+ ImageStreamSTB()\l+ Load()\l+ Save()\l+ free()\l}" alt="" coords="180,160,371,281"/>
+</map>

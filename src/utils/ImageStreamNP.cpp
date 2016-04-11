@@ -32,13 +32,13 @@ namespace npcv
 		return ret;
 	}
 
-	Image * ImageStreamNP::Load(std::string path)
+	Image& ImageStreamNP::Load(std::string path)
 	{
 		_openWinNamedPipe();
-		return nullptr;
+		return Image::Null();
 	}
 
-	bool ImageStreamNP::Save(Image * image, std::string path)
+	bool ImageStreamNP::Save(Image& image, std::string path)
 	{
 		return false;
 	}
@@ -95,7 +95,7 @@ namespace npcv
 			//
 			// RECIVE a response from server.
 			// 
-			unsigned char charsRecived[_bufferSize];
+			unsigned char charsRecived[950000];
 			unsigned long bytesCountRecived, bytesCountReaded;
 			bytesCountRecived = sizeof(charsRecived);
 			BOOL fFinishRead = FALSE;

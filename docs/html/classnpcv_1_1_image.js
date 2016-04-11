@@ -1,0 +1,26 @@
+var classnpcv_1_1_image =
+[
+    [ "Image", "classnpcv_1_1_image.html#a58edd1c45b4faeb5f789b0d036d02313", null ],
+    [ "Image", "classnpcv_1_1_image.html#a0564e15b62f545ec9ac0f69f1e8677f8", null ],
+    [ "Image", "classnpcv_1_1_image.html#ac62a8246ea7ac2c1f9ac8dc9fc447428", null ],
+    [ "Image", "classnpcv_1_1_image.html#a05f9fddf8a206c0033173fa596bb151a", null ],
+    [ "~Image", "classnpcv_1_1_image.html#a0294f63700543e11c0f0da85601c7ae5", null ],
+    [ "convertToGrayscale", "classnpcv_1_1_image.html#aba3cfb2c4ab34e01872057cfb76da7fc", null ],
+    [ "foreachPixel", "classnpcv_1_1_image.html#a47c1cbf9f9edfd78165e5ca47e3b56f0", null ],
+    [ "getSubImage", "classnpcv_1_1_image.html#a8c8ec16e191d75e935efc67a9eb5387a", null ],
+    [ "loadFromMemory", "classnpcv_1_1_image.html#a8ce576322753227bcb8cefc77a1fefe6", null ],
+    [ "operator+", "classnpcv_1_1_image.html#af9d7ca190e127ac1db533395b64ca071", null ],
+    [ "operator+=", "classnpcv_1_1_image.html#a6773923a37590458b484ad0421b768dc", null ],
+    [ "operator-", "classnpcv_1_1_image.html#ab7d040e572b62bc26e438c11bd1b11e1", null ],
+    [ "operator-=", "classnpcv_1_1_image.html#a801282cc4cabbf1b9a8cd064085774d5", null ],
+    [ "pixel", "classnpcv_1_1_image.html#aa0c69793a20915fd045b088438860cc4", null ],
+    [ "pixel_ptr", "classnpcv_1_1_image.html#a9227dcee3927b6e4ce8927af3abe1fc1", null ],
+    [ "pixelSet_ptr", "classnpcv_1_1_image.html#adc551628a968b9e97b59d36ab3d55370", null ],
+    [ "saveToFile", "classnpcv_1_1_image.html#adb8628628dad8b8518ba306cfc1e7b7b", null ],
+    [ "setColor", "classnpcv_1_1_image.html#a4ea7d42db6dadba403924e67fe89d329", null ],
+    [ "freeDataFunc", "classnpcv_1_1_image.html#ae03e2c02aaabd41b3fb61c61e4ca9fad", null ],
+    [ "height", "classnpcv_1_1_image.html#a99e7da30665b20cb71851bd212dd247a", null ],
+    [ "pixels", "classnpcv_1_1_image.html#a6a592e0b180891ce6b54aeb2935700fe", null ],
+    [ "type", "classnpcv_1_1_image.html#a7d623f8396810974b3f9c47705f559da", null ],
+    [ "width", "classnpcv_1_1_image.html#a0e90a47f3d16b5dd1deb2ef48a765959", null ]
+];
