@@ -44,6 +44,14 @@ namespace npcv {
 		return ret;
 	}
 
+	Pixel & Pixel::Create(int r, int g, int b)
+	{
+		Pixel& ret = *new Pixel();
+		ret.type = RGB;
+		ret.setColor(r, g, b);
+		return ret;
+	}
+
 	Pixel & Pixel::Null()
 	{
 		Pixel& ret = *new Pixel();
@@ -97,10 +105,16 @@ namespace npcv {
 	bool Pixel::setColor(int r, int g, int b)
 	{
 		if (!_assertType(RGB)) { 
-			return false; 
+			if (type == GRAY) {
+				*(colorPtr) = r;
+			}
+			else {
+				return false;
+			}
 		}
-		if(colorPtr != nullptr){
-			
+		if (colorPtr == nullptr) {
+			colorPtr = new uchar[3];
+			_allocated = true;
 		}
 		*(colorPtr) = r;
 		*(colorPtr + 1) = g;

@@ -27,6 +27,7 @@ namespace npcv {
 		static Pixel& Create(uchar* components, PixelType type);
 		static Pixel& Create(uchar* components, PixelType type, bool isPointer);
 		static Pixel& Create(int g);
+		static Pixel& Create(int r, int g, int b);
 
 		static Pixel& Null();
 
@@ -56,6 +57,70 @@ namespace npcv {
 		 * @return	true if image type is GRAY.
 		 */
 		bool setColor(int g);
+
+
+		/**
+		* @fn	Pixel Pixel::operator+(Pixel px)
+		*
+		* @brief	Addition operator.
+		*
+		* @param	px	The pixel.
+		*
+		* @return	The result of the operation.
+		*/
+		Pixel& operator*(Pixel& px) {
+			Pixel& ret = Pixel::Create(this->colorPtr, this->type);
+			if (ret.type == GRAY) {
+				int mulVal = *(ret.colorPtr) * *(ret.colorPtr);
+				*(ret.colorPtr) = std::max(std::min(mulVal, 255), 0);
+			}
+			else if (ret.type == RGB) {
+
+			}
+			return ret;
+		}
+
+		/**
+		* @fn	Pixel Pixel::operator+(Pixel px)
+		*
+		* @brief	Addition operator.
+		*
+		* @param	px	The pixel.
+		*
+		* @return	The result of the operation.
+		*/
+		Pixel& operator*(int val) {
+			Pixel& ret = Pixel::Create(this->colorPtr, this->type);
+			if (ret.type == GRAY) {
+				int mulVal = *(ret.colorPtr) * val;
+				*(ret.colorPtr) = std::max(std::min(mulVal, 255), 0);
+			}
+			else if (ret.type == RGB) {
+
+			}
+			return ret;
+		}
+
+		/**
+		* @fn	Pixel Pixel::operator+(Pixel px)
+		*
+		* @brief	Addition operator.
+		*
+		* @param	px	The pixel.
+		*
+		* @return	The result of the operation.
+		*/
+		Pixel& operator/(int val) {
+			Pixel& ret = Pixel::Create(this->colorPtr, this->type);
+			if (ret.type == GRAY) {
+				int divVal = *(ret.colorPtr) / val;
+				*(ret.colorPtr) = std::max(std::min(divVal, 255), 0);
+			}
+			else if (ret.type == RGB) {
+
+			}
+			return ret;
+		}
 
 		/**
 		 * @fn	Pixel Pixel::operator+(Pixel px)

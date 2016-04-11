@@ -27,7 +27,14 @@ SET (processes_headers
 SET (geometric_headers
 	${NPCV_INCLUDE_DIR}/geometric/Zoom.h
 )
-
+# classification
+SET (classification_headers
+	${NPCV_INCLUDE_DIR}/classification/RegionEdge.h
+)
+# freatures
+SET (freatures_headers
+	${NPCV_INCLUDE_DIR}/freatures/EdgeDetectCanny.h
+)
 # abstractions
 SET (abs_headers
 	${NPCV_INCLUDE_DIR}/abs/IFilePath.h
@@ -62,6 +69,8 @@ SET (npcv_headers
 	${npcvbase_headers}
 	${abs_headers}
 	${processes_headers}
+	${freatures_headers}
+	${classification_headers}
 	${types_headers}
 	${utils_headers}
 	${ui_headers}
@@ -71,6 +80,8 @@ SOURCE_GROUP("Header Files\\\\abs" FILES ${abs_headers})
 SOURCE_GROUP("Header Files\\\\types" FILES ${types_headers})
 SOURCE_GROUP("Header Files\\\\processes" FILES ${processes_headers})
 SOURCE_GROUP("Header Files\\\\geometric" FILES ${geometric_headers})
+SOURCE_GROUP("Header Files\\\\freatures" FILES ${freatures_headers})
+SOURCE_GROUP("Header Files\\\\classification" FILES ${classification_headers})
 SOURCE_GROUP("Header Files\\\\utils" FILES ${utils_headers})
 SOURCE_GROUP("Header Files\\\\ui" FILES ${ui_headers})
 	
@@ -100,6 +111,14 @@ SET (processes_source
 SET (geometric_source
 	${NPCV_SRC_DIR}/geometric/Zoom.h
 )
+# freatures
+SET (freatures_source
+	${NPCV_SRC_DIR}/freatures/EdgeDetectCanny.cpp
+)
+# classification
+SET (classification_source
+	${NPCV_SRC_DIR}/classification/RegionEdge.cpp
+)
 # types
 SET (types_source
 	${NPCV_SRC_DIR}/types/Image.cpp
@@ -126,6 +145,8 @@ SET (npcv_source
 	${npcvbase_source}
 	${processes_source}
 	${geometric_source}
+	${classification_source}
+	${freatures_source}
 	${types_source}
 	${utils_source}
 	${ui_source}
@@ -134,6 +155,8 @@ SET (npcv_source
 SOURCE_GROUP("Source Files\\\\types" FILES ${types_source})
 SOURCE_GROUP("Source Files\\\\processes" FILES ${processes_source})
 SOURCE_GROUP("Source Files\\\\geometric" FILES ${geometric_source})
+SOURCE_GROUP("Source Files\\\\freatures" FILES ${freatures_source})
+SOURCE_GROUP("Source Files\\\\classification" FILES ${classification_source})
 SOURCE_GROUP("Source Files\\\\utils" FILES ${utils_source})	
 SOURCE_GROUP("Source Files\\\\ui" FILES ${ui_source})	
 	

@@ -11,6 +11,8 @@
 #include "npcv/processes/Erosion.h"
 #include "npcv/processes/Treshold.h"
 #include "npcv/utils/Sampling.h"
+#include "npcv/classification/RegionEdge.h"
+#include "npcv/freatures/EdgeDetectCanny.h"
 #include <iostream>
 #include <chrono>
 #include <vector>
@@ -47,6 +49,93 @@ void testImageErosion();
 void testImageSegmentation();
 void testImageZoom();
 void testImageSampling();
+void testEdgeCanny();
+void testImageClassification();
+
+std::vector<int> interpolation(int start, int end, int length) {
+	std::vector<int> ret = std::vector<int>();
+	int coef = (start > end) ? end : start;
+	for (int i = 1; i < length; i++) {
+		int val = coef * (((end - start) * i) / length);
+		val /= 10;
+		ret.push_back(val);
+	}
+	return ret;
+}
+void Interpolation() {
+	Pixel& A = Pixel::Create(10);
+	Pixel& B = Pixel::Create(255);
+
+	int a = A.color(0);
+	int b = B.color(0);
+	std::vector<int> interps = interpolation(b, a, 10);
+	for (int i = 0; i < interps.size(); i++) {
+		Image& iter = Image::Create(50, 50, GRAY);
+		iter.setColor(interps[i], 0, 0);
+		iter.saveToFile(SAMPLE_DATAS + std::string("output\\test\\zoom\\iter" + std::to_string(i) + ".jpg"));
+		delete &iter;
+	}
+//	img.Zoom(6.0f, 6.0f);
+//	is.Save(img, SAMPLE_DATAS + std::string("output\\test\\zoom\\5.bmp"));
+	//delete &img;
+}
+Pixel& linearInterpolate(Pixel& A, Pixel& B, int l, int L) {
+	// extract r, g, b information
+	// A and B is a ARGB-packed int so we use bit operation to extract
+	int Ar = A.color(0);
+	int Ag = A.color(1);
+	int Ab = A.color(2);
+	int Br = B.color(0);
+	int Bg = B.color(1);
+	int Bb = B.color(2);
+	// now calculate Y. convert float to avoid early rounding
+	// There are better ways but this is for clarity's sake
+	int Yr = (int)(Ar + l*(Br - Ar) / (float)L);
+	int Yg = (int)(Ag + l*(Bg - Ag) / (float)L);
+	int Yb = (int)(Ab + l*(Bb - Ab) / (float)L);
+
+	return Pixel::Create(Yr, Yg, Yb);
+}
+void zoomInterp() {
+	IImageStream& is = Toolset::SharedInstance().imageStream;
+	Image& img = is.Load(SAMPLE_DATAS + std::string("input\\0.jpg"));
+	img.convertToGrayscale();
+
+	int xs = 6.0f;
+	int ys = 6.0f;
+	int sw = xs * img.width;
+	int sh = ys * img.height;
+
+	Pixel& red = Pixel::Create(255, 0, 0);
+	Pixel& green = Pixel::Create(0, 255, 0);
+	Pixel& px = linearInterpolate(red, green, 5, 7);
+	int r = px.color(0);
+	int g = px.color(1);
+	int b = px.color(2);
+	Image& simg = Image::Create(sw, sh, GRAY);
+
+	for (int x = 0; x < img.width - 1; x++) {
+		for (int y = 0; y < img.height - 1; y++) {
+			int x1Start = *img.pixelPtr(x, y);
+			int x1End = *img.pixelPtr(x + 1, y);
+			int y1Start = *img.pixelPtr(x, y);
+			int y1End = *img.pixelPtr(x, y + 1);
+			std::vector<int> xInters = interpolation(x1Start, x1End, xs);
+			std::vector<int> yInters = interpolation(y1Start, y1End, ys);
+			for (int i = 0; i < yInters.size(); i++) {
+				std::vector<int> xyInters = interpolation(yInters[i], y1End, xs);
+			}
+			for (int i = 0; i < xInters.size(); i++) {
+				simg.setPixel(x * xs + i, y * ys , xInters[i]);
+				/*for (int j = 0; j < xInters.size(); j++) {
+					simg.setPixel(x * 0e + i, y * ys + j, xInters[i]);
+				}*/
+			}
+		}
+	}
+
+	simg.saveToFile(SAMPLE_DATAS + std::string("output\\test\\zoom\\interp.jpg"));
+}
 
 int main(int argc, int *argv[])
 {
@@ -54,10 +143,13 @@ int main(int argc, int *argv[])
 //	testImageConvolutionMatrix();
 //	testImageArithmetic();
 //	testImageSegmentation();
-	testImageErosion();
+//	testImageErosion();
 //	testImageZoom();
 //	testImageSampling();
-
+//	testImageClassification();
+	testEdgeCanny();
+//	Interpolation();
+//	zoomInterp();
 	//testImageStreamNP();
 	//testOCRClassify();
 	//testBlend();
@@ -71,6 +163,62 @@ int main(int argc, int *argv[])
 	//cin >> in;
 	return 0;
 }
+void testEdgeCanny() {
+	cout << "Start image edge tection - Canny" << endl;
+
+	IImageStream& is = Toolset::SharedInstance().imageStream;
+	Image& img = is.Load(SAMPLE_DATAS + std::string("input\\digitsSmall.jpg"));
+	
+	img.convertToGrayscale();
+	
+	bool cg = segmentation::Treshold::global(img, 250);
+//	img.Zoom(3.0f, 3.0f);
+	Image& edgesVert = freatures::Canny(img, 1, 100, 0, true);
+	Image& edgesHoriz = freatures::Canny(img, 1, 100, 0, false);
+//	Image& add = edgesVert + edgesHoriz;
+
+	is.Save(edgesVert, SAMPLE_DATAS + std::string("output\\test\\freatures\\cannyVerDigitsSmall.jpg"));
+	is.Save(edgesHoriz, SAMPLE_DATAS + std::string("output\\test\\freatures\\cannyHorDigitsSmall.jpg"));
+//
+	delete &img;
+
+	cout << "End image edge tection - Canny" << endl;
+}
+void testImageClassification()
+{
+	cout << "Start image classification test - region edge based" << endl;
+
+	IImageStream& is = Toolset::SharedInstance().imageStream;
+	Image& img = is.Load(SAMPLE_DATAS + std::string("input\\digitsSmall.jpg"));
+	//img.Zoom(10.0f, 10.0f);
+	vector<Image*> zeros = sampling::Subimages(img, 20, 20);// 97, 97);
+	static int i = 0;
+	for each (Image* chSample in zeros)
+	{
+		chSample->Zoom(6.0f, 6.0f);
+		Pixel& foreground = Pixel::Create(255);
+
+		static int erCount = 0;
+		erCount = 0;
+		bool cg = segmentation::Treshold::global(*chSample, 100);
+		//is.Save(*chSample, SAMPLE_DATAS + std::string("output\\test\\sampling\\digitsSmall\\"+ std::to_string(i) +"digitsSmall.jpg"));
+		npcv::processing::Erosion::erosion(*chSample, 1, foreground,
+			[](Image& imga) {
+			if (erCount++ == 4) {
+				auto edges = freatures::Canny(imga, 5, 100, 0, true);
+				auto reg = classify::GetRegions(imga, imga.width / 5, imga.height / 5, 0);
+			}
+		});
+		i++;
+
+		delete chSample;
+	}
+	//is.Save(img, SAMPLE_DATAS + std::string("output\\test\\sampling\\digitsSmall\\digitsSmall.jpg"));
+
+	delete &img;
+
+	cout << "End image test - ZOOM" << endl;
+}
 
 void testImageSampling()
 {
@@ -78,20 +226,21 @@ void testImageSampling()
 
 	IImageStream& is = Toolset::SharedInstance().imageStream;
 	Image& img = is.Load(SAMPLE_DATAS + std::string("input\\digitsSmall.jpg"));
-	//img.Zoom(20.0f, 20.0f);
-	vector<Image*> zeros = sampling::Subimages(img, 20 , 20 );
+	//img.Zoom(10.0f, 10.0f);
+	vector<Image*> zeros = sampling::Subimages(img, 20, 20);// 97, 97);
 	static int i = 0;
 	for each (Image* chSample in zeros)
 	{
-		chSample->Zoom(2.0f, 2.0f);
+		chSample->Zoom(6.0f, 6.0f);
 		Pixel& foreground = Pixel::Create(255);
 		
 		static int erCount = 0;
 		erCount = 0;
-		is.Save(*chSample, SAMPLE_DATAS + std::string("output\\test\\sampling\\digitsSmall\\digitsSmall.jpg"));
+		bool cg = segmentation::Treshold::global(*chSample, 100);
+		//is.Save(*chSample, SAMPLE_DATAS + std::string("output\\test\\sampling\\digitsSmall\\"+ std::to_string(i) +"digitsSmall.jpg"));
 		npcv::processing::Erosion::erosion(*chSample, 1, foreground,
 			[](Image& imga) {
-			if (erCount++ == 0) {
+			if (erCount++ == 4) {
 				Toolset::SharedInstance().imageStream.Save(imga, SAMPLE_DATAS + std::string("output\\test\\sampling\\digitsSmall\\" + std::to_string(i) + "-" + std::to_string(erCount) + ".jpg"));
 			}	
 		});
@@ -211,7 +360,7 @@ void testImageSegmentation() {
 
 void testImageArithmetic() {
 	
-//	_testImageAdd();
+	_testImageAdd();
 	_testImageSubstract();
 }
 

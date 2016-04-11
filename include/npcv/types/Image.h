@@ -261,14 +261,25 @@ namespace npcv {
 		 * @return	The result of the operation.
 		 */
 		Image& operator+(Image& image) {
-			Image& ret = Image::Create(width, height, type);
-			for_each_pixel((*this))
-				Pixel& px2 = image.pixel(x, y);		
-				Pixel& np = pixel + px2;
-				ret.setPixel(x, y, np);
-				delete &px2;
-				delete &np;
-			for_each_pixel_end
+			Image& ret = Image::Create(*this);
+			if (ret.type == GRAY) {
+				for_each_pixelPtr(ret)
+					int pxAdd = *image.pixelPtr(x, y);
+					int pxVal = *pixelPtr + pxAdd;
+					*pixelPtr = std::max(std::min(pxVal, 255), 0);
+				for_each_pixelPtr_end
+			}
+			else if (ret.type == RGB) {
+				for_each_pixelPtr(ret)
+					uchar* pxAdd = image.pixelPtr(x, y);
+					int r = *pixelPtr + *pxAdd;
+					int g = *(pixelPtr + 1) + *(pxAdd + 1);
+					int b = *(pixelPtr + 2) + *(pxAdd + 2);
+					*pixelPtr = std::max(std::min(r, 255), 0);
+					*(pixelPtr + 1) = std::max(std::min(g, 255), 0);
+					*(pixelPtr + 2) = std::max(std::min(b, 255), 0);
+				for_each_pixelPtr_end
+			}
 			return ret;
 		}
 
