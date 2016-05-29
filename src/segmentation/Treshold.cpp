@@ -1,4 +1,4 @@
-#include "Treshold.h"
+#include "npcv/segmentation/Treshold.h"
 namespace npcv {namespace segmentation {
 
 	bool Treshold::global(Image& image, int intensity)

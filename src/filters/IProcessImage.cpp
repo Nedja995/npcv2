@@ -1,4 +1,4 @@
-#include "npcv/processes/IProcessImage.h"
+#include "npcv/filters/IProcessImage.h"
 
 #include <iostream>
 namespace npcv {

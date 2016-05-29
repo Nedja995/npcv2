@@ -1,4 +1,4 @@
-#include "npcv/processes/ProcessGray.h"
+#include "npcv/filters/ProcessGray.h"
 #include "npcv/types/Image.h"
 #include <iostream>
 #include <math.h>

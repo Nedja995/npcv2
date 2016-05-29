@@ -22,7 +22,7 @@
 */
 
 #include "npcv/utils/converters/NPipeRequestToImageProcess.h"
-#include "npcv/processes/IPMatrixApply.h"
+#include "npcv/filters/IPMatrixApply.h"
 #include <iostream>
 #include <vector>
 #include <sstream>

@@ -1,15 +1,15 @@
 #include "npcv/utils/ImageStreamSTB.h"
 #include "npcv/LogListenerDebug.h"
 #include "npcv/Toolset.h"
-#include "npcv/processes/ProcessGray.h"
-#include "npcv/processes/IPMatrixApply.h"
+#include "npcv/filters/ProcessGray.h"
+#include "npcv/filters/IPMatrixApply.h"
 #include "npcv/types/Image.h"
 #include "npcv/utils/ImageStreamNP.h"
 #include "npcv/utils/SamplingImage.h"
 #include "npcv/utils/converters/NPipeRequestToImageProcess.h"
-#include "npcv/processes/IPBlending.h"
-#include "npcv/processes/Erosion.h"
-#include "npcv/processes/Treshold.h"
+#include "npcv/filters/IPBlending.h"
+#include "npcv/morphology/Erosion.h"
+#include "npcv/segmentation/Treshold.h"
 #include "npcv/utils/Sampling.h"
 #include "npcv/classification/RegionEdge.h"
 #include "npcv/freatures/EdgeDetectCanny.h"
@@ -147,7 +147,7 @@ int main(int argc, int *argv[])
 //	testImageZoom();
 //	testImageSampling();
 //	testImageClassification();
-	testEdgeCanny();
+//	testEdgeCanny();
 //	Interpolation();
 //	zoomInterp();
 	//testImageStreamNP();
@@ -157,7 +157,7 @@ int main(int argc, int *argv[])
 //	testImageFilter();
 
 
-	Toolset::Free();
+//	Toolset::Free();
 
 	char in;
 	//cin >> in;

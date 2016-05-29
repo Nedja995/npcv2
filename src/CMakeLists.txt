@@ -1,29 +1,33 @@
 
 #
 ########################
-# 	NPCV HEADERS
+# 	LIBRARY HEADERS
 #
 #
 # npcv base
 SET (npcvbase_headers
 	${NPCV_INCLUDE_DIR}/Config.h
-
 	${NPCV_INCLUDE_DIR}/LogListenerDebug.h
 	${NPCV_INCLUDE_DIR}/Toolset.h
 	${NPCV_INCLUDE_DIR}/appinfo.h
 	${NPCV_INCLUDE_DIR}/Application.h
 )
-# processes
-SET (processes_headers
-	${NPCV_INCLUDE_DIR}/processes/IPMatrixApply.h
-	${NPCV_INCLUDE_DIR}/processes/IProcessImage.h
-	${NPCV_INCLUDE_DIR}/processes/ProcessGray.h
-	${NPCV_INCLUDE_DIR}/processes/IPBlending.h
-	${NPCV_INCLUDE_DIR}/processes/Erosion.h
-	${NPCV_INCLUDE_DIR}/processes/Treshold.h
-
+# FILTERS HEADERS
+SET (filters_headers
+	${NPCV_INCLUDE_DIR}/filters/IPMatrixApply.h
+	${NPCV_INCLUDE_DIR}/filters/IProcessImage.h
+	${NPCV_INCLUDE_DIR}/filters/ProcessGray.h
+	${NPCV_INCLUDE_DIR}/filters/IPBlending.h
 )
-# processes
+# SEGMENTATION HEADERS
+SET (segmentation_header
+	${NPCV_INCLUDE_DIR}/segmentation/Treshold.h
+)
+# MORPHOLOGY HEADERS
+SET (morphology_header
+	${NPCV_INCLUDE_DIR}/morphology/Erosion.h
+)
+# geometric
 SET (geometric_headers
 	${NPCV_INCLUDE_DIR}/geometric/Zoom.h
 )
@@ -68,7 +72,9 @@ SET (ui_headers
 SET (npcv_headers 
 	${npcvbase_headers}
 	${abs_headers}
-	${processes_headers}
+	${filters_headers}
+	${segmentation_headers}
+	${morphology_header}
 	${freatures_headers}
 	${classification_headers}
 	${types_headers}
@@ -78,7 +84,9 @@ SET (npcv_headers
 
 SOURCE_GROUP("Header Files\\\\abs" FILES ${abs_headers})
 SOURCE_GROUP("Header Files\\\\types" FILES ${types_headers})
-SOURCE_GROUP("Header Files\\\\processes" FILES ${processes_headers})
+SOURCE_GROUP("Header Files\\\\filters" FILES ${filters_headers})
+SOURCE_GROUP("Header Files\\\\morphology" FILES ${morphology_header})
+SOURCE_GROUP("Header Files\\\\segmentation" FILES ${segmentation_headers})
 SOURCE_GROUP("Header Files\\\\geometric" FILES ${geometric_headers})
 SOURCE_GROUP("Header Files\\\\freatures" FILES ${freatures_headers})
 SOURCE_GROUP("Header Files\\\\classification" FILES ${classification_headers})
@@ -98,18 +106,24 @@ SET (npcvbase_source
 	${NPCV_SRC_DIR}/Toolset.cpp
 	${NPCV_SRC_DIR}/Application.cpp
 )
-# processes
-SET (processes_source
-	${NPCV_SRC_DIR}/processes/IPMatrixApply.cpp
-	${NPCV_SRC_DIR}/processes/IProcessImage.cpp
-	${NPCV_SRC_DIR}/processes/IPBlending.cpp
-	${NPCV_SRC_DIR}/processes/ProcessGray.cpp
-	${NPCV_SRC_DIR}/processes/Erosion.cpp
-	${NPCV_SRC_DIR}/processes/Treshold.cpp
+# FILTERS SRC
+SET (filters_source
+	${NPCV_SRC_DIR}/filters/IPMatrixApply.cpp
+	${NPCV_SRC_DIR}/filters/IProcessImage.cpp
+	${NPCV_SRC_DIR}/filters/IPBlending.cpp
+	${NPCV_SRC_DIR}/filters/ProcessGray.cpp	
 )
-# processes
+# segmentation
+SET (segmentation_source
+	${NPCV_SRC_DIR}/segmentation/Treshold.cpp
+)
+# MORPHOLOGY SRC
+SET (morphology_source
+	${NPCV_SRC_DIR}/morphology/Erosion.cpp
+)
+# geometric
 SET (geometric_source
-	${NPCV_SRC_DIR}/geometric/Zoom.h
+	${NPCV_SRC_DIR}/geometric/Zoom.cpp
 )
 # freatures
 SET (freatures_source
@@ -143,7 +157,9 @@ SET (utils_source
 
 SET (npcv_source
 	${npcvbase_source}
-	${processes_source}
+	${filters_source}
+	${segmentation_source}
+	${morphology_source}
 	${geometric_source}
 	${classification_source}
 	${freatures_source}
@@ -153,7 +169,9 @@ SET (npcv_source
 )
 
 SOURCE_GROUP("Source Files\\\\types" FILES ${types_source})
-SOURCE_GROUP("Source Files\\\\processes" FILES ${processes_source})
+SOURCE_GROUP("Source Files\\\\filters" FILES ${filters_source})
+SOURCE_GROUP("Source Files\\\\segmentation" FILES ${segmentation_source})
+SOURCE_GROUP("Source Files\\\\morphology" FILES ${morphology_source})
 SOURCE_GROUP("Source Files\\\\geometric" FILES ${geometric_source})
 SOURCE_GROUP("Source Files\\\\freatures" FILES ${freatures_source})
 SOURCE_GROUP("Source Files\\\\classification" FILES ${classification_source})

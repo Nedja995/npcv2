@@ -1,4 +1,4 @@
-#include "npcv/processes/Erosion.h"
+#include "npcv/morphology/Erosion.h"
 #include <iostream>
 #include <string>
 namespace npcv {

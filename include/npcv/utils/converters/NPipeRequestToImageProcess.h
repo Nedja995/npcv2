@@ -23,7 +23,7 @@
 
 #pragma once
 #include <string>
-#include "npcv/processes/IProcessImage.h"
+#include "npcv/filters/IProcessImage.h"
 #include <map>
 namespace npcv{ namespace converters{ 
 	using namespace processing;

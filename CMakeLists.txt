@@ -168,7 +168,7 @@ endif()
 
 # NpcvGUI
 if(NpcvGUI)
-	add_subdirectory(src/npcvgui)
+	add_subdirectory(src/guisfml)
 endif()
 
 # GTest project targets

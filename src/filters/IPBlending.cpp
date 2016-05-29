@@ -1,4 +1,4 @@
-#include "npcv/processes/IPBlending.h"
+#include "npcv/filters/IPBlending.h"
 #include <iostream>
 namespace npcv {
 	namespace processing {

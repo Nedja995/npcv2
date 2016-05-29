@@ -1,4 +1,4 @@
-#include "npcv/processes/IPMatrixApply.h"
+#include "npcv/filters/IPMatrixApply.h"
 #include "npcv/types/Image.h"
 #include <iostream>
 #include <algorithm>
