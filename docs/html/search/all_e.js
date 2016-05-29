@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['samplingimage',['SamplingImage',['../classnpcv_1_1utils_1_1_sampling_image.html',1,'npcv::utils']]],
-  ['savetofile',['saveToFile',['../classnpcv_1_1_image.html#adb8628628dad8b8518ba306cfc1e7b7b',1,'npcv::Image']]],
-  ['setcolor',['setColor',['../classnpcv_1_1_image.html#a4ea7d42db6dadba403924e67fe89d329',1,'npcv::Image::setColor()'],['../classnpcv_1_1_pixel.html#acce04c7cba7f5caa34f8227aa81848e4',1,'npcv::Pixel::setColor()']]],
-  ['setimage',['SetImage',['../classsfg_1_1_resizable_image.html#a1c95eaf5da6b550d9c42c8e737685969',1,'sfg::ResizableImage::SetImage()'],['../classnpcv_1_1processing_1_1_i_process_image.html#ac4d9de9a5ad4f04c1882e8907add3811',1,'npcv::processing::IProcessImage::setImage()']]],
-  ['setkeepaspect',['SetKeepAspect',['../classsfg_1_1_resizable_image.html#ac4942689cfd0650bcbaa9bfd67b57d1c',1,'sfg::ResizableImage']]],
-  ['setsecondimage',['setSecondImage',['../classnpcv_1_1processing_1_1_i_p_blending.html#a763d119d6229372cdbfedba36ba96439',1,'npcv::processing::IPBlending']]]
+  ['ratio',['ratio',['../classnpcv_1_1processing_1_1_i_p_blending.html#a4113a566e8019fe94340436093747073',1,'npcv::processing::IPBlending']]],
+  ['refresh',['refresh',['../classnpcv_gui_1_1_i_image_g_u_i.html#a2f3f3c40435a64e2bd548c4f6f391380',1,'npcvGui::IImageGUI::refresh()'],['../classnpcv_gui_1_1_image_box.html#a0b04f36bff1e60064acfa84214d8cbc4',1,'npcvGui::ImageBox::refresh()']]],
+  ['resizableimage',['ResizableImage',['../classsfg_1_1_resizable_image.html#a89f193227a03a8b629ef9519dae726f5',1,'sfg::ResizableImage']]],
+  ['resizableimage',['ResizableImage',['../classsfg_1_1_resizable_image.html',1,'sfg']]],
+  ['resize',['resize',['../classnpcv_gui_1_1_i_image_g_u_i.html#a8573f5ee218ae967b69625f8092583d7',1,'npcvGui::IImageGUI::resize()'],['../classnpcv_gui_1_1_image_box.html#a29d8661659239b0b3ddeac4c0f95ffe4',1,'npcvGui::ImageBox::resize()'],['../classsfg_1_1_resizable_image.html#aa05c2178c828c63aeebdfce9f1080c99',1,'sfg::ResizableImage::Resize(const unsigned int sizeX, const unsigned int sizeY)'],['../classsfg_1_1_resizable_image.html#ac2e98e0a440d6069aca7d3e1c6627ebe',1,'sfg::ResizableImage::Resize(const sf::Vector2u &amp;customSize=sf::Vector2u(0, 0))']]],
+  ['resourcemanager',['ResourceManager',['../classnpcv_1_1_resource_manager.html',1,'npcv']]]
 ];

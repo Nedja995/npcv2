@@ -17,10 +17,10 @@ var hierarchy =
     [ "npcv::ILogListener", "classnpcv_1_1_i_log_listener.html", [
       [ "npcv::LogListenerDebug", "classnpcv_1_1_log_listener_debug.html", null ]
     ] ],
+    [ "npcv::Image", "classnpcv_1_1_image.html", null ],
     [ "Image", null, [
       [ "sfg::ResizableImage", "classsfg_1_1_resizable_image.html", null ]
     ] ],
-    [ "npcv::Image", "classnpcv_1_1_image.html", null ],
     [ "npcvGui::ImageInspectorBox", "classnpcv_gui_1_1_image_inspector_box.html", null ],
     [ "ImageTresholding", "class_image_tresholding.html", null ],
     [ "npcv::IProcess", "classnpcv_1_1_i_process.html", [
@@ -32,7 +32,6 @@ var hierarchy =
     ] ],
     [ "npcvGui::NpcvGUI", "classnpcv_gui_1_1_npcv_g_u_i.html", null ],
     [ "npcv::converters::NPipeRequestToImageProcess", "classnpcv_1_1converters_1_1_n_pipe_request_to_image_process.html", null ],
-    [ "npcv::types::PApplyMatrix", "classnpcv_1_1types_1_1_p_apply_matrix.html", null ],
     [ "npcv::Pixel", "classnpcv_1_1_pixel.html", null ],
     [ "npcv::ResourceManager", "classnpcv_1_1_resource_manager.html", null ],
     [ "npcv::utils::SamplingImage", "classnpcv_1_1utils_1_1_sampling_image.html", null ],

@@ -4,7 +4,6 @@ var namespacenpcv =
       [ "NPipeRequestToImageProcess", "classnpcv_1_1converters_1_1_n_pipe_request_to_image_process.html", "classnpcv_1_1converters_1_1_n_pipe_request_to_image_process" ]
     ] ],
     [ "processing", "namespacenpcv_1_1processing.html", "namespacenpcv_1_1processing" ],
-    [ "types", "namespacenpcv_1_1types.html", "namespacenpcv_1_1types" ],
     [ "ui", "namespacenpcv_1_1ui.html", "namespacenpcv_1_1ui" ],
     [ "utils", "namespacenpcv_1_1utils.html", "namespacenpcv_1_1utils" ],
     [ "Application", "classnpcv_1_1_application.html", "classnpcv_1_1_application" ],

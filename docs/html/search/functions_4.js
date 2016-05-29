@@ -10,5 +10,5 @@ var searchData=
   ['getresizedimage',['GetResizedImage',['../classsfg_1_1_resizable_image.html#ae16cbbc3330885c0a6860138c9534424',1,'sfg::ResizableImage']]],
   ['getruntimeplatform',['getRuntimePLatform',['../classnpcv_1_1_application.html#ab1e02630cebd94823a0870c3ce622d02',1,'npcv::Application']]],
   ['getsecondimage',['getSecondImage',['../classnpcv_1_1processing_1_1_i_p_blending.html#a37af5d39997b167c9a1b87f687915f63',1,'npcv::processing::IPBlending']]],
-  ['getsubimage',['getSubImage',['../classnpcv_1_1_image.html#a8c8ec16e191d75e935efc67a9eb5387a',1,'npcv::Image']]]
+  ['getsubimage',['getSubImage',['../classnpcv_1_1_image.html#a85f2ee8b76f06e1457561ec9e6a82f60',1,'npcv::Image']]]
 ];

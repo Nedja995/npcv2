@@ -119,9 +119,9 @@ $(document).ready(function(){initNavTree('_i_image_stream_8h_source.html','');})
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="comment">//virtual ~IImageStream() = 0;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classnpcv_1_1_image.html">Image</a>* Load(std::string path) = 0;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classnpcv_1_1_image.html">Image</a>&amp; Load(std::string path) = 0;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Save(<a class="code" href="classnpcv_1_1_image.html">Image</a>* image, std::string path) = 0;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Save(<a class="code" href="classnpcv_1_1_image.html">Image</a>&amp; image, std::string path) = 0;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> free() = 0;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    };</div>
@@ -130,7 +130,7 @@ $(document).ready(function(){initNavTree('_i_image_stream_8h_source.html','');})
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="classnpcv_1_1_i_image_stream_html"><div class="ttname"><a href="classnpcv_1_1_i_image_stream.html">npcv::IImageStream</a></div><div class="ttdef"><b>Definition:</b> IImageStream.h:8</div></div>
-<div class="ttc" id="classnpcv_1_1_image_html"><div class="ttname"><a href="classnpcv_1_1_image.html">npcv::Image</a></div><div class="ttdoc">An image. </div><div class="ttdef"><b>Definition:</b> Image.h:38</div></div>
+<div class="ttc" id="classnpcv_1_1_image_html"><div class="ttname"><a href="classnpcv_1_1_image.html">npcv::Image</a></div><div class="ttdoc">An image. </div><div class="ttdef"><b>Definition:</b> Image.h:56</div></div>
 <div class="ttc" id="namespacenpcv_html"><div class="ttname"><a href="namespacenpcv.html">npcv</a></div><div class="ttdef"><b>Definition:</b> Application.cpp:3</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

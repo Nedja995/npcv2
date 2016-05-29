@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['refresh',['refresh',['../classnpcv_gui_1_1_i_image_g_u_i.html#a2f3f3c40435a64e2bd548c4f6f391380',1,'npcvGui::IImageGUI::refresh()'],['../classnpcv_gui_1_1_image_box.html#a0b04f36bff1e60064acfa84214d8cbc4',1,'npcvGui::ImageBox::refresh()']]],
-  ['resizableimage',['ResizableImage',['../classsfg_1_1_resizable_image.html#a89f193227a03a8b629ef9519dae726f5',1,'sfg::ResizableImage']]],
-  ['resize',['resize',['../classnpcv_gui_1_1_i_image_g_u_i.html#a8573f5ee218ae967b69625f8092583d7',1,'npcvGui::IImageGUI::resize()'],['../classnpcv_gui_1_1_image_box.html#a29d8661659239b0b3ddeac4c0f95ffe4',1,'npcvGui::ImageBox::resize()'],['../classsfg_1_1_resizable_image.html#aa05c2178c828c63aeebdfce9f1080c99',1,'sfg::ResizableImage::Resize(const unsigned int sizeX, const unsigned int sizeY)'],['../classsfg_1_1_resizable_image.html#ac2e98e0a440d6069aca7d3e1c6627ebe',1,'sfg::ResizableImage::Resize(const sf::Vector2u &amp;customSize=sf::Vector2u(0, 0))']]]
+  ['operator_2b',['operator+',['../classnpcv_1_1_image.html#a3a11c8c09277fdf6e3bf853c92a338d7',1,'npcv::Image::operator+()'],['../classnpcv_1_1_pixel.html#a420c7bd57ec827737cb4b9b2f4dbef9a',1,'npcv::Pixel::operator+()']]],
+  ['operator_2b_3d',['operator+=',['../classnpcv_1_1_image.html#af802682e766d10fe0a124fba628e931a',1,'npcv::Image::operator+=()'],['../classnpcv_1_1_pixel.html#a8c53adb541565f2a0164e7f0f458c45f',1,'npcv::Pixel::operator+=()']]],
+  ['operator_2d',['operator-',['../classnpcv_1_1_image.html#a4fe3267753c60a1d96b76a4614670d02',1,'npcv::Image::operator-()'],['../classnpcv_1_1_pixel.html#a16aa5c0ffbf97c4f4c6e6d7a0044a74d',1,'npcv::Pixel::operator-()']]],
+  ['operator_2d_3d',['operator-=',['../classnpcv_1_1_image.html#a21f3a802c56556ca6924e238d8e36a31',1,'npcv::Image::operator-=()'],['../classnpcv_1_1_pixel.html#a4766a4c42a1d507d860cbf7abd760330',1,'npcv::Pixel::operator-=()']]]
 ];

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['_7eipblending',['~IPBlending',['../classnpcv_1_1processing_1_1_i_p_blending.html#ab16dcec70630b56003a18f21991aa469',1,'npcv::processing::IPBlending']]],
-  ['_7eresizableimage',['~ResizableImage',['../classsfg_1_1_resizable_image.html#ae0c14d9dcf3952685c6943450c077e71',1,'sfg::ResizableImage']]]
+  ['width',['width',['../classnpcv_1_1_image.html#a0e90a47f3d16b5dd1deb2ef48a765959',1,'npcv::Image']]],
+  ['windows',['Windows',['../classnpcv_1_1_application.html#abca39819812f919fbbaa7c725f244e19a237ebf36d523f210b05a0f0eb12909be',1,'npcv::Application']]],
+  ['winmatrixfilter',['WinMatrixFilter',['../classnpcv_gui_1_1_win_matrix_filter.html',1,'npcvGui']]]
 ];

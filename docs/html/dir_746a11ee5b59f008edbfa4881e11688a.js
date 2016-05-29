@@ -5,5 +5,6 @@ var dir_746a11ee5b59f008edbfa4881e11688a =
     [ "ImageStreamSTB.h", "_image_stream_s_t_b_8h_source.html", null ],
     [ "Profiler.h", "_profiler_8h_source.html", null ],
     [ "ResourceManager.h", "_resource_manager_8h_source.html", null ],
+    [ "Sampling.h", "_sampling_8h_source.html", null ],
     [ "SamplingImage.h", "_sampling_image_8h_source.html", null ]
 ];

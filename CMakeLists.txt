@@ -77,6 +77,9 @@ endif()
 # Samples project
 option(TESTAPP "Make npcv test" YES)
 
+# Demos
+option(DEMOS_PROJECTS "Make npcv demos projects" YES)
+
 # npcv GUI
 option(NpcvGUI "Make npcvGUI project" YES)
 #paths
@@ -164,6 +167,13 @@ ADD_SUBDIRECTORY(src)
 # Samples project target
 if(TESTAPP)
 	add_subdirectory(test)
+endif()
+
+#
+# ADD DEMOS PROJECTS
+
+if(DEMOS_PROJECTS)
+	add_subdirectory(samples/demos)
 endif()
 
 # NpcvGUI

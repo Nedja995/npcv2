@@ -1,4 +1,4 @@
 <map id="npcvGui::ImageBox" name="npcvGui::ImageBox">
-<area shape="rect" id="node2" href="$classnpcv_gui_1_1_i_image_g_u_i.html" title="Abstraction of Image Gui element. " alt="" coords="5,64,184,259"/>
-<area shape="rect" id="node3" href="$classnpcv_1_1_image.html" title="An image. " alt="" coords="209,5,365,317"/>
+<area shape="rect" id="node2" href="$classnpcv_gui_1_1_i_image_g_u_i.html" title="Abstraction of Image Gui element. " alt="" coords="5,101,184,295"/>
+<area shape="rect" id="node3" href="$classnpcv_1_1_image.html" title="An image. " alt="" coords="208,5,336,391"/>
 </map>

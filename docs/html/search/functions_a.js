@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['savetofile',['saveToFile',['../classnpcv_1_1_image.html#adb8628628dad8b8518ba306cfc1e7b7b',1,'npcv::Image']]],
-  ['setcolor',['setColor',['../classnpcv_1_1_image.html#a4ea7d42db6dadba403924e67fe89d329',1,'npcv::Image::setColor()'],['../classnpcv_1_1_pixel.html#acce04c7cba7f5caa34f8227aa81848e4',1,'npcv::Pixel::setColor()']]],
-  ['setimage',['SetImage',['../classsfg_1_1_resizable_image.html#a1c95eaf5da6b550d9c42c8e737685969',1,'sfg::ResizableImage::SetImage()'],['../classnpcv_1_1processing_1_1_i_process_image.html#ac4d9de9a5ad4f04c1882e8907add3811',1,'npcv::processing::IProcessImage::setImage()']]],
-  ['setkeepaspect',['SetKeepAspect',['../classsfg_1_1_resizable_image.html#ac4942689cfd0650bcbaa9bfd67b57d1c',1,'sfg::ResizableImage']]],
-  ['setsecondimage',['setSecondImage',['../classnpcv_1_1processing_1_1_i_p_blending.html#a763d119d6229372cdbfedba36ba96439',1,'npcv::processing::IPBlending']]]
+  ['pixel',['pixel',['../classnpcv_1_1_image.html#a61ae3310ccb3aede7972463cb553ba91',1,'npcv::Image']]],
+  ['pixelptr',['pixelPtr',['../classnpcv_1_1_image.html#adf3b80c5e4209a399084f82c85371473',1,'npcv::Image']]],
+  ['pixelset_5fptr',['pixelSet_ptr',['../classnpcv_1_1_image.html#adc551628a968b9e97b59d36ab3d55370',1,'npcv::Image']]],
+  ['processimage',['processImage',['../classnpcv_1_1processing_1_1_i_p_blending.html#a0b4f56bf17a92f102a0c64d64caf8fa1',1,'npcv::processing::IPBlending::processImage()'],['../classnpcv_1_1processing_1_1_i_p_matrix_apply.html#a6b397cf6c7615ab1f9d5f460ef3abfb0',1,'npcv::processing::IPMatrixApply::processImage()'],['../classnpcv_1_1processing_1_1_i_process_image.html#a46572087927e38060c7e0107225fc1bf',1,'npcv::processing::IProcessImage::processImage()'],['../classnpcv_1_1processing_1_1_process_gray.html#a200f3731cfbc9fa2a8ef9f1664e64c79',1,'npcv::processing::ProcessGray::processImage()']]]
 ];

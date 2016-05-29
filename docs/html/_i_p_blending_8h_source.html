@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>NPCV: include/npcv/processes/IPBlending.h Source File</title>
+<title>NPCV: include/npcv/filters/IPBlending.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -119,23 +119,23 @@ $(document).ready(function(){initNavTree('_i_p_blending_8h_source.html','');});
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; first-&gt;width; x++) {</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; first-&gt;height; y++) {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                    Pixel* fp = first-&gt;pixel(x, y);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                    Pixel&amp; fp = first-&gt;pixel(x, y);</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                    <span class="keywordtype">int</span> r11 = R(fp);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                    <span class="keywordtype">int</span> g11 = G(fp);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                    <span class="keywordtype">int</span> b11 = B(fp);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                    Pixel* sp = second-&gt;pixel(x, y);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                    Pixel px = Pixel(*fp);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                    Pixel px2 = Pixel(*sp);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                    <span class="keywordtype">int</span> r1 = R((&amp;px));</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                    <span class="keywordtype">int</span> g1 = G((&amp;px));</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                    <span class="keywordtype">int</span> b1 = B((&amp;px));</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                    <span class="keywordtype">int</span> r2 = R((&amp;px2));</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                    <span class="keywordtype">int</span> g2 = G((&amp;px2));</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                    <span class="keywordtype">int</span> b2 = B((&amp;px2));</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                    <span class="comment">/*int r11 = R(fp);</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">                    int g11 = G(fp);</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">                    int b11 = B(fp);</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">                    Pixel&amp; sp = second.pixel(x, y);</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">                    Pixel px = Pixel(fp);</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">                    Pixel px2 = Pixel(sp);</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">                    int r1 = R((&amp;px));</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">                    int g1 = G((&amp;px));</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">                    int b1 = B((&amp;px));</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">                    int r2 = R((&amp;px2));</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">                    int g2 = G((&amp;px2));</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">                    int b2 = B((&amp;px2));*/</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                    <span class="comment">//Pixel newPX = px + px2;</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                    <span class="comment">//Pixel newPX = 0; px * 3;</span></div>
@@ -189,7 +189,7 @@ $(document).ready(function(){initNavTree('_i_p_blending_8h_source.html','');});
 <div class="ttc" id="classnpcv_1_1processing_1_1_i_p_blending_html_a7ccea7ed6cfc892c1258b21c0c559443"><div class="ttname"><a href="classnpcv_1_1processing_1_1_i_p_blending.html#a7ccea7ed6cfc892c1258b21c0c559443">npcv::processing::IPBlending::initialize</a></div><div class="ttdeci">virtual void initialize() override</div><div class="ttdoc">Initializes this process. </div><div class="ttdef"><b>Definition:</b> IPBlending.cpp:43</div></div>
 <div class="ttc" id="classnpcv_1_1processing_1_1_i_p_blending_html_a37af5d39997b167c9a1b87f687915f63"><div class="ttname"><a href="classnpcv_1_1processing_1_1_i_p_blending.html#a37af5d39997b167c9a1b87f687915f63">npcv::processing::IPBlending::getSecondImage</a></div><div class="ttdeci">Image * getSecondImage()</div><div class="ttdoc">Gets second image. </div><div class="ttdef"><b>Definition:</b> IPBlending.cpp:32</div></div>
 <div class="ttc" id="classnpcv_1_1processing_1_1_i_p_blending_html_a4c75eb9c3e3b830608a5f6823c1b6751"><div class="ttname"><a href="classnpcv_1_1processing_1_1_i_p_blending.html#a4c75eb9c3e3b830608a5f6823c1b6751">npcv::processing::IPBlending::IPBlending</a></div><div class="ttdeci">IPBlending()</div><div class="ttdoc">Default constructor. </div><div class="ttdef"><b>Definition:</b> IPBlending.cpp:15</div></div>
-<div class="ttc" id="classnpcv_1_1_image_html"><div class="ttname"><a href="classnpcv_1_1_image.html">npcv::Image</a></div><div class="ttdoc">An image. </div><div class="ttdef"><b>Definition:</b> Image.h:38</div></div>
+<div class="ttc" id="classnpcv_1_1_image_html"><div class="ttname"><a href="classnpcv_1_1_image.html">npcv::Image</a></div><div class="ttdoc">An image. </div><div class="ttdef"><b>Definition:</b> Image.h:56</div></div>
 <div class="ttc" id="classnpcv_1_1processing_1_1_i_p_blending_html_ab16dcec70630b56003a18f21991aa469"><div class="ttname"><a href="classnpcv_1_1processing_1_1_i_p_blending.html#ab16dcec70630b56003a18f21991aa469">npcv::processing::IPBlending::~IPBlending</a></div><div class="ttdeci">~IPBlending()</div><div class="ttdoc">Destructor. </div><div class="ttdef"><b>Definition:</b> IPBlending.cpp:23</div></div>
 <div class="ttc" id="namespacenpcv_html"><div class="ttname"><a href="namespacenpcv.html">npcv</a></div><div class="ttdef"><b>Definition:</b> Application.cpp:3</div></div>
 <div class="ttc" id="classnpcv_1_1processing_1_1_i_p_blending_html_a763d119d6229372cdbfedba36ba96439"><div class="ttname"><a href="classnpcv_1_1processing_1_1_i_p_blending.html#a763d119d6229372cdbfedba36ba96439">npcv::processing::IPBlending::setSecondImage</a></div><div class="ttdeci">void setSecondImage(Image *image)</div><div class="ttdoc">Sets second image. </div><div class="ttdef"><b>Definition:</b> IPBlending.cpp:27</div></div>
@@ -200,7 +200,7 @@ $(document).ready(function(){initNavTree('_i_p_blending_8h_source.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_0e2775829ffc0323d6d4466450fac4c8.html">npcv</a></li><li class="navelem"><a class="el" href="dir_c5014fdc5fa4b976d8243dbdeeede4b1.html">processes</a></li><li class="navelem"><b>IPBlending.h</b></li>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_0e2775829ffc0323d6d4466450fac4c8.html">npcv</a></li><li class="navelem"><a class="el" href="dir_1e2a7d4a3d2a93bc63a83ee9d83577de.html">filters</a></li><li class="navelem"><b>IPBlending.h</b></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>

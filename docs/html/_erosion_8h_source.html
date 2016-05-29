@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>NPCV: include/npcv/processes/Erosion.h Source File</title>
+<title>NPCV: include/npcv/morphology/Erosion.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -114,22 +114,24 @@ $(document).ready(function(){initNavTree('_erosion_8h_source.html','');});
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacenpcv.html">npcv</a> {</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>processing {</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classnpcv_1_1processing_1_1_erosion.html">    8</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classnpcv_1_1processing_1_1_erosion.html">Erosion</a> {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        <span class="keyword">static</span> <a class="code" href="classnpcv_1_1_image.html">Image</a>* erosion(<a class="code" href="classnpcv_1_1_image.html">Image</a>* imageGray, <span class="keywordtype">int</span> size, <span class="keywordtype">int</span> foregroundValue, <span class="keywordtype">int</span> iteration, std::function&lt;<span class="keywordtype">void</span>(<a class="code" href="classnpcv_1_1_image.html">Image</a>*)&gt; iterationResults);</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    };</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="ttc" id="classnpcv_1_1processing_1_1_erosion_html"><div class="ttname"><a href="classnpcv_1_1processing_1_1_erosion.html">npcv::processing::Erosion</a></div><div class="ttdef"><b>Definition:</b> Erosion.h:8</div></div>
-<div class="ttc" id="classnpcv_1_1_image_html"><div class="ttname"><a href="classnpcv_1_1_image.html">npcv::Image</a></div><div class="ttdoc">An image. </div><div class="ttdef"><b>Definition:</b> Image.h:38</div></div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classnpcv_1_1processing_1_1_erosion.html">   13</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classnpcv_1_1processing_1_1_erosion.html">Erosion</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> erosion(<a class="code" href="classnpcv_1_1_image.html">Image</a>&amp; grayImage, <span class="keywordtype">int</span> size, <a class="code" href="classnpcv_1_1_pixel.html">Pixel</a>&amp; foregroundPixel, std::function&lt;<span class="keywordtype">void</span>(<a class="code" href="classnpcv_1_1_image.html">Image</a>&amp;)&gt; iterationResults);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    };</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
+<div class="ttc" id="classnpcv_1_1processing_1_1_erosion_html"><div class="ttname"><a href="classnpcv_1_1processing_1_1_erosion.html">npcv::processing::Erosion</a></div><div class="ttdoc">An tool class with algorithms for image erosion. </div><div class="ttdef"><b>Definition:</b> Erosion.h:13</div></div>
+<div class="ttc" id="classnpcv_1_1_pixel_html"><div class="ttname"><a href="classnpcv_1_1_pixel.html">npcv::Pixel</a></div><div class="ttdef"><b>Definition:</b> Pixel.h:21</div></div>
+<div class="ttc" id="classnpcv_1_1_image_html"><div class="ttname"><a href="classnpcv_1_1_image.html">npcv::Image</a></div><div class="ttdoc">An image. </div><div class="ttdef"><b>Definition:</b> Image.h:56</div></div>
 <div class="ttc" id="namespacenpcv_html"><div class="ttname"><a href="namespacenpcv.html">npcv</a></div><div class="ttdef"><b>Definition:</b> Application.cpp:3</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_0e2775829ffc0323d6d4466450fac4c8.html">npcv</a></li><li class="navelem"><a class="el" href="dir_c5014fdc5fa4b976d8243dbdeeede4b1.html">processes</a></li><li class="navelem"><b>Erosion.h</b></li>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_0e2775829ffc0323d6d4466450fac4c8.html">npcv</a></li><li class="navelem"><a class="el" href="dir_c595622dca4e34c3ff18dc8fd59ffa68.html">morphology</a></li><li class="navelem"><b>Erosion.h</b></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>

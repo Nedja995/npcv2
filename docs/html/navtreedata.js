@@ -4,7 +4,11 @@ var NAVTREE =
     [ "Named pipe", "md_docs_named-pipe.html", null ],
     [ "Todo List", "todo.html", null ],
     [ "Namespaces", null, [
-      [ "Namespace List", "namespaces.html", "namespaces" ]
+      [ "Namespace List", "namespaces.html", "namespaces" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Typedefs", "namespacemembers_type.html", null ]
+      ] ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
@@ -28,7 +32,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"classnpcv_gui_1_1_npcv_g_u_i.html#a1203e6cd6616ce3b6fdee5514a30ed67"
+"classnpcv_gui_1_1_image_inspector_box.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

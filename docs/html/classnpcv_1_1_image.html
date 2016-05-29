@@ -108,8 +108,10 @@ $(document).ready(function(){initNavTree('classnpcv_1_1_image.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classnpcv_1_1_image-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">npcv::Image Class Reference</div>  </div>
@@ -130,53 +132,104 @@ Collaboration diagram for npcv::Image:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0564e15b62f545ec9ac0f69f1e8677f8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0564e15b62f545ec9ac0f69f1e8677f8"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Image</b> (<a class="el" href="classnpcv_1_1_image.html">Image</a> *image)</td></tr>
-<tr class="separator:a0564e15b62f545ec9ac0f69f1e8677f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f3638cc8c3218c703d1cc8d792d2785"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8f3638cc8c3218c703d1cc8d792d2785"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Clone</b> (<a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;image)</td></tr>
+<tr class="separator:a8f3638cc8c3218c703d1cc8d792d2785"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a947ab340541f81396d2b2707c2bebf00"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a947ab340541f81396d2b2707c2bebf00"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>freeData</b> ()</td></tr>
+<tr class="separator:a947ab340541f81396d2b2707c2bebf00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28f113dc182610f4d6dbb80edd3c56aa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a28f113dc182610f4d6dbb80edd3c56aa"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Image</b> (<a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;image)</td></tr>
+<tr class="separator:a28f113dc182610f4d6dbb80edd3c56aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac62a8246ea7ac2c1f9ac8dc9fc447428"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac62a8246ea7ac2c1f9ac8dc9fc447428"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Image</b> (int <a class="el" href="classnpcv_1_1_image.html#a0e90a47f3d16b5dd1deb2ef48a765959">width</a>, int <a class="el" href="classnpcv_1_1_image.html#a99e7da30665b20cb71851bd212dd247a">height</a>, PixelType <a class="el" href="classnpcv_1_1_image.html#a7d623f8396810974b3f9c47705f559da">type</a>)</td></tr>
 <tr class="separator:ac62a8246ea7ac2c1f9ac8dc9fc447428"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05f9fddf8a206c0033173fa596bb151a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a05f9fddf8a206c0033173fa596bb151a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Image</b> (uchar *data, int <a class="el" href="classnpcv_1_1_image.html#a0e90a47f3d16b5dd1deb2ef48a765959">width</a>, int <a class="el" href="classnpcv_1_1_image.html#a99e7da30665b20cb71851bd212dd247a">height</a>, PixelType <a class="el" href="classnpcv_1_1_image.html#a7d623f8396810974b3f9c47705f559da">type</a>)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Image</b> (<a class="el" href="namespacenpcv.html#a9495cee33e25eeda9082b1c9136846f4">uchar</a> *data, int <a class="el" href="classnpcv_1_1_image.html#a0e90a47f3d16b5dd1deb2ef48a765959">width</a>, int <a class="el" href="classnpcv_1_1_image.html#a99e7da30665b20cb71851bd212dd247a">height</a>, PixelType <a class="el" href="classnpcv_1_1_image.html#a7d623f8396810974b3f9c47705f559da">type</a>)</td></tr>
 <tr class="separator:a05f9fddf8a206c0033173fa596bb151a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0c69793a20915fd045b088438860cc4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnpcv_1_1_pixel.html">Pixel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#aa0c69793a20915fd045b088438860cc4">pixel</a> (int x, int y)</td></tr>
-<tr class="memdesc:aa0c69793a20915fd045b088438860cc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pixel at coordinate.  <a href="#aa0c69793a20915fd045b088438860cc4">More...</a><br /></td></tr>
-<tr class="separator:aa0c69793a20915fd045b088438860cc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad038ccdc75d5da7bcc06c37648b8dc80"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#ad038ccdc75d5da7bcc06c37648b8dc80">memSize</a> ()</td></tr>
+<tr class="memdesc:ad038ccdc75d5da7bcc06c37648b8dc80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory size.  <a href="#ad038ccdc75d5da7bcc06c37648b8dc80">More...</a><br /></td></tr>
+<tr class="separator:ad038ccdc75d5da7bcc06c37648b8dc80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf3b80c5e4209a399084f82c85371473"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacenpcv.html#a9495cee33e25eeda9082b1c9136846f4">uchar</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#adf3b80c5e4209a399084f82c85371473">pixelPtr</a> (int x, int y)</td></tr>
+<tr class="memdesc:adf3b80c5e4209a399084f82c85371473"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pointer to first component for target pixel.  <a href="#adf3b80c5e4209a399084f82c85371473">More...</a><br /></td></tr>
+<tr class="separator:adf3b80c5e4209a399084f82c85371473"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61ae3310ccb3aede7972463cb553ba91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnpcv_1_1_pixel.html">Pixel</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a61ae3310ccb3aede7972463cb553ba91">pixel</a> (int x, int y)</td></tr>
+<tr class="memdesc:a61ae3310ccb3aede7972463cb553ba91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pixel at coordinate.  <a href="#a61ae3310ccb3aede7972463cb553ba91">More...</a><br /></td></tr>
+<tr class="separator:a61ae3310ccb3aede7972463cb553ba91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe5dc3ead2afc6909724a0a9ca39c56f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abe5dc3ead2afc6909724a0a9ca39c56f"></a>
+<a class="el" href="classnpcv_1_1_pixel.html">Pixel</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>pixel</b> (int x, int y, bool isPointer)</td></tr>
+<tr class="separator:abe5dc3ead2afc6909724a0a9ca39c56f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd229937d35e831c4777edaa17490896"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abd229937d35e831c4777edaa17490896"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setPixel</b> (int x, int y, <a class="el" href="classnpcv_1_1_pixel.html">Pixel</a> &amp;<a class="el" href="classnpcv_1_1_image.html#a61ae3310ccb3aede7972463cb553ba91">pixel</a>)</td></tr>
+<tr class="separator:abd229937d35e831c4777edaa17490896"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9159d6692cd8af8c5573bbffbbfb5b1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9159d6692cd8af8c5573bbffbbfb5b1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setPixel</b> (int x, int y, int g)</td></tr>
+<tr class="separator:ae9159d6692cd8af8c5573bbffbbfb5b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c7ecff90bab86146e81ac9b9edaca06"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6c7ecff90bab86146e81ac9b9edaca06"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setPixel</b> (int x, int y, int r, int g, int b)</td></tr>
+<tr class="separator:a6c7ecff90bab86146e81ac9b9edaca06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ce576322753227bcb8cefc77a1fefe6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a8ce576322753227bcb8cefc77a1fefe6">loadFromMemory</a> (unsigned char *fileMem, size_t size)</td></tr>
 <tr class="memdesc:a8ce576322753227bcb8cefc77a1fefe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads image file from memory.  <a href="#a8ce576322753227bcb8cefc77a1fefe6">More...</a><br /></td></tr>
 <tr class="separator:a8ce576322753227bcb8cefc77a1fefe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c8ec16e191d75e935efc67a9eb5387a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnpcv_1_1_image.html">Image</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a8c8ec16e191d75e935efc67a9eb5387a">getSubImage</a> (int x, int y, int <a class="el" href="classnpcv_1_1_image.html#a0e90a47f3d16b5dd1deb2ef48a765959">width</a>, int <a class="el" href="classnpcv_1_1_image.html#a99e7da30665b20cb71851bd212dd247a">height</a>)</td></tr>
-<tr class="memdesc:a8c8ec16e191d75e935efc67a9eb5387a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets sub image.  <a href="#a8c8ec16e191d75e935efc67a9eb5387a">More...</a><br /></td></tr>
-<tr class="separator:a8c8ec16e191d75e935efc67a9eb5387a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34fcd9932110a5c4c982f9d3fc067df5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a34fcd9932110a5c4c982f9d3fc067df5">setPixelsCopy</a> (<a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;image)</td></tr>
+<tr class="memdesc:a34fcd9932110a5c4c982f9d3fc067df5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets pixels copy.  <a href="#a34fcd9932110a5c4c982f9d3fc067df5">More...</a><br /></td></tr>
+<tr class="separator:a34fcd9932110a5c4c982f9d3fc067df5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d64e2bf1e3dabbe76bd4eacb4799746"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2d64e2bf1e3dabbe76bd4eacb4799746"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>Zoom</b> (float xScale, float yScale)</td></tr>
+<tr class="separator:a2d64e2bf1e3dabbe76bd4eacb4799746"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7f50f4869214dcb7aed05b480799d94"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#af7f50f4869214dcb7aed05b480799d94">setPixelsCopy</a> (<a class="el" href="namespacenpcv.html#a9495cee33e25eeda9082b1c9136846f4">uchar</a> *<a class="el" href="classnpcv_1_1_image.html#a6a592e0b180891ce6b54aeb2935700fe">pixels</a>, size_t <a class="el" href="classnpcv_1_1_image.html#ad038ccdc75d5da7bcc06c37648b8dc80">memSize</a>)</td></tr>
+<tr class="memdesc:af7f50f4869214dcb7aed05b480799d94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets pixels copy.  <a href="#af7f50f4869214dcb7aed05b480799d94">More...</a><br /></td></tr>
+<tr class="separator:af7f50f4869214dcb7aed05b480799d94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85f2ee8b76f06e1457561ec9e6a82f60"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a85f2ee8b76f06e1457561ec9e6a82f60">getSubImage</a> (int x, int y, int <a class="el" href="classnpcv_1_1_image.html#a0e90a47f3d16b5dd1deb2ef48a765959">width</a>, int <a class="el" href="classnpcv_1_1_image.html#a99e7da30665b20cb71851bd212dd247a">height</a>)</td></tr>
+<tr class="memdesc:a85f2ee8b76f06e1457561ec9e6a82f60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets sub image.  <a href="#a85f2ee8b76f06e1457561ec9e6a82f60">More...</a><br /></td></tr>
+<tr class="separator:a85f2ee8b76f06e1457561ec9e6a82f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb8628628dad8b8518ba306cfc1e7b7b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#adb8628628dad8b8518ba306cfc1e7b7b">saveToFile</a> (std::string filepath)</td></tr>
 <tr class="memdesc:adb8628628dad8b8518ba306cfc1e7b7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves to file via shared ImageStream.  <a href="#adb8628628dad8b8518ba306cfc1e7b7b">More...</a><br /></td></tr>
 <tr class="separator:adb8628628dad8b8518ba306cfc1e7b7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba3cfb2c4ab34e01872057cfb76da7fc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#aba3cfb2c4ab34e01872057cfb76da7fc">convertToGrayscale</a> ()</td></tr>
 <tr class="memdesc:aba3cfb2c4ab34e01872057cfb76da7fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts this image to a grayscale.  <a href="#aba3cfb2c4ab34e01872057cfb76da7fc">More...</a><br /></td></tr>
 <tr class="separator:aba3cfb2c4ab34e01872057cfb76da7fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47c1cbf9f9edfd78165e5ca47e3b56f0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a47c1cbf9f9edfd78165e5ca47e3b56f0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>foreachPixel</b> (std::function&lt; void(<a class="el" href="classnpcv_1_1_pixel.html">Pixel</a> *)&gt; iterFunction)</td></tr>
-<tr class="separator:a47c1cbf9f9edfd78165e5ca47e3b56f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb0ce4507b2cf92ba9fa96a34341ee7e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afb0ce4507b2cf92ba9fa96a34341ee7e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>foreachPixel</b> (std::function&lt; void(<a class="el" href="classnpcv_1_1_pixel.html">Pixel</a> &amp;)&gt; iterFunction)</td></tr>
+<tr class="separator:afb0ce4507b2cf92ba9fa96a34341ee7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ea7d42db6dadba403924e67fe89d329"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a4ea7d42db6dadba403924e67fe89d329">setColor</a> (int r, int g, int b)</td></tr>
 <tr class="memdesc:a4ea7d42db6dadba403924e67fe89d329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set all pixels color.  <a href="#a4ea7d42db6dadba403924e67fe89d329">More...</a><br /></td></tr>
 <tr class="separator:a4ea7d42db6dadba403924e67fe89d329"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9d7ca190e127ac1db533395b64ca071"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnpcv_1_1_image.html">Image</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#af9d7ca190e127ac1db533395b64ca071">operator+</a> (<a class="el" href="classnpcv_1_1_image.html">Image</a> image)</td></tr>
-<tr class="memdesc:af9d7ca190e127ac1db533395b64ca071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Addition operator. Allocate new image.  <a href="#af9d7ca190e127ac1db533395b64ca071">More...</a><br /></td></tr>
-<tr class="separator:af9d7ca190e127ac1db533395b64ca071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6773923a37590458b484ad0421b768dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a6773923a37590458b484ad0421b768dc">operator+=</a> (<a class="el" href="classnpcv_1_1_image.html">Image</a> image)</td></tr>
-<tr class="memdesc:a6773923a37590458b484ad0421b768dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Addition assignment operator.  <a href="#a6773923a37590458b484ad0421b768dc">More...</a><br /></td></tr>
-<tr class="separator:a6773923a37590458b484ad0421b768dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a801282cc4cabbf1b9a8cd064085774d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a801282cc4cabbf1b9a8cd064085774d5">operator-=</a> (<a class="el" href="classnpcv_1_1_image.html">Image</a> image)</td></tr>
-<tr class="memdesc:a801282cc4cabbf1b9a8cd064085774d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtraction assignment operator.  <a href="#a801282cc4cabbf1b9a8cd064085774d5">More...</a><br /></td></tr>
-<tr class="separator:a801282cc4cabbf1b9a8cd064085774d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7d040e572b62bc26e438c11bd1b11e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnpcv_1_1_image.html">Image</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#ab7d040e572b62bc26e438c11bd1b11e1">operator-</a> (<a class="el" href="classnpcv_1_1_image.html">Image</a> image)</td></tr>
-<tr class="memdesc:ab7d040e572b62bc26e438c11bd1b11e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtraction operator. Allocate new image.  <a href="#ab7d040e572b62bc26e438c11bd1b11e1">More...</a><br /></td></tr>
-<tr class="separator:ab7d040e572b62bc26e438c11bd1b11e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a11c8c09277fdf6e3bf853c92a338d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a3a11c8c09277fdf6e3bf853c92a338d7">operator+</a> (<a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;image)</td></tr>
+<tr class="memdesc:a3a11c8c09277fdf6e3bf853c92a338d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Addition operator. Allocate new image.  <a href="#a3a11c8c09277fdf6e3bf853c92a338d7">More...</a><br /></td></tr>
+<tr class="separator:a3a11c8c09277fdf6e3bf853c92a338d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af802682e766d10fe0a124fba628e931a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#af802682e766d10fe0a124fba628e931a">operator+=</a> (<a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;image)</td></tr>
+<tr class="memdesc:af802682e766d10fe0a124fba628e931a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Addition assignment operator.  <a href="#af802682e766d10fe0a124fba628e931a">More...</a><br /></td></tr>
+<tr class="separator:af802682e766d10fe0a124fba628e931a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21f3a802c56556ca6924e238d8e36a31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a21f3a802c56556ca6924e238d8e36a31">operator-=</a> (<a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;image)</td></tr>
+<tr class="memdesc:a21f3a802c56556ca6924e238d8e36a31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtraction assignment operator.  <a href="#a21f3a802c56556ca6924e238d8e36a31">More...</a><br /></td></tr>
+<tr class="separator:a21f3a802c56556ca6924e238d8e36a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fe3267753c60a1d96b76a4614670d02"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a4fe3267753c60a1d96b76a4614670d02">operator-</a> (<a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;image)</td></tr>
+<tr class="memdesc:a4fe3267753c60a1d96b76a4614670d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtraction operator. Allocate new image.  <a href="#a4fe3267753c60a1d96b76a4614670d02">More...</a><br /></td></tr>
+<tr class="separator:a4fe3267753c60a1d96b76a4614670d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a1dea3716880167b3aa665b4f6d0e9793"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a1dea3716880167b3aa665b4f6d0e9793">Create</a> ()</td></tr>
+<tr class="memdesc:a1dea3716880167b3aa665b4f6d0e9793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="classnpcv_1_1_image.html" title="An image. ">Image</a>&amp;.  <a href="#a1dea3716880167b3aa665b4f6d0e9793">More...</a><br /></td></tr>
+<tr class="separator:a1dea3716880167b3aa665b4f6d0e9793"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d247729d17905e8f313c71122d68cbc"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a7d247729d17905e8f313c71122d68cbc">Create</a> (int <a class="el" href="classnpcv_1_1_image.html#a0e90a47f3d16b5dd1deb2ef48a765959">width</a>, int <a class="el" href="classnpcv_1_1_image.html#a99e7da30665b20cb71851bd212dd247a">height</a>, PixelType <a class="el" href="classnpcv_1_1_image.html#a7d623f8396810974b3f9c47705f559da">type</a>)</td></tr>
+<tr class="memdesc:a7d247729d17905e8f313c71122d68cbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="classnpcv_1_1_image.html" title="An image. ">Image</a>&amp;.  <a href="#a7d247729d17905e8f313c71122d68cbc">More...</a><br /></td></tr>
+<tr class="separator:a7d247729d17905e8f313c71122d68cbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa7f446553513dda86577fa02d737fa0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#afa7f446553513dda86577fa02d737fa0">Create</a> (int <a class="el" href="classnpcv_1_1_image.html#a0e90a47f3d16b5dd1deb2ef48a765959">width</a>, int <a class="el" href="classnpcv_1_1_image.html#a99e7da30665b20cb71851bd212dd247a">height</a>, PixelType <a class="el" href="classnpcv_1_1_image.html#a7d623f8396810974b3f9c47705f559da">type</a>, <a class="el" href="namespacenpcv.html#a9495cee33e25eeda9082b1c9136846f4">uchar</a> *<a class="el" href="classnpcv_1_1_image.html#a6a592e0b180891ce6b54aeb2935700fe">pixels</a>)</td></tr>
+<tr class="memdesc:afa7f446553513dda86577fa02d737fa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="classnpcv_1_1_image.html" title="An image. ">Image</a>&amp;.  <a href="#afa7f446553513dda86577fa02d737fa0">More...</a><br /></td></tr>
+<tr class="separator:afa7f446553513dda86577fa02d737fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07dfc3f6d1fc139c89291e0b45aa1cb2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a07dfc3f6d1fc139c89291e0b45aa1cb2">Create</a> (<a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;image)</td></tr>
+<tr class="memdesc:a07dfc3f6d1fc139c89291e0b45aa1cb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="classnpcv_1_1_image.html" title="An image. ">Image</a> that point to pixels allocated in other place;.  <a href="#a07dfc3f6d1fc139c89291e0b45aa1cb2">More...</a><br /></td></tr>
+<tr class="separator:a07dfc3f6d1fc139c89291e0b45aa1cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9145b20e6716d342b616bb50ac15194"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#ad9145b20e6716d342b616bb50ac15194">Null</a> ()</td></tr>
+<tr class="memdesc:ad9145b20e6716d342b616bb50ac15194"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a empty <a class="el" href="classnpcv_1_1_image.html" title="An image. ">Image</a>;.  <a href="#ad9145b20e6716d342b616bb50ac15194">More...</a><br /></td></tr>
+<tr class="separator:ad9145b20e6716d342b616bb50ac15194"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a6a592e0b180891ce6b54aeb2935700fe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6a592e0b180891ce6b54aeb2935700fe"></a>
-uchar *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a6a592e0b180891ce6b54aeb2935700fe">pixels</a></td></tr>
+<a class="el" href="namespacenpcv.html#a9495cee33e25eeda9082b1c9136846f4">uchar</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a6a592e0b180891ce6b54aeb2935700fe">pixels</a></td></tr>
 <tr class="memdesc:a6a592e0b180891ce6b54aeb2935700fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">The pixels components array. <br /></td></tr>
 <tr class="separator:a6a592e0b180891ce6b54aeb2935700fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e90a47f3d16b5dd1deb2ef48a765959"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0e90a47f3d16b5dd1deb2ef48a765959"></a>
@@ -197,12 +250,15 @@ std::function&lt; void(<a class="el" href="classnpcv_1_1_image.html">Image</a> *
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a9227dcee3927b6e4ce8927af3abe1fc1"><td class="memItemLeft" align="right" valign="top">uchar *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#a9227dcee3927b6e4ce8927af3abe1fc1">pixel_ptr</a> (int x, int y)</td></tr>
-<tr class="memdesc:a9227dcee3927b6e4ce8927af3abe1fc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pointer to first component for target pixel.  <a href="#a9227dcee3927b6e4ce8927af3abe1fc1">More...</a><br /></td></tr>
-<tr class="separator:a9227dcee3927b6e4ce8927af3abe1fc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc551628a968b9e97b59d36ab3d55370"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#adc551628a968b9e97b59d36ab3d55370">pixelSet_ptr</a> (int x, int y, uchar *colorPtr)</td></tr>
+<tr class="memitem:adc551628a968b9e97b59d36ab3d55370"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnpcv_1_1_image.html#adc551628a968b9e97b59d36ab3d55370">pixelSet_ptr</a> (int x, int y, <a class="el" href="namespacenpcv.html#a9495cee33e25eeda9082b1c9136846f4">uchar</a> *colorPtr)</td></tr>
 <tr class="memdesc:adc551628a968b9e97b59d36ab3d55370"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set pointer to first component for target pixel.  <a href="#adc551628a968b9e97b59d36ab3d55370">More...</a><br /></td></tr>
 <tr class="separator:adc551628a968b9e97b59d36ab3d55370"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a11ebfff0594b08e5fbe3f3ceb2eb3781"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a11ebfff0594b08e5fbe3f3ceb2eb3781"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_allocatedPixels</b></td></tr>
+<tr class="separator:a11ebfff0594b08e5fbe3f3ceb2eb3781"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An image. </p>
@@ -223,16 +279,184 @@ Protected Member Functions</h2></td></tr>
 
 <p>Converts this image to a grayscale. </p>
 <dl class="section return"><dt>Returns</dt><dd>true if it succeeds, false if it fails. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>Find better place for this. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>Find better place for this. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a8c8ec16e191d75e935efc67a9eb5387a"></a>
+<a class="anchor" id="a1dea3716880167b3aa665b4f6d0e9793"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classnpcv_1_1_image.html">Image</a> &amp; Image::Create </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new <a class="el" href="classnpcv_1_1_image.html" title="An image. ">Image</a>&amp;. </p>
+<dl class="section return"><dt>Returns</dt><dd>A reference to an <a class="el" href="classnpcv_1_1_image.html" title="An image. ">Image</a>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7d247729d17905e8f313c71122d68cbc"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnpcv_1_1_image.html">Image</a> &amp; Image::Create </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PixelType&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new <a class="el" href="classnpcv_1_1_image.html" title="An image. ">Image</a>&amp;. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>The width. </td></tr>
+    <tr><td class="paramname">height</td><td>The height. </td></tr>
+    <tr><td class="paramname">type</td><td>The type.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to an <a class="el" href="classnpcv_1_1_image.html" title="An image. ">Image</a>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afa7f446553513dda86577fa02d737fa0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnpcv_1_1_image.html">Image</a> &amp; Image::Create </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PixelType&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacenpcv.html#a9495cee33e25eeda9082b1c9136846f4">uchar</a> *&#160;</td>
+          <td class="paramname"><em>pixels</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new <a class="el" href="classnpcv_1_1_image.html" title="An image. ">Image</a>&amp;. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">width</td><td>The width. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">height</td><td>The height. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">type</td><td>The type. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">pixels</td><td>If non-null, the pixels.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to an <a class="el" href="classnpcv_1_1_image.html" title="An image. ">Image</a>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a07dfc3f6d1fc139c89291e0b45aa1cb2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnpcv_1_1_image.html">Image</a> &amp; Image::Create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;&#160;</td>
+          <td class="paramname"><em>image</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new <a class="el" href="classnpcv_1_1_image.html" title="An image. ">Image</a> that point to pixels allocated in other place;. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">image</td><td>The image to point at their pixels.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to an new <a class="el" href="classnpcv_1_1_image.html" title="An image. ">Image</a>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a85f2ee8b76f06e1457561ec9e6a82f60"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classnpcv_1_1_image.html">Image</a> * Image::getSubImage </td>
+          <td class="memname"><a class="el" href="classnpcv_1_1_image.html">Image</a> &amp; Image::getSubImage </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>x</em>, </td>
@@ -313,7 +537,59 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af9d7ca190e127ac1db533395b64ca071"></a>
+<a class="anchor" id="ad038ccdc75d5da7bcc06c37648b8dc80"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t Image::memSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Memory size. </p>
+<dl class="section return"><dt>Returns</dt><dd>Size in bytes. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad9145b20e6716d342b616bb50ac15194"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnpcv_1_1_image.html">Image</a> &amp; Image::Null </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a empty <a class="el" href="classnpcv_1_1_image.html" title="An image. ">Image</a>;. </p>
+<dl class="section return"><dt>Returns</dt><dd>A reference to an new <a class="el" href="classnpcv_1_1_image.html" title="An image. ">Image</a>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3a11c8c09277fdf6e3bf853c92a338d7"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -323,7 +599,7 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="classnpcv_1_1_image.html">Image</a> Image::operator+ </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classnpcv_1_1_image.html">Image</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;&#160;</td>
           <td class="paramname"><em>image</em></td><td>)</td>
           <td></td>
         </tr>
@@ -346,7 +622,7 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6773923a37590458b484ad0421b768dc"></a>
+<a class="anchor" id="af802682e766d10fe0a124fba628e931a"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -356,7 +632,7 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void Image::operator+= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classnpcv_1_1_image.html">Image</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;&#160;</td>
           <td class="paramname"><em>image</em></td><td>)</td>
           <td></td>
         </tr>
@@ -378,7 +654,7 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ab7d040e572b62bc26e438c11bd1b11e1"></a>
+<a class="anchor" id="a4fe3267753c60a1d96b76a4614670d02"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -388,7 +664,7 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="classnpcv_1_1_image.html">Image</a> Image::operator- </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classnpcv_1_1_image.html">Image</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;&#160;</td>
           <td class="paramname"><em>image</em></td><td>)</td>
           <td></td>
         </tr>
@@ -411,7 +687,7 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a801282cc4cabbf1b9a8cd064085774d5"></a>
+<a class="anchor" id="a21f3a802c56556ca6924e238d8e36a31"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -421,7 +697,7 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void Image::operator-= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classnpcv_1_1_image.html">Image</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;&#160;</td>
           <td class="paramname"><em>image</em></td><td>)</td>
           <td></td>
         </tr>
@@ -443,12 +719,12 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa0c69793a20915fd045b088438860cc4"></a>
+<a class="anchor" id="a61ae3310ccb3aede7972463cb553ba91"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classnpcv_1_1_pixel.html">Pixel</a> * Image::pixel </td>
+          <td class="memname"><a class="el" href="classnpcv_1_1_pixel.html">Pixel</a> &amp; Image::pixel </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>x</em>, </td>
@@ -479,15 +755,12 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a9227dcee3927b6e4ce8927af3abe1fc1"></a>
+<a class="anchor" id="adf3b80c5e4209a399084f82c85371473"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uchar * Image::pixel_ptr </td>
+          <td class="memname"><a class="el" href="namespacenpcv.html#a9495cee33e25eeda9082b1c9136846f4">uchar</a> * Image::pixelPtr </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>x</em>, </td>
@@ -504,11 +777,6 @@ Protected Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Get pointer to first component for target pixel. </p>
@@ -545,7 +813,7 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uchar *&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacenpcv.html#a9495cee33e25eeda9082b1c9136846f4">uchar</a> *&#160;</td>
           <td class="paramname"><em>colorPtr</em>&#160;</td>
         </tr>
         <tr>
@@ -638,7 +906,70 @@ Protected Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if it succeeds, false if it fails. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>Make variant with Pixel* argument </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Make variant with Pixel* argument </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a34fcd9932110a5c4c982f9d3fc067df5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Image::setPixelsCopy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classnpcv_1_1_image.html">Image</a> &amp;&#160;</td>
+          <td class="paramname"><em>image</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets pixels copy. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">image</td><td>The image which pixels to copy.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if it succeeds, false if it fails. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>Implement image check </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af7f50f4869214dcb7aed05b480799d94"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Image::setPixelsCopy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacenpcv.html#a9495cee33e25eeda9082b1c9136846f4">uchar</a> *&#160;</td>
+          <td class="paramname"><em>pixels</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>memSize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets pixels copy. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">pixels</td><td>The data to copy. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">pixels</td><td>The data to copy.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if it succeeds, false if it fails. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>Implement image check </dd></dl>
 
 </div>
 </div>
