@@ -2,7 +2,7 @@
 #include "stdlib.h"
 //npcv headers
 #include "npcv/Toolset.h"
-#include "npcv/geometric/Zoom.h"
+#include "npcv/filters/IPMatrixApply.h"
 
 using namespace std;
 using namespace npcv;
@@ -12,11 +12,9 @@ static void help() {
 	cout << "Need parametars: " << endl;
 	cout << "  filepath - image input path" << endl;
 	cout << "  filepath - image output path" << endl;
-	cout << "  string - \"in\" or \"out\"" << endl;
-	cout << "  number - zoom x coeficient" << endl;
-	cout << "  number - zoom y coeficient" << endl;
-	cout << "Optional:" << endl;
-	cout << "  string - zoom type \"replication\" or \"interp\"" << endl;
+	cout << "  number - rows" << endl;
+	cout << "  number - columns" << endl;
+	cout << "  number array - matrix members" << endl;
 }
 
 int main(int argc, char* argv[]) {
@@ -29,18 +27,57 @@ int main(int argc, char* argv[]) {
 		cin >> a;
 		return 1;
 	}
+	for (int i = 0; i < argc; i++) {
+		char* s = argv[i];
+		int a = 2;
+	}
 	// Parse arguments
+	// //paths
 	string imageInput = argv[1];
 	string imageOutput = argv[2];
-	bool zoomIn = true;
-	if (string(argv[3]) == "out") zoomIn = false;
-	int coefX = atoi(argv[4]);
-	int coefY = atoi(argv[5]);
+	int rows = atoi(argv[3]);
+	int cols = atoi(argv[4]);
+	if (rows * cols + 5 != argc) {
+		cout << "!Error wrong parametars" << endl;
+		help();
+		char a;
+		cin >> a;
+		return 1;
+	}
+	// fill matrix arguments
+	int size = rows * cols;
+	float* matrix = new float[size];
+	for (int i = 0; i < size; i++){
+		float arg = atof(argv[5 + i]);
+		matrix[i] = arg;
+	}
 
 	// Load image
 	Image& img = Toolset::SharedInstance().imageStream.Load(imageInput);
-	// Zoom
-	img.Zoom(coefX, coefY);
+
+	/*
+	* Image apply matrix
+	*/
+	//make process
+	processing::IPMatrixApply* matrixProc = new processing::IPMatrixApply();
+	//configure process
+	matrixProc->setImage(&img);
+	int matrixSize = 3;
+
+	matrixProc->matrixSize = matrixSize;
+
+	matrixProc->matrix = &matrix[0];
+	/*matrixProc->bias = ;
+	matrixProc->factor = ;*/
+
+	matrixProc->initialize(); //initialize
+
+	matrixProc->execute();//execute process
+
+	////free res and delete process
+	//matrixProc->free();
+	delete matrixProc;
+
 	// Save image
 	Toolset::SharedInstance().imageStream.Save(img, imageOutput);
 
