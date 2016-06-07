@@ -19,8 +19,9 @@
  - Zoom interpolation (In progress)
  - Improve edge detection
  - Multithread
+ - Corner detection
  
- I start with old project github.com/Nedja995/npcv-c that is pure C but i spend lot time for implementing modern language freatures.
+ This is child of project github.com/Nedja995/npcv-c that is pure C.
  
 == 2. PREREQUISITES ==
 
