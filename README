@@ -4,6 +4,7 @@
  2.) Prerequisites
  3.) Building
  4.) CMake
+ 5.) Library user
  
 == 1. About ==
 
@@ -38,3 +39,8 @@
  
  Demos - you can choose to generate demos projects
  TestApp - developing test
+ 
+== 5. Library user ==
+ 
+ Include headers from /include and link lib from lib/Release (x64 only).
+ There is also doxygen documentation in /docs/html/.
