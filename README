@@ -17,12 +17,12 @@
  TODO:
  - Demos for Erosion (HIGH)
  - Zoom interpolation (In progress)
- - Improve edge detection (old https://github.com/Nedja995/npcv-c/blob/master/src/base/imageproc/EdgeDetection.cc)
- - Classification OCR Edge based (old github.com/Nedja995/npcv-c/blob/master/src/base/classification/image_classification.cc)
+ - Improve edge detection (old [EdgeDetection.cc](https://github.com/Nedja995/npcv-c/blob/master/src/base/imageproc/EdgeDetection.cc))
+ - Classification OCR Edge based (old [image_classification.cc](https://github.com/Nedja995/npcv-c/blob/master/src/base/classification/image_classification.cc))
  - Multithread (c++ 11)
  - Corner detection
  
- This is child of project github.com/Nedja995/npcv-c that is pure C.
+ This is child of project [npcv pure c library](https://github.com/Nedja995/npcv-c).
  
 == 2. PREREQUISITES ==
 
