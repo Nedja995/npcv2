@@ -146,7 +146,7 @@ int main(int argc, int *argv[])
 //	testImageErosion();
 //	testImageZoom();
 //	testImageSampling();
-//	testImageClassification();
+	testImageClassification();
 //	testEdgeCanny();
 //	Interpolation();
 //	zoomInterp();
