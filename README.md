@@ -13,6 +13,7 @@
      2. Convolution matrix filtering
      3. Edge detection (Canny)
      4. Erosion
+
 ##### TODO:
  - Demos for Erosion (HIGH)
  - Zoom interpolation (In progress)
