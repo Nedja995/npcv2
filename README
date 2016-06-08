@@ -14,12 +14,12 @@
  - Convolution matrix filtering
  - Edge detection (Canny)
  - Erosion
- - Classification OCR
  TODO:
- - Demos for OCR and Erosion
+ - Demos for Erosion (HIGH)
  - Zoom interpolation (In progress)
- - Improve edge detection
- - Multithread
+ - Improve edge detection (old https://github.com/Nedja995/npcv-c/blob/master/src/base/imageproc/EdgeDetection.cc)
+ - Classification OCR Edge based (old github.com/Nedja995/npcv-c/blob/master/src/base/classification/image_classification.cc)
+ - Multithread (c++ 11)
  - Corner detection
  
  This is child of project github.com/Nedja995/npcv-c that is pure C.
